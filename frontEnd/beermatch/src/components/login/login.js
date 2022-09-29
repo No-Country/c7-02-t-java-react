@@ -1,8 +1,17 @@
 import React from "react";
 import { IoBeerOutline } from 'react-icons/io5';
+import { useRouter } from "next/router";
 
 
 function Login() {
+
+  const router = useRouter()
+
+  const handleLogin = (e) =>{
+    e.preventDefault()
+    router.push("/dashboard/main")
+  }
+
   return (
     <>
       <div className="grid grid-cols-2">
@@ -64,13 +73,15 @@ function Login() {
                 <button
                   type="submit"
                   className="block w-full bg-violet-600 py-2 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
+                  onClick={handleLogin}
                 >
                   Ingresar
+                  
                 </button>
                 <div className="flex justify-between mt-4">
-                  <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                  <a href="/resetPass" className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
                     ¿Olvidaste tu contraseña?
-                  </span>
+                  </a>
 
                   <a
                     href="/signUp"
