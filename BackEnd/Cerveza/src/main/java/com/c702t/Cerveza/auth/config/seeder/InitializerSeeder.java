@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.stream.IntStream;
 
-@Component
+//@Component
 public class InitializerSeeder implements CommandLineRunner {
 
     @Autowired
@@ -32,47 +32,29 @@ public class InitializerSeeder implements CommandLineRunner {
     private void createUsers(int users, String userType) {
 
         final String PASSWORD = "1234";
+        final String CONFIRMPASSWORD = "1234";
 
         if (userType.equalsIgnoreCase("admin")){
             IntStream.range(0, users).forEach(userNumber ->
-                    createAdmin(userType, PASSWORD, userNumber));
+                    create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
         }
         else{
             if (userType.equalsIgnoreCase("business")){
                 IntStream.range(0, users).forEach(userNumber ->
-                        createBusiness(userType, PASSWORD, userNumber));
+                        create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
             }
             else{
                 IntStream.range(0, users).forEach(userNumber ->
-                        createNormalUser(userType, PASSWORD, userNumber));
+                        create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
             }
         }
 
     }
 
-    private void createNormalUser(String userType, String PASSWORD, Integer userNumber) {
-        try {
-            authService.register(new UserRequest(userType + userNumber, userType + userNumber,
-                    "email"+ userType + userNumber +"@mail.com", PASSWORD, userType +"Photo"+ userNumber +".png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void createAdmin(String userType, String PASSWORD, Integer userNumber) {
+    private void create(String userType, String PASSWORD, String CONFIRMPASSWORD, Integer userNumber) {
         try {
             authService.registerAdmin(new UserRequest(userType + userNumber, userType + userNumber,
-                    "email"+ userType + userNumber +"@mail.com", PASSWORD, userType +"Photo"+ userNumber +".png"));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void createBusiness(String userType, String PASSWORD, Integer userNumber) {
-        try {
-            authService.registerBusiness(new UserRequest(userType + userNumber, userType + userNumber,
-                    "email"+ userType + userNumber +"@mail.com", PASSWORD, userType +"Photo"+ userNumber +".png"));
+                    "email"+ userType + userNumber +"@mail.com", PASSWORD, CONFIRMPASSWORD,  userType +"Photo"+ userNumber +".png"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Set;
 
@@ -47,10 +48,29 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private EmailService emailService;
 
+    @Transactional
+    public AuthResponse login(AuthRequest authRequest) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+            String token = generateToken(authRequest.getEmail());
+            return AuthResponse.builder()
+                    .email(authRequest.getEmail())
+                    .token(token)
+                    .build();
+        } catch (Exception e) {
+            throw new Exception("the email or the password do not match");
+//            return AuthResponse.builder().ok(false).build();
+        }
+    }
+
+    @Transactional
     public UserResponse register(UserRequest userRequest) throws UsernameNotFoundException, IOException {
 
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent())
             throw new UserProfileAlreadyExistsException("Email already exists");
+
+        if(!userRequest.getPassword().equalsIgnoreCase(userRequest.getConfirmPassword()))
+            throw new UserProfileAlreadyExistsException("passwords do not match");
 
         Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getSimpleRoleName());
 
@@ -73,51 +93,11 @@ public class AuthServiceImpl implements AuthService {
         return userMapper.toUserResponse(userEntity);
     }
 
-    public AuthResponse login(AuthRequest authRequest) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-            String token = generateToken(authRequest.getEmail());
-            return AuthResponse.builder()
-                    .email(authRequest.getEmail())
-                    .token(token)
-                    .build();
-        } catch (Exception e) {
-            return AuthResponse.builder().ok(false).build();
-        }
-    }
 
-    private String generateToken(String userRequest) {
-        return jwtUtils.generateToken(userDetailsCustomService.loadUserByUsername(userRequest));
-    }
 
-    public UserDetailsResponse getPersonalInformation(String token) throws IOException {
-        String email = jwtUtils.extractUsername(token.substring(7));
-        UserEntity user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with the email: " + email));
-
-        return userMapper.userToUserDetail(user);
-    }
-
-    public void registerAdmin(UserRequest userRequest) throws IOException {
-        if (userRepository.findByEmail(userRequest.getEmail()).isPresent())
-            throw new UsernameNotFoundException("User already exists");
-
-        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.ADMIN.getSimpleRoleName());
-
-        if (roles.isEmpty()){
-            RoleEntity rol = new RoleEntity();
-            rol.setName(RoleEnum.ADMIN.getSimpleRoleName());
-            rol = roleRepository.save(rol);
-            roles.add(rol);
-        }
-
-        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
-        userRepository.save(userEntity);
-        String token = generateToken(userRequest.getEmail());
-    }
 
     @Override
+    @Transactional
     public UserResponse registerBusiness(UserRequest userRequest) throws IOException {
 
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent())
@@ -143,6 +123,41 @@ public class AuthServiceImpl implements AuthService {
 
         return userMapper.toUserResponse(userEntity);
     }
+
+    @Transactional
+    private String generateToken(String userRequest) {
+        return jwtUtils.generateToken(userDetailsCustomService.loadUserByUsername(userRequest));
+    }
+
+    @Transactional
+    public UserDetailsResponse getPersonalInformation(String token) throws IOException {
+        String email = jwtUtils.extractUsername(token.substring(7));
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with the email: " + email));
+
+        return userMapper.userToUserDetail(user);
+    }
+//
+//    @Transactional
+//    public void registerAdmin(UserRequest userRequest) throws IOException {
+//        if (userRepository.findByEmail(userRequest.getEmail()).isPresent())
+//            throw new UsernameNotFoundException("User Admin already exists");
+//
+//        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.ADMIN.getSimpleRoleName());
+//
+//        if (roles.isEmpty()){
+//            RoleEntity rol = new RoleEntity();
+//            rol.setName(RoleEnum.ADMIN.getSimpleRoleName());
+//            rol = roleRepository.save(rol);
+//            roles.add(rol);
+//        }
+//
+//        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+//        UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
+//        userRepository.save(userEntity);
+//        String token = generateToken(userRequest.getEmail());
+//    }
+//
 
 
 }

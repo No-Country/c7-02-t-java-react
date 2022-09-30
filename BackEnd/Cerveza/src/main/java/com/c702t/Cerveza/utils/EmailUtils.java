@@ -271,7 +271,7 @@ public class EmailUtils {
                 "                            <td style=\"width:312px;\">\n" +
                 "\n" +
                 "                              <img height=\"auto\"\n" +
-                "                                src=\"https://s3-eu-west-1.amazonaws.com/topolio/uploads/6082338c1a7ee/1619145692.jpg\"\n" +
+                "                                src=\"https://ambucket2139.s3.amazonaws.com/29-09-2022_18-30-56.png\"\n" +
                 "                                style=\"border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;\"\n" +
                 "                                width=\"312\">\n" +
                 "\n" +
@@ -330,7 +330,7 @@ public class EmailUtils {
                 "\n" +
                 "                      <div\n" +
                 "                        style=\"font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:11px;line-height:1.5;text-align:left;color:#000000;\">\n" +
-                "                        <p style=\"text-align: center;\">Datos de contacto de ONG</p>\n" +
+                "                        <p style=\"text-align: center;\">Copyright 2022</p>\n" +
                 "                      </div>\n" +
                 "\n" +
                 "                    </td>\n" +

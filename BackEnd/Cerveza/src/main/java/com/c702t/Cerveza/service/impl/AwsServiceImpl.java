@@ -18,7 +18,7 @@ import java.io.IOException;
 public class AwsServiceImpl implements AwsService {
 
     @Value("${spring.aws.s3.bucket}")
-    private String bucket;
+    private String bucketName;
 
     @Value("${spring.aws.s3.endpoint}")
     private String endPoint;
@@ -31,7 +31,7 @@ public class AwsServiceImpl implements AwsService {
 
     private void uploadFile2Asw3 (String fileName, File file){
 
-        this.amazonS3.putObject(new PutObjectRequest(bucket,fileName,file)
+        this.amazonS3.putObject(new PutObjectRequest(bucketName,fileName,file)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
     }
@@ -42,7 +42,7 @@ public class AwsServiceImpl implements AwsService {
         String fileName = multipartFile.getOriginalFilename();
         uploadFile2Asw3(fileName,fileCreated);
         fileCreated.delete();
-        String fileURL = endPoint + "/" + bucket + "/" + fileName;
+        String fileURL = endPoint + "/" + bucketName + "/" + fileName;
         return fileURL;
 
     }
@@ -61,7 +61,7 @@ public class AwsServiceImpl implements AwsService {
             return uploadFile(multipartFile);
         }
         else
-            return endPoint + "/" + bucket + "/" + base64;
+            return endPoint + "/" + bucketName + "/" + base64;
     }
 
 }

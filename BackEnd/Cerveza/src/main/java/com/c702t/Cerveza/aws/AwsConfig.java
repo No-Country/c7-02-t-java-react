@@ -12,12 +12,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AwsConfig {
-    @Value("${spring.aws.s3.region}")
-    private String region;
+
     @Value("${spring.aws.s3.access-key}")
     private String accessKey;
+
     @Value("${spring.aws.s3.secret-key}")
     private String secretKey;
+
+    @Value("${spring.aws.s3.region}")
+    private String region;
 
     @Bean
     public AmazonS3 amazonS3() {

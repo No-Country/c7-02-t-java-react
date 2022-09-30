@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Transactional
     public UserDetailsResponse register(UserRequest request, String token) throws UsernameNotFoundException, IOException {
 
         String userToken = rebuildToken(token);
@@ -75,6 +77,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDetailsResponse updateBasicUser(UserUpdateRequest request, String token) throws IOException {
         String userToken = rebuildToken(token);
         UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
@@ -92,6 +95,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
     public UserDetailsResponse updateUserForAdmin(Long id, UserUpdateRequest request) throws IOException {
 
         UserEntity user = getById(id);
@@ -109,11 +113,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
     private UserEntity getById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
+    @Transactional
     public List<UserDetailsResponse> getUsers() throws IOException {
         List<UserEntity> users = userRepository.findAll();
         List<UserDetailsResponse> Response = userMapper.usersToUserDetailsList(users);
@@ -121,6 +127,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
     public PaginationResponse getAllPage(Optional<Integer> pageNumber, Optional<Integer> size) {
         PaginationUtils pagination = new PaginationUtils(userRepository, pageNumber, size, "/comments/page=%d&size=%d");
         Page page = pagination.getPage();
@@ -136,11 +143,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserForAdmin(Long id) {
         UserEntity user = getById(id);
         userRepository.deleteById(user.getId());
     }
 
+    @Transactional
     public void deleteBasicUser(String token){
         String userToken = rebuildToken(token);
         UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
@@ -148,7 +157,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-
+    @Transactional
     public PaginationResponse getUserPage(Optional<Integer> pageNumber, Optional<Integer> size) {
         PaginationUtils pagination = new PaginationUtils(userRepository, pageNumber, size, "/comments/page=%d&size=%d");
         Page page = pagination.getPage();

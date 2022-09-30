@@ -41,7 +41,7 @@ public class UserController {
 
     @ApiOperation(value = "List all the users", notes = "Allows an Admin to List all the registered users")
     @ApiResponses(value = { @ApiResponse( code = 201, message = "User's list"),
-            @ApiResponse( code = 403, message = "forbidden") })
+                            @ApiResponse( code = 403, message = "forbidden") })
     @GetMapping
     public ResponseEntity<PaginationResponse> getAll(
             @RequestParam(value = "page", required = false) Optional<Integer> page,
