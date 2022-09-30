@@ -14,15 +14,18 @@ function Login() {
 
   return (
     <>
-      <div className="grid grid-cols-2">
-        <div className="bg-MiddleYellow h-screen w-full flex">
-          <img className="m-auto justify-center flex" src="logo.png" alt="" />
+      <div className="lg:grid lg:grid-cols-2">
+        <div className="lg:bg-MiddleYellow lg:h-screen lg:w-full lg:flex lg:visible">
+          <img className="lg:m-auto lg:justify-center lg:flex hidden" src="logo.png" alt="" />
         </div>
         <div className="flex">
           <div className="flex w-full justify-center items-center bg-white space-y-8">
-            <div className="w-full px-8 md:px-32 lg:px-24">
+            <div className="w-full p-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">
-                <h1 className="text-gray-800 font-light text-2xl mb-6 flex">
+                <div>
+                <img className="m-auto justify-center flex p-10 lg:hidden" src="logo.png" alt="" />
+                </div>
+                <h1 className="text-gray-800 font-light text-2xl mb-6 flex justify-center">
                   Hola Cervecero!
                   <IoBeerOutline className="text-yellow-500 mt-1 ml-2"/>
                 </h1>
