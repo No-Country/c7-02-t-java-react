@@ -1,8 +1,9 @@
 import React from 'react'
+import Profile from '../../src/components/profile/profile'
 
 function profile() {
   return (
-    <div>Profile</div>
+    <Profile />
   )
 }
 

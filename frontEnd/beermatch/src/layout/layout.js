@@ -3,7 +3,7 @@ import Navbar from "./navbar/navbar";
 import Sidebar from "./navbar/sideBar";
 
 const style = {
-  container: `bg-yellow-400 h-screen overflow-hidden relative`,
+  container: `bg-PurpleNavy h-screen overflow-hidden relative`,
   mainContainer: `flex flex-col h-screen pl-0 w-full lg:pl-60 lg:space-y-4`,
   main: `h-screen overflow-auto pb-36 pt-4 px-2 md:pb-8 md:pt-4 lg:pt-0 lg:px-4 `,
 };
