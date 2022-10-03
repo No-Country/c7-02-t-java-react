@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Builder
 @Entity
 @Table(name = "slide")
-public class slideEntity {
+public class SlideEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
