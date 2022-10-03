@@ -2,20 +2,22 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
 import { IoNotificationsOutline } from "react-icons/io5";
+import SideItems from "./items";
+
 
 const style = {
   icon: "m-2 text-PurpleNavy w-6 h-6 ",
-  link:"text-xl font-thin my-4 text-PurpleNavy"
+  link: "text-xl font-thin my-4 text-PurpleNavy",
 };
 
 function MobileNav({ open, setOpen }) {
   return (
     <div
-      className={`absolute top-0 left-0 h-screen w-screen lg:hidden bg-violet-100 transform ${
+      className={`absolute top-0 left-0 h-screen w-screen lg:hidden bg-white transform ${
         open ? "-translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out filter drop-shadow-md `}
     >
-      <div className="flex items-center justify-center filter drop-shadow-md shadow-PurpleNavy bg-violet-100 h-20">
+      <div className="flex items-center justify-center filter drop-shadow-md bg-white h-20">
         {" "}
         {/*logo container*/}
         <a className="text-xl font-semibold" href="/">
@@ -27,37 +29,15 @@ function MobileNav({ open, setOpen }) {
           />
         </a>
       </div>
-      <div className="flex flex-col ml-4" onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }>
-        <a
-          className={style.link}
-          href="/dashboard/main"
-          
-        >
-          Inicio
-        </a>
-        <a
-          className={style.link}
-          href="/dashboard/posts"
-
-        >
-          Mis comentarios
-        </a>
-        <a
-          className={style.link}
-          href="/dashboard/business"
-        >
-          Donde ir?
-        </a>
-        <a
-          className={style.link}
-        >
-          Cerrar sesion
-        </a>
-
+      <div
+        className="flex flex-col ml-4"
+        onClick={() =>
+          setTimeout(() => {
+            setOpen(!open);
+          }, 100)
+        }
+      >
+       <SideItems />
       </div>
     </div>
   );
@@ -68,7 +48,7 @@ export default function Navbar() {
   return (
     <div>
       <div className="sticky top-0">
-        <nav className="flex filter drop-shadow-md shadow-PurpleNavy bg-violet-100 px-4 py-4 h-20 items-center">
+        <nav className="flex filter drop-shadow-xl shadow-white bg-white px-4 py-4 h-20 items-center">
           <MobileNav open={open} setOpen={setOpen} />
 
           <div className="w-3/12 flex items-center">
@@ -81,9 +61,9 @@ export default function Navbar() {
               />
             </a>
           </div>
-          
+
           <div className="w-9/12 flex justify-end items-center">
-          <div className="flex mx-4">
+            <div className="flex mx-4">
               <Link href="/contact">
                 <IoNotificationsOutline className={style.icon} />
               </Link>
