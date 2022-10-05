@@ -39,7 +39,7 @@ public class BusinessResponse {
 
     private String urlInstagram;
 
-    private Long ratingId;
+    private Double rating;
 
 
 }

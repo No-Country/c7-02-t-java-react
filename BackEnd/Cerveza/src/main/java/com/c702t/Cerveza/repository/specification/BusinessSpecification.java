@@ -23,21 +23,21 @@ public class BusinessSpecification {
             List<Predicate> predicates = new ArrayList<>();
 
             if (StringUtils.hasLength(filterRequest.getCity())) { // pregunta si tiene algo el filter
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("city")), //nombre del atributo
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("businessCity")), //nombre del atributo
                         "%" + filterRequest.getCity().toLowerCase() + "%"
                 ));
 
             }
 
             if (StringUtils.hasLength(filterRequest.getState())) { // pregunta si tiene algo el filter
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("state")), //nombre del atributo
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("businessState")), //nombre del atributo
                         "%" + filterRequest.getState().toLowerCase() + "%"
                 ));
 
             }
 
             if (StringUtils.hasLength(filterRequest.getCountry())) { // pregunta si tiene algo el filter
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("country")), //nombre del atributo
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("businessCountry")), //nombre del atributo
                         "%" + filterRequest.getCountry().toLowerCase() + "%"
                 ));
 
@@ -58,7 +58,6 @@ public class BusinessSpecification {
             return criteriaBuilder.and((javax.persistence.criteria.Predicate[])
                     predicates.toArray(new Predicate[0]));
         };
-
     }
 
 

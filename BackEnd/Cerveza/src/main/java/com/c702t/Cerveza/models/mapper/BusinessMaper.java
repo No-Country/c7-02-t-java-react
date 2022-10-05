@@ -1,23 +1,21 @@
 package com.c702t.Cerveza.models.mapper;
 
 import com.c702t.Cerveza.models.entity.BusinessEntity;
+import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.request.BusinessRequest;
 import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
-import lombok.Builder;
-import lombok.NonNull;
-import org.hibernate.annotations.CreationTimestamp;
+import com.c702t.Cerveza.repository.UserRepository;
+import com.c702t.Cerveza.service.AwsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Entity;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BusinessMaper {
@@ -25,47 +23,50 @@ public class BusinessMaper {
     @Autowired
     private BusinessRepository businessRepository;
 
-   /* @Autowired
+    @Autowired
     UserRepository userRepository;
     @Autowired
-    AwsService awsService;*/
+    AwsService awsService;
 
 
-    public BusinessEntity Request2Entity (BusinessRequest request){
+    public BusinessEntity Request2Entity (BusinessRequest request, Long userID) throws IOException {
 
         BusinessEntity entity = BusinessEntity.builder().name(request.getName())
-                .image(request.getImage()) //Modificar con método AWS
-                .address(request.getAddress())
-                .city(request.getCity())
-                .state(request.getState())
-                .country(request.getCountry())
+                .image(awsService.uploadFileFromBase64(request.getImage()))
+                .businessAddress(request.getAddress())
+                .businessCity(request.getCity())
+                .businessState(request.getState())
+                .businessCountry(request.getCountry())
                 .phone(request.getPhone())
                 .email(request.getEmail())
                 .aboutUsText(request.getAboutUsText())
                 .urlFacebook(request.getUrlFacebook())
                 .urlInstagram(request.getUrlInstagram())
-                /*.user(userRepository.getById(request.getIdUser()))
-                .rating(ratingRepository.getById(request.getIdRating()))*/
-                .build();
+                .users(userRepository.findById(userID).get())
+                 .build();
+
+        entity.setValue(0.00);
+        entity.setCount(0);
+        entity.setRating(0.00);
 
         return entity;
 
         }
 
-    public BusinessResponse Entity2Response (BusinessEntity entity){
+    public BusinessResponse Entity2Response (BusinessEntity entity) throws IOException {
 
         BusinessResponse response = BusinessResponse.builder().name(entity.getName())
-                .image(entity.getImage()) //Modificar con método AWS
-                .address(entity.getAddress())
-                .city(entity.getCity())
-                .state(entity.getState())
-                .country(entity.getCountry())
+                .image(awsService.uploadFileFromBase64(entity.getImage()))
+                .address(entity.getBusinessAddress())
+                .city(entity.getBusinessCity())
+                .state(entity.getBusinessState())
+                .country(entity.getBusinessCountry())
                 .phone(entity.getPhone())
                 .email(entity.getEmail())
                 .aboutUsText(entity.getAboutUsText())
                 .urlFacebook(entity.getUrlFacebook())
                 .urlInstagram(entity.getUrlInstagram())
-                /*.ratingId(entity.getRating().getId)*/
+                .rating(entity.getRating())
                 .build();
 
         return response;
@@ -73,26 +74,26 @@ public class BusinessMaper {
     }
 
 
-    public List<BusinessResponse> EntityList2ResponseList(List<BusinessEntity> entities){
+    public List<BusinessResponse> EntityList2ResponseList(List<BusinessEntity> entities) throws IOException {
 
         List<BusinessResponse> responseList = new ArrayList<>();
 
         //BusinessResponse response;
 
-        for (BusinessEntity entityList : entities) {
+        for (BusinessEntity entity : entities) {
             BusinessResponse response = new BusinessResponse();
-            response= BusinessResponse.builder().name(response.getName())
-                    .image(response.getImage()) //Modificar con método AWS
-                    .address(response.getAddress())
-                    .city(response.getCity())
-                    .state(response.getState())
-                    .country(response.getCountry())
-                    .phone(response.getPhone())
-                    .email(response.getEmail())
-                    .aboutUsText(response.getAboutUsText())
-                    .urlFacebook(response.getUrlFacebook())
-                    .urlInstagram(response.getUrlInstagram())
-                    /*.ratingId(entity.getRating().getId)*/
+            response= BusinessResponse.builder().name(entity.getName())
+                    .image(awsService.uploadFileFromBase64(entity.getImage()))
+                    .address(entity.getBusinessAddress())
+                    .city(entity.getBusinessCity())
+                    .state(entity.getBusinessState())
+                    .country(entity.getBusinessCountry())
+                    .phone(entity.getPhone())
+                    .email(entity.getEmail())
+                    .aboutUsText(entity.getAboutUsText())
+                    .urlFacebook(entity.getUrlFacebook())
+                    .urlInstagram(entity.getUrlInstagram())
+                    .rating(entity.getRating())
                     .build();
             responseList.add(response);
 
@@ -102,21 +103,35 @@ public class BusinessMaper {
     }
 
 
+    public BusinessEntity EntityRefreshRating (BusinessEntity entity, Double totalValue){
+
+        Double sumValues = entity.getValue()+totalValue;
+        entity.setValue(sumValues);
+
+        Integer countNew= entity.getCount()+1;
+
+        Double totalRating = sumValues/countNew;
+
+
+        entity.setRating(totalRating);
+
+        return entity;
+
+    }
+
     public BusinessEntity EntityRefreshValues (BusinessEntity entity, BusinessRequest request) throws IOException {
 
         entity = BusinessEntity.builder().name(request.getName())
-                .image(request.getImage()) //Modificar con método AWS
-                .address(request.getAddress())
-                .city(request.getCity())
-                .state(request.getState())
-                .country(request.getCountry())
+                .image(awsService.uploadFileFromBase64(request.getImage()))
+                .businessAddress(request.getAddress())
+                .businessCity(request.getCity())
+                .businessState(request.getState())
+                .businessCountry(request.getCountry())
                 .phone(request.getPhone())
                 .email(request.getEmail())
                 .aboutUsText(request.getAboutUsText())
                 .urlFacebook(request.getUrlFacebook())
                 .urlInstagram(request.getUrlInstagram())
-                /*.user(userRepository.getById(request.getIdUser()))
-                .rating(ratingRepository.getById(request.getIdRating()))*/
                 .build();
 
         return entity;

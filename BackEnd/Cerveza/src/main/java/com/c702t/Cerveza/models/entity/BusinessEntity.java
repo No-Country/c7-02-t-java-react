@@ -4,72 +4,73 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-@Entity
-@SQLDelete(sql= "UPDATE business SET soft_delete = true WHERE business_id=?")
-@Where(clause = "soft_delete=false")
-@Table(name = "business")
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
+@Builder
+@Entity
+@SQLDelete(sql = "UPDATE business SET soft_delete = true Where id=?")
+@Where(clause = "soft_delete=false")
+@Table( name= "business")
 public class BusinessEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "business_id")
     private Long id;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "name can not be null")
     @NotBlank(message = "name can not be blank")
     private String name;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "image can not be null")
     private String image;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "name can not be null")
     @NotBlank(message = "name can not be blank")
-    private String address;
+    private String businessAddress;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "name can not be null")
     @NotBlank(message = "name can not be blank")
-    private String city;
+    private String businessCity;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "name can not be null")
     @NotBlank(message = "name can not be blank")
-    private String state;
+    private String businessState;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "name can not be null")
     @NotBlank(message = "name can not be blank")
-    private String country;
+    private String businessCountry;
 
     private Integer phone;
 
-    @NonNull
+    @NotNull
     @NotEmpty(message = "email can not be null")
     @Email(message = "mail is not valid")
     @Column(nullable = false)
     private String email;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String aboutUsText;
 
     @Column(name = "soft_delete")
-    @Builder.Default
     private boolean deleted = Boolean.FALSE;
 
     @CreationTimestamp
@@ -80,16 +81,14 @@ public class BusinessEntity {
     private String urlInstagram;
 
 
-   /* @ManyToOne(fetch = FetchType.EAGER)
+   @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private UserEntity user;*/
+    private UserEntity users;
 
-   /* @JoinColumn(name = "rating_id")
-   private RatingEntity rating;*/
+   private Double value;
 
+   private Double rating;
 
-
-
-
-
+   private Integer count;
 }
+

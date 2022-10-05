@@ -96,8 +96,6 @@ public class BusinessRequest {
     @ApiModelProperty(notes = "id of the user corresponding to the Business", example = " ")
     private Long idUser;
 
-    @ApiModelProperty(notes = "id of the rating corresponding to the Business", example = " ")
-    private Long idRating;
 
 
 

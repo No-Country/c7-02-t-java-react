@@ -29,9 +29,9 @@ public class BusinessController {
     @PostMapping
     @ApiOperation(value = "Create business", notes = "Allows Admin to insert business")
     @ApiResponses({@ApiResponse(code = 201, message = "Business created!")})
-    public ResponseEntity<BusinessResponse> createBusiness (@Valid @RequestBody BusinessRequest request) throws IOException {
+    public ResponseEntity<BusinessResponse> createBusiness (@Valid @RequestBody BusinessRequest request, @RequestHeader(name="Authorization") String token) throws IOException {
 
-        BusinessResponse responseCreate = this.businessService.create(request);
+        BusinessResponse responseCreate = this.businessService.create(request, token);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseCreate);
     }
@@ -94,19 +94,16 @@ public class BusinessController {
     }
 
     @GetMapping
-    public ResponseEntity <List<BusinessResponse>> getByFilters (
+    public ResponseEntity <?> getByFilters (
             @RequestParam (required = false) String city,
             @RequestParam (required = false) String state,
             @RequestParam (required = false) String country,
-            @RequestParam (required = false, defaultValue = "ASC") String order
-    ){
+            @RequestParam (required = false, defaultValue = "ASC") String order,
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) {
 
-        List<BusinessResponse> responseList = this.businessService.getByFilters(city,
-                                                state, country, order);
-
-        return ResponseEntity.ok().body(responseList);
+        return new ResponseEntity<>(businessService.getByFilters(city, state, country, order, page, size), HttpStatus.OK);
 
     }
-
 
 }
