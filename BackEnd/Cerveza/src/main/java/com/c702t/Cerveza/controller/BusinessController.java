@@ -85,7 +85,7 @@ public class BusinessController {
                                                         type = "Long",
                                                         value = "ID of the news requested",
                                                         example = "1",
-                                                        required = true) Long id){
+                                                        required = true) Long id) throws IOException {
 
         BusinessResponse response = this.businessService.getById(id);
 
