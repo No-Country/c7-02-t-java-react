@@ -53,7 +53,7 @@ public class InitializerSeeder implements CommandLineRunner {
 
     private void create(String userType, String PASSWORD, String CONFIRMPASSWORD, Integer userNumber) {
         try {
-            authService.registerAdmin(new UserRequest(userType + userNumber, userType + userNumber,
+            authService.register(new UserRequest(userType + userNumber, userType + userNumber,
                     "email"+ userType + userNumber +"@mail.com", PASSWORD, CONFIRMPASSWORD,  userType +"Photo"+ userNumber +".png"));
 
         } catch (IOException e) {

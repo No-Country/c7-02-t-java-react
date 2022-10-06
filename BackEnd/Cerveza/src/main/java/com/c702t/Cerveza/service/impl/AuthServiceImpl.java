@@ -68,12 +68,10 @@ public class AuthServiceImpl implements AuthService {
 
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent())
             throw new UserProfileAlreadyExistsException("Email already exists");
-
         if(!userRequest.getPassword().equalsIgnoreCase(userRequest.getConfirmPassword()))
             throw new UserProfileAlreadyExistsException("passwords do not match");
 
         Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getSimpleRoleName());
-
         if (roles.isEmpty()) {
             RoleEntity rol = new RoleEntity();
             rol.setName(RoleEnum.USER.getSimpleRoleName());
@@ -92,9 +90,6 @@ public class AuthServiceImpl implements AuthService {
         String token = generateToken(userRequest.getEmail());
         return userMapper.toUserResponse(userEntity);
     }
-
-
-
 
     @Override
     @Transactional
