@@ -20,6 +20,7 @@ import java.io.IOException;
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:3000")
 @Api(value = "Operations related to Authentication", tags = "Authentication")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     @Autowired

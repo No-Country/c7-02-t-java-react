@@ -23,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "/users")
 @Api(description ="User CRUD" , tags = "Users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
