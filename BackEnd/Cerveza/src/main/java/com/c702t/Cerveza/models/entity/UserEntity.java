@@ -52,11 +52,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-//    @NotNull
-//    @NotEmpty(message = "The Password Confirm can't be null")
-//    @Column(nullable = false)
-//    private String password2;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -73,7 +68,6 @@ public class UserEntity {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-//        this.password2 = password2;
         this.roleId = roles;
     }
 

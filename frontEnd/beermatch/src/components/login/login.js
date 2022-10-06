@@ -15,7 +15,7 @@ function Login() {
   return (
     <>
       <div className="lg:grid lg:grid-cols-2">
-        <div className="lg:bg-MiddleYellow lg:h-screen lg:w-full lg:flex lg:visible">
+        <div className="lg:bg-PurpleNavy lg:h-screen lg:w-full lg:flex lg:visible">
           <img className="lg:m-auto lg:justify-center lg:flex hidden" src="logo.png" alt="" />
         </div>
         <div className="flex">

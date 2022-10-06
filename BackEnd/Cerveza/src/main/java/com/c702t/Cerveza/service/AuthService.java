@@ -15,4 +15,5 @@ public interface AuthService {
     UserDetailsResponse getPersonalInformation(String token) throws IOException;
 //    void registerAdmin(UserRequest userRequest) throws IOException;
     UserResponse registerBusiness(UserRequest userRequest) throws IOException;
+
 }
