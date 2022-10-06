@@ -20,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("business")
 @Api(description ="Business CRUD" , tags = "Business")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BusinessController {
 
     @Autowired
