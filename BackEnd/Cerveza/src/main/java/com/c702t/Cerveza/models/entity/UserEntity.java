@@ -19,8 +19,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@SQLDelete(sql = "UPDATE users SET deleted = true Where id=?")
-@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE users SET soft_delete = true Where id=?")
+@Where(clause = "soft_delete=false")
 @Table( name= "users")
 public class UserEntity {
 
@@ -61,7 +61,8 @@ public class UserEntity {
     @CreationTimestamp
     private Timestamp timestamp;
 
-    private Boolean deleted = Boolean.FALSE;
+    @Column(name = "soft_delete")
+    private Boolean sofdelete = Boolean.FALSE;
 
     public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
         this.firstName = firstName;

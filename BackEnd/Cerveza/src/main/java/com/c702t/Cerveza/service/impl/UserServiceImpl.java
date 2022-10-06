@@ -123,17 +123,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-//
-//    public AuthResponse login(AuthRequest authRequest) {
-//        return null;
-//    }
-//
-//    public UserDetailsResponse getPersonalInformation(String token) {
-//        return null;
-//    }
-
-
-
     @Override
     @Transactional
     public UserDetailsResponse updateBasicUser(UserUpdateRequest request, String token) throws IOException {
