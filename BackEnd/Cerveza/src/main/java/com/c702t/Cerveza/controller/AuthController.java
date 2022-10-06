@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3001")
+@CrossOrigin(origins = "http://localhost:3000")
 @Api(value = "Operations related to Authentication", tags = "Authentication")
 public class AuthController {
 
