@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.stream.IntStream;
 
-//@Component
+@Component
 public class InitializerSeeder implements CommandLineRunner {
 
     @Autowired
@@ -21,9 +21,11 @@ public class InitializerSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        System.out.println("is empty : " + userRepository.findAll().isEmpty());
+
         if (userRepository.findAll().isEmpty()) {
             this.createUsers(1, "user");
-            this.createUsers(1, "business");
+//            this.createUsers(1, "business");
         }
 
     }

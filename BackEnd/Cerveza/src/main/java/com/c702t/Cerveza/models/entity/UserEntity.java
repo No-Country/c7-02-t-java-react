@@ -64,12 +64,12 @@ public class UserEntity {
     @Column(name = "soft_delete")
     private Boolean sofdelete = Boolean.FALSE;
 
-    public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.roleId = roles;
-    }
+//    public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.roleId = roles;
+//    }
 
 }

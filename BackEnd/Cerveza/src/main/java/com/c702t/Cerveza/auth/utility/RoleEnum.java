@@ -1,7 +1,7 @@
 package com.c702t.Cerveza.auth.utility;
 
 public enum RoleEnum {
-    USER, ADMIN, BUSINESS;
+    USER, BUSINESS;
 
     private static final String PREFIX = "ROLE_";
     public String getFullRoleName() {

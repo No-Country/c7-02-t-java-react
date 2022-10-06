@@ -22,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/slides")
+@CrossOrigin(origins = "http://localhost:3000")
 @Api(description ="Slides CRUD" , tags = "Slides")
 public class SlideController {
 

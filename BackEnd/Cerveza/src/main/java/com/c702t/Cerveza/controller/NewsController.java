@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/news")
+@CrossOrigin(origins = "http://localhost:3000")
 @Api(description ="News CRUD" , tags = "News")
 public class NewsController {
 
