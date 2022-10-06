@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.response;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -16,7 +17,7 @@ public class NewsResponse {
     private String name;
     private String content;
     private String photo;
-//    private BusinessEntity businessEntity;
+    private BusinessEntity business;
     private LocalDate startDate;
     private LocalDate endDate;
     private Timestamp timestamp;

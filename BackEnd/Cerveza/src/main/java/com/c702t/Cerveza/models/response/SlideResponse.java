@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.response;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
 public class SlideResponse {
 
     private Long id;
-//    private Business business;
+    private BusinessEntity business;
     private String photo;
     private Timestamp timestamp;
 

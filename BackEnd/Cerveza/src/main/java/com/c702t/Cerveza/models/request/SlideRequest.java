@@ -1,13 +1,11 @@
 package com.c702t.Cerveza.models.request;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Getter
@@ -23,8 +21,9 @@ public class SlideRequest {
     @Column(name = "slide_id")
     private Long id;
 
-//    @ManyToOne
-//    private Business business;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "business_id")
+    private BusinessEntity business;
 
     private String photo;
 

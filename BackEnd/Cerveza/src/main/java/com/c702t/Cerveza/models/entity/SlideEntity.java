@@ -24,9 +24,9 @@ public class SlideEntity {
     @Column(name = "slide_id")
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "business_id")
-//    private BusinessEntity business;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "business_id")
+    private BusinessEntity business;
 
     private String photo;
 

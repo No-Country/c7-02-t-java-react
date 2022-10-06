@@ -23,7 +23,7 @@ public class SlideMapper {
         SlideEntity entity = new SlideEntity();
 
         return entity.builder()
-//                .business(request.getBusiness())
+                .business(request.getBusiness())
                 .photo(request.getPhoto())
                 .timestamp(request.getTimestamp())
                 .sofdelete(false)
@@ -35,7 +35,7 @@ public class SlideMapper {
 
         return SlideResponse.builder()
                 .id(entity.getId())
-//                .business(entity.getBusiness())
+                .business(entity.getBusiness())
                 .photo(entity.getPhoto())
                 .timestamp(entity.getTimestamp())
                 .build();
@@ -46,7 +46,7 @@ public class SlideMapper {
 
         return SlideEntity.builder()
                 .id(entity.getId())
-//                .business(request.getBusiness())
+                .business(request.getBusiness())
                 .photo(request.getPhoto())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .sofdelete(request.getSofdelete())

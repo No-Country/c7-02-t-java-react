@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.request;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -36,8 +37,9 @@ public class NewsRequest {
     @ApiModelProperty(notes = "Photo of the User.")
     private String photo;
 
-//    @ManyToOne
-//    private BusinessEntity businessEntity;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "business_id")
+    private BusinessEntity business;
 
     @ApiModelProperty(notes = "Start date of the User.", example = "2022-10-01", required = true)
     @Column(name = "start_date")

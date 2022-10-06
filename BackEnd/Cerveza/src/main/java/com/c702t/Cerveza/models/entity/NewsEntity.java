@@ -40,9 +40,9 @@ public class NewsEntity {
 
     private String photo;
 
-//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "business_id")
-//    private BusinessEntity business;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "business_id")
+    private BusinessEntity business;
 
     @Column(name = "start_date")
     private LocalDate startDate;
