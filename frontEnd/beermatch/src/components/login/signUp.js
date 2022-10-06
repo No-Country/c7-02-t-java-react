@@ -1,15 +1,70 @@
 import React from "react";
 import { IoBeerOutline, IoPersonOutline } from "react-icons/io5";
 import { BsPersonLinesFill } from "react-icons/bs";
+import axios from "axios";
+import { GoAlert } from "react-icons/go";
 
 function SignUpUser() {
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [photo, setPhoto] = React.useState("image");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  console.log(firstName);
+  console.log(lastName);
+  console.log(email);
+  console.log(password);
+  console.log(photo);
+  console.log(confirmPassword);
+  console.log(error);
+
+  React.useEffect(() => {
+    if (password.length == confirmPassword.length) {
+      if (password != confirmPassword) {
+        setError("contraseñas no coinciden");
+      } else {
+        setError();
+      }
+    }
+  }, [confirmPassword]);
+
+  const baseURL = "http://localhost:8080/auth/register";
+  // const headers = {
+  //   "Access-Control-Allow-Headers" : "Content-Type",
+  //   "Access-Control-Allow-Origin": "*",
+  //   "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+  // };
+
+  const handleRegisterUser = async (e) => {
+    e.preventDefault();
+    await axios
+      .post(
+        baseURL,
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          photo: photo,
+          confirmPassword: password,
+        },
+        // { headers }
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
+  };
+
   return (
     <>
-      <div className="grid grid-cols-2">
-        <div className="bg-MiddleYellow h-screen w-full flex">
+      <div className="lg:grid lg:grid-cols-2">
+        <div className="lg:bg-PurpleNavy lg:h-screen lg:w-full lg:flex lg:visible">
           <img
-            className="m-auto justify-center flex fill-purple-500"
-            src="images/_Logo Beer Match.svg"
+            className="lg:m-auto lg:justify-center lg:flex hidden"
+            src="logo.png"
             alt=""
           />
         </div>
@@ -29,6 +84,7 @@ function SignUpUser() {
                     type="text"
                     name="name"
                     placeholder="Nombre"
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div className="flex items-center border-2 border-gray-50 mb-2 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1">
@@ -39,17 +95,18 @@ function SignUpUser() {
                     type="text"
                     name="lastName"
                     placeholder="Apellido"
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
                 <div className="justify-end flex m-2">
                   <label className="inline-flex items-center ">
-                  <span className="mx-2 text-sm text-gray-400 font-light">Usuario tipo empresa</span>
+                    <span className="mx-2 text-sm text-gray-400 font-light">
+                      Usuario tipo empresa
+                    </span>
                     <input
                       type="checkbox"
                       className="form-checkbox h-5 w-5 text-gray-600 rounded-2xl appearance-none border border-gray-200 bg-gray-50 checked:bg-violet-600"
-                      
                     />
-                 
                   </label>
                 </div>
                 <div className="flex items-center border-2 border-gray-50 mb-6 py-2 hover:outline-violet-500 hover:outline hover:outline-1 px-3 rounded-2xl">
@@ -73,6 +130,7 @@ function SignUpUser() {
                     type="email"
                     name="email"
                     placeholder="Correo electrónico"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
@@ -94,6 +152,7 @@ function SignUpUser() {
                     name="password"
                     id="password"
                     placeholder="Contraseña"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
@@ -115,12 +174,20 @@ function SignUpUser() {
                     name="confirmPassword"
                     id="confirmPassword"
                     placeholder="Confirma contraseña"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
 
+                {error && (
+                  <p className="bg-red-200 flex justify-center m-auto mb-6 w-2/3 p-2 text-red-600 font-semibold rounded-xl">
+                    <GoAlert className="mt-1" />
+                    {error}
+                  </p>
+                )}
                 <button
                   type="submit"
                   className="block w-full bg-violet-600 py-2 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
+                  onClick={handleRegisterUser}
                 >
                   Registrarse
                 </button>
