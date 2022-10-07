@@ -3,12 +3,14 @@ package com.c702t.Cerveza.service.impl;
 import com.c702t.Cerveza.auth.service.JwtUtils;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.mapper.UserMapper;
-import com.c702t.Cerveza.models.request.*;
+import com.c702t.Cerveza.models.request.AuthRequest;
+import com.c702t.Cerveza.models.request.UserRequest;
+import com.c702t.Cerveza.models.request.UserUpdateRequest;
+import com.c702t.Cerveza.models.response.AuthResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.models.response.UserDetailsResponse;
 import com.c702t.Cerveza.models.response.UserResponse;
 import com.c702t.Cerveza.repository.UserRepository;
-import com.c702t.Cerveza.service.EmailService;
 import com.c702t.Cerveza.service.UserService;
 import com.c702t.Cerveza.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,12 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JwtUtils jwtUtils;
-    @Autowired
-    private EmailService emailService;
 
     @Transactional
     public UserDetailsResponse register(UserRequest request, String token) throws UsernameNotFoundException, IOException {
 
         String userToken = rebuildToken(token);
+
         UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
 
         if(user == null) {
@@ -67,72 +68,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    @Transactional
-    public UserResponse recoverPassword(RecoverPassRequest request) throws Exception {
-
-        if (request.getEmail().isEmpty() || request.getEmail().isBlank() || request.getEmail() == null)
-            throw new Exception("the email is null");
-
-        UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-
-//        System.out.println("present : " + userRepository.findByEmail(request.getEmail()).isPresent());
-
-        if (!userRepository.findByEmail(request.getEmail()).isPresent())
-            throw new Exception("there is no user with that email");
-
-        int n = 20;
-        String passAux = getAlphaNumericString(n);
-        System.out.println("passAux : " + passAux);
-
-        if (!request.getEmail().contains("@test")){
-            emailService.sendRecoverPassword(user.getEmail(), "userRegistered", passAux);
-        }
-
-        if(user != null){
-            user.setPassword(passwordEncoder.encode(passAux));
-        }
-
-        userRepository.save(user);
-
-        return userMapper.toUserResponse(user);
-
+    public AuthResponse login(AuthRequest authRequest) {
+        return null;
     }
 
-    @Override
-    @Transactional
-    public UserResponse upDatePassword(UpdatePasswordRequest request) throws Exception {
-
-        if (request.getEmail().isEmpty() || request.getEmail().isBlank() || request.getEmail() == null)
-            throw new Exception("the email is null");
-
-        UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-
-        if (!userRepository.findByEmail(request.getEmail()).isPresent())
-            throw new Exception("there is no user with that email");
-
-        if(!request.getNewPassword().equalsIgnoreCase(request.getConfirmNewPassword()))
-            throw new Exception("passwords do not match");
-
-        if(user != null){
-            user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        }
-
-        userRepository.save(user);
-        return userMapper.toUserResponse(user);
-
+    public UserDetailsResponse getPersonalInformation(String token) {
+        return null;
     }
-
-//
-//    public AuthResponse login(AuthRequest authRequest) {
-//        return null;
-//    }
-//
-//    public UserDetailsResponse getPersonalInformation(String token) {
-//        return null;
-//    }
-
-
 
     @Override
     @Transactional
@@ -218,7 +160,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public PaginationResponse getUserPage(Optional<Integer> pageNumber, Optional<Integer> size) {
         PaginationUtils pagination = new PaginationUtils(userRepository, pageNumber, size, "/comments/page=%d&size=%d");
-
         Page page = pagination.getPage();
 
         List<UserEntity> users = page.getContent();
@@ -237,18 +178,4 @@ public class UserServiceImpl implements UserService {
         return token2;
     }
 
-
-    private String getAlphaNumericString(int n) {
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
-        StringBuilder sb = new StringBuilder(n);
-
-        for (int i = 0; i < n; i++) {
-            int index = (int)(AlphaNumericString.length() * Math.random());
-            sb.append(AlphaNumericString.charAt(index));
-        }
-        return sb.toString();
-    }
-
 }
-
-
