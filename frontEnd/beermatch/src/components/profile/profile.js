@@ -1,14 +1,11 @@
-import React from "react";
-import DataProfile from "./dataProfile";
-import PhotoProfile from "./photoProfile";
+import React from 'react'
 
 function Profile() {
   return (
-    <div className="bg-white p-2 w-fit justify-center m-auto text-PurpleNavy border-2 border-yellow-400 rounded-lg">
-      <PhotoProfile />
-      <DataProfile />
-    </div>
-  );
+    <div className='bg-violet-100 m-2 h-screen text-PurpleNavy shadow-lg rounded-lg'>
+    Profile
+  </div>
+  )
 }
 
-export default Profile;
+export default Profile
