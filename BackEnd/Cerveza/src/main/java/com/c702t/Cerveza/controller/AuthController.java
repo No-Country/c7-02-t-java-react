@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 @Api(value = "Operations related to Authentication", tags = "Authentication")
 @CrossOrigin(origins = "http://localhost:3000")
