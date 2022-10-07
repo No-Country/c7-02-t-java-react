@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       colors:{
        'MiddleYellow': '#FFE93E',
-       'PurpleNavy':'#3d1365',
+       'PurpleNavy':'#5b507A',
       }
     },
   },
