@@ -1,0 +1,38 @@
+Index: ../../frontEnd/beermatch/src/components/login/signUp.js
+===================================================================
+diff --git a/../../frontEnd/beermatch/src/components/login/signUp.js b/../../frontEnd/beermatch/src/components/login/signUp.js
+--- a/../../frontEnd/beermatch/src/components/login/signUp.js	
++++ b/../../frontEnd/beermatch/src/components/login/signUp.js	
+@@ -31,7 +31,7 @@
+     }
+   }, [confirmPassword]);
+ 
+-  const baseURL = "http://localhost:8080/auth/register";
++  const baseURL = "https://throyer-crud-api.herokuapp.com/api/v1/users";
+   // const headers = {
+   //   "Access-Control-Allow-Headers" : "Content-Type",
+   //   "Access-Control-Allow-Origin": "*",
+@@ -43,13 +43,18 @@
+     await axios
+       .post(
+         baseURL,
++        // {
++        //   firstName: firstName,
++        //   lastName: lastName,
++        //   email: email,
++        //   password: password,
++        //   photo: photo,
++        //   confirmPassword: password,
++        // },
+         {
+-          firstName: firstName,
+-          lastName: lastName,
++          name: firstName,
+           email: email,
+-          password: password,
+-          photo: photo,
+-          confirmPassword: password,
++          password: email,
+         },
+         // { headers }
+       )
