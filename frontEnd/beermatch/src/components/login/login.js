@@ -1,38 +1,26 @@
 import React from "react";
 import { IoBeerOutline } from 'react-icons/io5';
-import { useRouter } from "next/router";
 
 
 function Login() {
-
-  const router = useRouter()
-
-  const handleLogin = (e) =>{
-    e.preventDefault()
-    router.push("/dashboard/main")
-  }
-
   return (
     <>
-      <div className="lg:grid lg:grid-cols-2">
-        <div className="lg:bg-MiddleYellow lg:h-screen lg:w-full lg:flex lg:visible">
-          <img className="lg:m-auto lg:justify-center lg:flex hidden" src="logo.png" alt="" />
+      <div class="grid grid-cols-2">
+        <div class="bg-MiddleYellow h-screen w-full flex">
+          <img class="m-auto justify-center flex" src="logo.png" alt="" />
         </div>
-        <div className="flex">
-          <div className="flex w-full justify-center items-center bg-white space-y-8">
-            <div className="w-full p-8 md:px-32 lg:px-24">
-              <form className="bg-white rounded-md shadow-2xl p-5">
-                <div>
-                <img className="m-auto justify-center flex p-10 lg:hidden" src="logo.png" alt="" />
-                </div>
-                <h1 className="text-gray-800 font-light text-2xl mb-6 flex justify-center">
+        <div class="flex">
+          <div class="flex w-full justify-center items-center bg-white space-y-8">
+            <div class="w-full px-8 md:px-32 lg:px-24">
+              <form class="bg-white rounded-md shadow-2xl p-5">
+                <h1 class="text-gray-800 font-light text-2xl mb-6 flex">
                   Hola Cervecero!
                   <IoBeerOutline className="text-yellow-500 mt-1 ml-2"/>
                 </h1>
-                <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
+                <div class="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-400 font-light"
+                    class="h-5 w-5 text-gray-400 font-light"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -40,22 +28,22 @@ function Login() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="1"
+                      strokeWidth="2"
                       d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
                     />
                   </svg>
                   <input
                     id="email"
-                    className=" pl-2 w-full font-light outline-none border-none"
+                    class=" pl-2 w-full font-light outline-none border-none"
                     type="email"
                     name="email"
                     placeholder="Correo electronico"
                   />
                 </div>
-                <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1  ">
+                <div class="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-400 font-light"
+                    class="h-5 w-5 text-gray-400 font-light"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -66,7 +54,7 @@ function Login() {
                     />
                   </svg>
                   <input
-                    className="pl-2 w-full font-light outline-none border-none"
+                    class="pl-2 w-full font-light outline-none border-none"
                     type="password"
                     name="password"
                     id="password"
@@ -75,20 +63,18 @@ function Login() {
                 </div>
                 <button
                   type="submit"
-                  className="block w-full bg-violet-600 py-2 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
-                  onClick={handleLogin}
+                  class="block w-full bg-violet-600 py-2 rounded-2xl hover:bg-violet-700 transition-all duration-100 text-white font-semibold"
                 >
                   Ingresar
-                  
                 </button>
-                <div className="flex justify-between mt-4">
-                  <a href="/resetPass" className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                <div class="flex justify-between mt-4">
+                  <span class="text-sm ml-2 hover:text-violet-500 cursor-pointer duration-100 transition-all">
                     ¿Olvidaste tu contraseña?
-                  </a>
+                  </span>
 
                   <a
-                    href="/signUp"
-                    className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all"
+                    href="#"
+                    class="text-sm ml-2 hover:text-violet-500 cursor-pointer duration-100 transition-all"
                   >
                     Registrarse
                   </a>
