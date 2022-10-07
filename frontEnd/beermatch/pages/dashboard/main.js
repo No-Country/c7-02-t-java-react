@@ -1,11 +1,13 @@
 import React from 'react'
-import Activity from '../../src/components/main/activity'
-import Main from '../../src/components/main/main'
 
 function main() {
   return (
-    <div >
-      <Main />
+    <div>
+      <div className='bg-violet-100 h-screen m-2 rounded-lg shadow-lg'>
+        <div>
+          TEST
+        </div>
+      </div>
     </div>
   )
 }
