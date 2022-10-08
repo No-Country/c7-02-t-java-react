@@ -51,17 +51,7 @@ public class EmailServiceImpl implements EmailService {
         else
             getEmailReady(to, templateContactId, EmailUtils.content("Solicitud recibida",
                     "Muchas gracias por \n " + "contactarte con nosotros \n " +
-                            "te mandaremos un mensaje a la brevedad"), "Somos BeerMatch");
-    }
-
-    @Transactional
-    public void sendRecoverPassword(String to, String from, String passAux) throws IOException {
-        if (from.equalsIgnoreCase("userRegistered"))
-            getEmailReady(to, templateId, EmailUtils.content("Recupero Contraseña : " , "\nTu nueva Contraseña es : " + passAux ), "BeerMatch");
-        else
-            getEmailReady(to, templateContactId, EmailUtils.content("Solicitud recibida",
-                    "Muchas gracias por \n " + "contactarte con nosotros \n " +
-                            "te mandaremos un mensaje a la brevedad"), "Somos BeerMatch");
+                            "te mandaremos un mensaje a la brevedad"), "Somos Beer Match");
     }
 
 

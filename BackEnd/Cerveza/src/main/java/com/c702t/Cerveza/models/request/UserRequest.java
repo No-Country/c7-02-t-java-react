@@ -27,7 +27,7 @@ public class UserRequest {
 
     @NotNull(message = "the email can't be null")
     @Email(message = "the email is not valid")
-    @ApiModelProperty(notes = "Email of the User.", example = "am@mail.com", required = true)
+    @ApiModelProperty(notes = "Email of the User.", example = "alexmoll2008@hotmail.com", required = true)
     private String email;
 
     @NotNull(message = "the password can't be null")

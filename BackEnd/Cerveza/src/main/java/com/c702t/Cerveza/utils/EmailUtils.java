@@ -271,7 +271,7 @@ public class EmailUtils {
                 "                            <td style=\"width:312px;\">\n" +
                 "\n" +
                 "                              <img height=\"auto\"\n" +
-                "                                src=\"https://ambucket2139.s3.amazonaws.com/01-10-2022_09-28-14.png\"\n" +
+                "                                src=\"https://ambucket2139.s3.amazonaws.com/29-09-2022_18-30-56.png\"\n" +
                 "                                style=\"border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;\"\n" +
                 "                                width=\"312\">\n" +
                 "\n" +
