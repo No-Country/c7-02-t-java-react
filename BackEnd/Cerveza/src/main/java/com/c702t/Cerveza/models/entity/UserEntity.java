@@ -19,8 +19,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@SQLDelete(sql = "UPDATE users SET deleted = true Where id=?")
-@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE users SET soft_delete = true Where id=?")
+@Where(clause = "soft_delete=false")
 @Table( name= "users")
 public class UserEntity {
 
@@ -52,11 +52,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-//    @NotNull
-//    @NotEmpty(message = "The Password Confirm can't be null")
-//    @Column(nullable = false)
-//    private String password2;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -66,15 +61,15 @@ public class UserEntity {
     @CreationTimestamp
     private Timestamp timestamp;
 
-    private Boolean deleted = Boolean.FALSE;
+    @Column(name = "soft_delete")
+    private Boolean sofdelete = Boolean.FALSE;
 
-    public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-//        this.password2 = password2;
-        this.roleId = roles;
-    }
+//    public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.roleId = roles;
+//    }
 
 }

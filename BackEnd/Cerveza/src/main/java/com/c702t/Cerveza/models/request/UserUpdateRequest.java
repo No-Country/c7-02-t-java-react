@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +14,21 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class UserUpdateRequest {
 
-    @NotEmpty
-    @NotBlank(message = "the first name can't be blank")
+    @NotNull(message = "the firstName can't be null")
+    @NotEmpty(message = "the firstName can't be empty")
+    @NotBlank(message = "the firstName can't  be blank")
+    @ApiModelProperty(notes = "firstName of the User.", example = "alejandro", required = true)
     private String firstName;
 
-    @NotEmpty
-    @NotBlank(message = "the last name can't be blank")
+    @NotNull(message = "the lastName can't be null")
+    @NotEmpty(message = "the lastName can't be empty")
+    @NotBlank(message = "the lastName can't  be blank")
+    @ApiModelProperty(notes = "lastName of the User.", example = "lopez", required = true)
     private String lastName;
 
     @NotEmpty
     @NotBlank(message = "the password can't be blank")
+    @ApiModelProperty(notes = "password of the User.", example = "1234", required = true)
     private String password;
 
     @NotEmpty
