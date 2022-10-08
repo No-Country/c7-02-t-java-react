@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @Api(value = "Operations related to Authentication", tags = "Authentication")
 public class AuthController {
 
@@ -26,6 +26,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
     @ApiOperation(value = "Register a new User", code = 201, response = UserResponse.class)
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created", response = UserResponse.class),
@@ -38,6 +39,7 @@ public class AuthController {
 
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     @ApiOperation(value = "Login a user", response = AuthResponse.class)
     @ApiResponse(code = 200, message = "OK")
@@ -45,6 +47,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(authRequest));
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/recoverPassword")
     @ApiOperation(value = "Recover on Password", code = 201, response = UserResponse.class)
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created", response = UserResponse.class),
@@ -56,6 +59,7 @@ public class AuthController {
 
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/upDatePassword")
     @ApiOperation(value = "Update Password", code = 201, response = UserResponse.class)
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Created", response = UserResponse.class),
@@ -67,6 +71,7 @@ public class AuthController {
 
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/update")
     @ApiOperation(value = "Update an User", notes = "Allows an User to update itself")
     @ApiResponses(value = { @ApiResponse( code = 201, message = "User updated") })
