@@ -2,8 +2,11 @@ package com.c702t.Cerveza.models.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Getter
@@ -47,7 +50,14 @@ public class ReviewEntity {
     @NotNull(message = "totalRate can not be null")
     private String text;
 
-    @NotNull
     @CreationTimestamp
     private Timestamp timestamp;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name="user_id", nullable=false)
+    private UserEntity userEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name="business_id", nullable=false)
+    private BusinessEntity businessEntity;
 }
