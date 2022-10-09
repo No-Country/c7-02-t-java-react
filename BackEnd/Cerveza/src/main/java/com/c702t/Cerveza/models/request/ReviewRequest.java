@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @ApiModel(description = "Class representing a Review request.")
 public class ReviewRequest {
+    @NotNull(message = "businessId can not be null")
+    private Long businessId;
 
     @NotNull(message = "attentionRate can not be null")
     @Min(value = 1, message = "attentionRate Must be between 1 to 5")
