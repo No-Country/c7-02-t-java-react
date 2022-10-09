@@ -14,6 +14,8 @@ import java.sql.Timestamp;
 public class ReviewResponse {
 
     private Long id;
+    private Long userId;
+    private Long businessId;
     private Long attentionRate;
     private Long priceRate;
     private Long qualityRate;
