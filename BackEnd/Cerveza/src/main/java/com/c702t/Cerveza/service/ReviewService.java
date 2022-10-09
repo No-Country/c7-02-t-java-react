@@ -29,6 +29,7 @@ public class ReviewService {
     JwtUtils jwtUtils;
 
     public ReviewResponse create(String token, ReviewRequest reviewRequest) {
+        // TODO update rating of Business
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
@@ -55,6 +56,7 @@ public class ReviewService {
     }
 
     public ReviewResponse update(Long id, String token, ReviewUpdateRequest reviewUpdateRequest) {
+        // TODO update rating of Business
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
@@ -92,6 +94,7 @@ public class ReviewService {
     }
 
     public void delete(Long id, String token) {
+        // TODO update rating of Business
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
