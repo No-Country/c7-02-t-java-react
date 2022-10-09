@@ -30,6 +30,8 @@ public class ReviewMapper {
     public ReviewResponse toResponse(ReviewEntity entity) {
         ReviewResponse reviewResponse = ReviewResponse.builder()
                 .id(entity.getId())
+                .userId(entity.getUserEntity().getId())
+                .businessId(entity.getBusinessEntity().getId())
                 .attentionRate(entity.getAttentionRate())
                 .placeRate(entity.getPlaceRate())
                 .priceRate(entity.getPriceRate())
