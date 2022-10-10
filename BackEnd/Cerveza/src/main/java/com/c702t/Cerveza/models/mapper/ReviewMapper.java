@@ -6,6 +6,10 @@ import com.c702t.Cerveza.models.response.ReviewResponse;
 import com.c702t.Cerveza.repository.ReviewRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Component
 public class ReviewMapper {
 
@@ -41,5 +45,14 @@ public class ReviewMapper {
                 .timestamp(entity.getTimestamp())
                 .build();
         return reviewResponse;
+    }
+
+    public List<ReviewResponse> toResponseList(Set<ReviewEntity> reviewEntitySet) {
+        List<ReviewResponse> reviewResponseList = new ArrayList<>();
+        for (ReviewEntity reviewEntity :
+                reviewEntitySet) {
+            reviewResponseList.add(toResponse(reviewEntity));
+        }
+        return reviewResponseList;
     }
 }
