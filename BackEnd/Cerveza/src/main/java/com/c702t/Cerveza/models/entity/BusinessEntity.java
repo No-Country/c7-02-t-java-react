@@ -80,7 +80,6 @@ public class BusinessEntity {
 
     private String urlInstagram;
 
-
    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity users;
@@ -90,5 +89,6 @@ public class BusinessEntity {
    private Double rating;
 
    private Integer count;
+
 }
 
