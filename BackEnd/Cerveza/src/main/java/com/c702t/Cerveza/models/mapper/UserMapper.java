@@ -29,7 +29,7 @@ public class UserMapper {
                 .password(userRequest.getPassword())
                 .roleId(roles)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
-                .deleted(Boolean.FALSE)
+                .sofdelete(Boolean.FALSE)
                 .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
                 .build();
     }
