@@ -15,6 +15,9 @@ import com.c702t.Cerveza.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ReviewService {
     @Autowired
@@ -53,6 +56,22 @@ public class ReviewService {
             throw new RuntimeExceptionCustom("404 :: Review with id " + id + " not found.");
         }
         return reviewMapper.toResponse(reviewEntity);
+    }
+
+    public List<ReviewResponse> readAllByBusinessID(Long businessID) {
+        Optional<BusinessEntity>  optionalBusinessEntity = businessRepository.findById(businessID);
+        if (optionalBusinessEntity.isEmpty()) {
+            throw new RuntimeExceptionCustom("404 :: Business with id " + businessID + " not found.");
+        }
+        return reviewMapper.toResponseList(optionalBusinessEntity.get().getReviewEntitySet());
+    }
+
+    public List<ReviewResponse> readAllByUserID(Long userID) {
+        Optional<UserEntity>  optionalUserEntity = userRepository.findById(userID);
+        if (optionalUserEntity.isEmpty()) {
+            throw new RuntimeExceptionCustom("404 :: User with id " + userID + " not found.");
+        }
+        return reviewMapper.toResponseList(optionalUserEntity.get().getReviewEntitySet());
     }
 
     public ReviewResponse update(Long id, String token, ReviewUpdateRequest reviewUpdateRequest) {
