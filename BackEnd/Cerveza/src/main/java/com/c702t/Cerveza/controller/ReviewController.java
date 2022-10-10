@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("review")
@@ -48,11 +49,36 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("business")
+    @ApiOperation(value = "Get reviews of businessID", notes = "Get reviews of businessID")
+    @ApiResponses({@ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found")})
+    public ResponseEntity<List<ReviewResponse>> readAllByBusinessID (
+            @RequestParam(value = "businessID") Long businessID
+            ) throws IOException {
+        List<ReviewResponse> response = this.reviewService.readAllByBusinessID(businessID);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("user")
+    @ApiOperation(value = "Get reviews of userID", notes = "Get reviews of userID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found")
+    })
+    public ResponseEntity<List<ReviewResponse>> readAllByUserID (
+            @RequestParam(value = "userID") Long userID
+    ) throws IOException {
+        List<ReviewResponse> response = this.reviewService.readAllByUserID(userID);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @PutMapping("{id}")
     @ApiOperation(value = "Update review By id", notes = "Update review By id")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Review updated"),
-            @ApiResponse(code = 404, message = "The id does not belong to a review")})
+            @ApiResponse(code = 404, message = "The id does not belong to a review")
+    })
     public ResponseEntity<ReviewResponse> update (
             @PathVariable @NotNull @ApiParam(
                     name = "id",
