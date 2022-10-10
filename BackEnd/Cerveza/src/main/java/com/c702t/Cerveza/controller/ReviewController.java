@@ -22,13 +22,20 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
-    @PostMapping
+    @PostMapping("{businessID}")
     @ApiOperation(value = "Create review", notes = "Create a review")
     @ApiResponses({@ApiResponse(code = 201, message = "Review created")})
     public ResponseEntity<ReviewResponse> create (
             @RequestHeader(name = "Authorization") String token,
+            @PathVariable @NotNull @ApiParam(
+                    name = "businessID",
+                    type = "Long",
+                    value = "ID of the business",
+                    example = "1",
+                    required = true)
+            Long businessID,
             @Valid @RequestBody ReviewRequest reviewRequest) {
-        ReviewResponse reviewResponse = this.reviewService.create(token, reviewRequest);
+        ReviewResponse reviewResponse = this.reviewService.create(token, businessID, reviewRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(reviewResponse);
     }
 
@@ -114,4 +121,25 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
+
+    /* Like System
+    @PostMapping("/{id}/like")
+    @ApiOperation(value = "Like a review", notes = "Like a review")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "OK"),
+            @ApiResponse(code = 404, message = "The id does not belong to a review")
+    })
+    public ResponseEntity<ReviewResponse> likeReview (
+            @RequestHeader(name = "Authorization") String token,
+            @PathVariable @NotNull @ApiParam(
+                    name = "id",
+                    type = "Long",
+                    value = "ID of the review",
+                    example = "1",
+                    required = true)
+            Long reviewID) {
+        ReviewResponse reviewResponse = this.reviewService.likeReview(token, reviewID);
+        return ResponseEntity.status(HttpStatus.CREATED).body(reviewResponse);
+    }
+     */
 }

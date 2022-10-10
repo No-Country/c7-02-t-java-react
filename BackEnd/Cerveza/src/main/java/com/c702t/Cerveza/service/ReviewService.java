@@ -5,11 +5,13 @@ import com.c702t.Cerveza.exception.RuntimeExceptionCustom;
 import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.ReviewEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
+import com.c702t.Cerveza.models.mapper.CommentMapper;
 import com.c702t.Cerveza.models.mapper.ReviewMapper;
 import com.c702t.Cerveza.models.request.ReviewRequest;
 import com.c702t.Cerveza.models.request.ReviewUpdateRequest;
 import com.c702t.Cerveza.models.response.ReviewResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
+import com.c702t.Cerveza.repository.CommentRepository;
 import com.c702t.Cerveza.repository.ReviewRepository;
 import com.c702t.Cerveza.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +29,23 @@ public class ReviewService {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    CommentRepository commentRepository;
+    @Autowired
     ReviewMapper reviewMapper;
+    @Autowired
+    CommentMapper commentMapper;
     @Autowired
     JwtUtils jwtUtils;
 
-    public ReviewResponse create(String token, ReviewRequest reviewRequest) {
+    public ReviewResponse create(String token, Long businessID, ReviewRequest reviewRequest) {
         // TODO update rating of Business
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
-        BusinessEntity businessEntity = businessRepository.getById(reviewRequest.getBusinessId());
+        BusinessEntity businessEntity = businessRepository.getById(businessID);
         if (businessEntity == null) {
             throw new RuntimeExceptionCustom(
-                    "404 :: business with id " + reviewRequest.getBusinessId() + "  not found");
+                    "404 :: business with id " + businessID + "  not found");
         }
 
         ReviewEntity reviewEntity = reviewMapper.toEntity(reviewRequest);
@@ -127,4 +133,16 @@ public class ReviewService {
         }
         reviewRepository.deleteById(id);
     }
+
+    /* Like System
+    public ReviewResponse likeReview(String token, Long reviewID) {
+        token = token.substring(7);
+        String username = jwtUtils.extractUsername(token);
+        UserEntity userEntity = userRepository.findByEmail(username).get();
+        ReviewEntity reviewEntity = reviewRepository.getById(reviewID);
+        if (reviewEntity == null) {
+            throw new RuntimeExceptionCustom("404 :: Review with id " + reviewID + " not found.");
+        }
+    }
+    */
 }
