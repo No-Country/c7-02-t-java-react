@@ -37,7 +37,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
+	    <dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
 		</dependency>
@@ -64,16 +64,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-			<artifactId>spring-security-test</artifactId>
-			<groupId>org.springframework.security</groupId>
-			<scope>test</scope>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
 		</dependency>
+
 		<dependency>
 			<artifactId>h2</artifactId>
 			<groupId>com.h2database</groupId>
@@ -85,6 +88,7 @@
 			<version>5.6.0</version>
 			<type>jar</type>
 		</dependency>
+
 		<!-- swagger-->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -98,6 +102,7 @@
 		</dependency>
 
 		<!-- end swagger-->
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
@@ -130,17 +135,7 @@
 			<version>3.0.0</version>
 			<type>jar</type>
 		</dependency>
-		<dependency>
-			<artifactId>junit-vintage-engine</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>hamcrest-core</artifactId>
-					<groupId>org.hamcrest</groupId>
-				</exclusion>
-			</exclusions>
-			<groupId>org.junit.vintage</groupId>
-			<scope>test</scope>
-		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
