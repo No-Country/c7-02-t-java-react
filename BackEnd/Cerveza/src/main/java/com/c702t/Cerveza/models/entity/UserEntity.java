@@ -59,6 +59,20 @@ public class UserEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<RoleEntity> roleId;
 
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ReviewEntity> reviewEntitySet;
+
+    @OneToMany(mappedBy = "userEntity")
+    Set<CommentEntity> commentEntitySet;
+    /* Like System
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "like__user_review",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "review_id")
+    )
+    private Set<ReviewEntity> reviewEntitySetLikes = new HashSet<>();
+    */
     @CreationTimestamp
     private Timestamp timestamp;
 
