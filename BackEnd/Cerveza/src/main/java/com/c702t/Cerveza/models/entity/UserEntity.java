@@ -19,14 +19,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@SQLDelete(sql = "UPDATE users SET soft_delete = true Where user_id=?")
-@Where(clause = "soft_delete = false")
+@SQLDelete(sql = "UPDATE users SET deleted = true Where id=?")
+@Where(clause = "deleted=false")
 @Table( name= "users")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
     private Long id;
 
     @NonNull

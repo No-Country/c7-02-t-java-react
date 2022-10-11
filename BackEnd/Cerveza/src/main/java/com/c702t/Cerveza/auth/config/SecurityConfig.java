@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -56,17 +57,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().and()
-                .csrf().disable()
-                //Auth
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth/**").permitAll().antMatchers(publicEndpoint).permitAll()
-//                .antMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth", "/auth/recoverPassword").permitAll()
-//                .antMatchers(HttpMethod.POST, "/auth/login").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.PATCH, "/auth/update").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.POST, "/auth/register").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.POST, "/auth/recoverPassword").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.PUT, "/auth/upDatePassword").hasAuthority(RoleEnum.USER.getSimpleRoleName())
+        httpSecurity.csrf().disable()
+                // Auth
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth", "/auth/registerBusiness").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
+
+                // Users
+//                .antMatchers(HttpMethod.POST,"/users").hasAnyAuthority(RoleEnum.ADMIN.getSimpleRoleName(), RoleEnum.USER.getSimpleRoleName())
+                .antMatchers(HttpMethod.GET,"/users").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.PATCH,"/users/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE,"/users/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
+                .antMatchers(HttpMethod.PATCH,"/users/**").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE,"/users/**").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
+
+                //Swagger
+                .antMatchers(publicEndpoint).permitAll()
+
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()

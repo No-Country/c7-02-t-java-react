@@ -70,11 +70,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.13</version>
+			<artifactId>spring-security-test</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<artifactId>h2</artifactId>
 			<groupId>com.h2database</groupId>

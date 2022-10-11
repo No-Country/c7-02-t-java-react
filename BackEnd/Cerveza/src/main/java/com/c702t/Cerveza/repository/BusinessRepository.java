@@ -17,7 +17,6 @@ public interface BusinessRepository extends JpaRepository<BusinessEntity,Long>,
 
     @Override
     List<BusinessEntity> findAll(Specification<BusinessEntity> specification);
-
-    @Override
+   @Override
     Page<BusinessEntity> findAll(@Nullable Specification<BusinessEntity> specification, Pageable var2);
 }

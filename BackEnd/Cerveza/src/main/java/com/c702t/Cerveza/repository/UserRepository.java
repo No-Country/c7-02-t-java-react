@@ -10,7 +10,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query(value = "SELECT * from users WHERE users.email LIKE %:email% AND soft_delete = false", nativeQuery = true)
+    @Query(value = "SELECT * from users WHERE users.email LIKE %:email% AND deleted = false", nativeQuery = true)
     Optional<UserEntity> findByEmail(String email);
+
 
 }
