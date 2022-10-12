@@ -3,6 +3,11 @@ import { IoBeerOutline, IoPersonOutline } from "react-icons/io5";
 import { BsPersonLinesFill } from "react-icons/bs";
 import axios from "axios";
 import { GoAlert } from "react-icons/go";
+import Link from "next/link";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+
 
 function SignUpUser() {
   const [firstName, setFirstName] = React.useState("");
@@ -12,6 +17,7 @@ function SignUpUser() {
   const [photo, setPhoto] = React.useState("image");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState("");
+  const router = useRouter();
 
   console.log(firstName);
   console.log(lastName);
@@ -22,7 +28,10 @@ function SignUpUser() {
   console.log(error);
 
   React.useEffect(() => {
-    if (password.length == confirmPassword.length) {
+    if (
+      password.length >= confirmPassword.length ||
+      password.length < confirmPassword.length
+    ) {
       if (password != confirmPassword) {
         setError("contraseñas no coinciden");
       } else {
@@ -40,6 +49,9 @@ function SignUpUser() {
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
+    if (password != confirmPassword) {
+      setError("contraseñas no coinciden");
+    }
     await axios
       .post(
         baseURL,
@@ -50,12 +62,22 @@ function SignUpUser() {
           password: password,
           photo: photo,
           confirmPassword: password,
-        },
+        }
         // { headers }
       )
       .then((response) => {
         console.log(response.data);
-      });
+        toast.success("Usuario creado !", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        router.push("/landing");
+      })
+      .catch(error => {
+        toast.error("Error de registro, pruebe nuevamente", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        console.log(error.message)
+      })
   };
 
   return (
@@ -69,6 +91,8 @@ function SignUpUser() {
           />
         </div>
         <div className="flex">
+        <ToastContainer autoClose={2000} />
+
           <div className="flex w-full justify-center items-center bg-white space-y-8">
             <div className="w-full px-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">
@@ -195,13 +219,11 @@ function SignUpUser() {
                   <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
                     Términos y Condiciones
                   </span>
-
-                  <a
-                    href="/landing"
-                    className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all"
-                  >
-                    Ya tengo cuenta
-                  </a>
+                  <Link href="/landing">
+                    <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                      Ya tengo cuenta
+                    </span>
+                  </Link>
                 </div>
               </form>
             </div>
