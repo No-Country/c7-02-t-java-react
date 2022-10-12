@@ -1,8 +1,10 @@
 package com.c702t.Cerveza.models.mapper;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.NewsEntity;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
+import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.service.AwsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,9 @@ import java.util.List;
 public class NewsMapper {
 
     @Autowired
-    AwsService awsService;
+    private AwsService awsService;
+    @Autowired
+    private BusinessRepository businessRepository;
 
     public NewsEntity Request2Entity (NewsRequest request) throws IOException {
 
@@ -26,7 +30,7 @@ public class NewsMapper {
                 .name(request.getName())
                 .content(request.getContent())
                 .photo(request.getPhoto())
-                .business(request.getBusiness())
+                .business(businessRepository.getById(request.getBusiness_id()))
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
@@ -42,7 +46,7 @@ public class NewsMapper {
                 .name(entity.getName())
                 .content(entity.getContent())
                 .photo(entity.getPhoto())
-                .business(entity.getBusiness())
+                .business_id(entity.getBusiness().getId())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
                 .timestamp(entity.getTimestamp())
@@ -61,7 +65,7 @@ public class NewsMapper {
                .startDate(request.getStartDate())
                .endDate(request.getEndDate())
                .timestamp(new Timestamp(System.currentTimeMillis()))
-               .sofdelete(request.getSofdelete())
+//               .sofdelete(request.getSofdelete())
                .build();
     }
 

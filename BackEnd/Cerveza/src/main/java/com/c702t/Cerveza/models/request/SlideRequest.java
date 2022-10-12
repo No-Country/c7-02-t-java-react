@@ -16,22 +16,13 @@ import java.sql.Timestamp;
 @ApiModel(description = "Class representing an Slides Request.")
 public class SlideRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "slide_id")
-    private Long id;
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "business_id")
+//    private BusinessEntity business;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "business_id")
-    private BusinessEntity business;
+    private Long business_id;
 
     private String photo;
-
-    @CreationTimestamp
-    private Timestamp timestamp;
-
-    @Column(name = "soft_delete")
-    private Boolean sofdelete = false;
 
 
 }

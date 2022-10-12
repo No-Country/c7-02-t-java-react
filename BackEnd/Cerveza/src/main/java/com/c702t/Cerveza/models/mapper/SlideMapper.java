@@ -3,6 +3,8 @@ package com.c702t.Cerveza.models.mapper;
 import com.c702t.Cerveza.models.entity.SlideEntity;
 import com.c702t.Cerveza.models.request.SlideRequest;
 import com.c702t.Cerveza.models.response.SlideResponse;
+import com.c702t.Cerveza.repository.BusinessRepository;
+import com.c702t.Cerveza.repository.SlideRepository;
 import com.c702t.Cerveza.service.AwsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,16 +18,18 @@ import java.util.List;
 public class SlideMapper {
 
     @Autowired
-    AwsService awsService;
+    private AwsService awsService;
+    @Autowired
+    private BusinessRepository businessRepository;
 
     public SlideEntity Request2Entity (SlideRequest request) throws IOException {
 
         SlideEntity entity = new SlideEntity();
 
         return entity.builder()
-                .business(request.getBusiness())
+                .business(businessRepository.getById(request.getBusiness_id()))
                 .photo(request.getPhoto())
-                .timestamp(request.getTimestamp())
+                .timestamp(new Timestamp(System.currentTimeMillis()))
                 .sofdelete(false)
                 .build();
 
@@ -35,7 +39,7 @@ public class SlideMapper {
 
         return SlideResponse.builder()
                 .id(entity.getId())
-                .business(entity.getBusiness())
+                .business_id(entity.getBusiness().getId())
                 .photo(entity.getPhoto())
                 .timestamp(entity.getTimestamp())
                 .build();
@@ -46,10 +50,10 @@ public class SlideMapper {
 
         return SlideEntity.builder()
                 .id(entity.getId())
-                .business(request.getBusiness())
+//                .business(request.getBusiness())
                 .photo(request.getPhoto())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
-                .sofdelete(request.getSofdelete())
+//                .sofdelete(request.getSofdelete())
                 .build();
     }
 

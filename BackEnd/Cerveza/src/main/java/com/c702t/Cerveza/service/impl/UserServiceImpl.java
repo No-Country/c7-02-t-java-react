@@ -76,8 +76,6 @@ public class UserServiceImpl implements UserService {
 
         UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 
-//        System.out.println("present : " + userRepository.findByEmail(request.getEmail()).isPresent());
-
         if (!userRepository.findByEmail(request.getEmail()).isPresent())
             throw new Exception("there is no user with that email");
 

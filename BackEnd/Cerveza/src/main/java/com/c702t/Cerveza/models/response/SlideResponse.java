@@ -13,7 +13,8 @@ import java.sql.Timestamp;
 public class SlideResponse {
 
     private Long id;
-    private BusinessEntity business;
+//    private BusinessEntity business;
+    private Long business_id;
     private String photo;
     private Timestamp timestamp;
 

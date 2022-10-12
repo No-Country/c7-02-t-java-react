@@ -1,6 +1,7 @@
 package com.c702t.Cerveza.service.impl;
 
 import com.amazonaws.services.apigateway.model.NotFoundException;
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.NewsEntity;
 import com.c702t.Cerveza.models.mapper.NewsMapper;
 import com.c702t.Cerveza.models.request.NewsRequest;

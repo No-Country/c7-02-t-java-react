@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.service;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;

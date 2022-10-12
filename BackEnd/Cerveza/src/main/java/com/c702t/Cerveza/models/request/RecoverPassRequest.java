@@ -24,10 +24,4 @@ public class RecoverPassRequest {
     @ApiModelProperty(notes = "Email of the User.", example = "am@mail.com", required = true)
     private String email;
 
-    @NotNull(message = "the newPassword can't be null")
-    @NotEmpty(message = "the newPassword can't be empty")
-    @NotBlank(message = "the newPassword can't  be blank")
-    @ApiModelProperty(notes = "newPassword of the User.", example = "1234", required = true)
-    private String newPassword;
-
 }
