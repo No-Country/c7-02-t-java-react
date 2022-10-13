@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.controller;
 
+import com.c702t.Cerveza.models.entity.CommentEntity;
 import com.c702t.Cerveza.models.request.CommentRequest;
 import com.c702t.Cerveza.models.response.CommentResponse;
 import com.c702t.Cerveza.service.CommentService;
@@ -38,6 +39,7 @@ public class CommentController {
                     required = true)
             Long reviewID,
             @Valid @RequestBody CommentRequest commentRequest) {
+        //return ResponseEntity.status(HttpStatus.CREATED).body(commentService.create(token, reviewID, commentRequest));
         CommentResponse commentResponse = commentService.create(token, reviewID, commentRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(commentResponse);
     }

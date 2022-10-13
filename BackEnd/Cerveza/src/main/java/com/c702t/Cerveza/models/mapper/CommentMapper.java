@@ -12,7 +12,7 @@ import java.util.Set;
 public class CommentMapper {
     public CommentResponse toResponse(CommentEntity entity) {
         CommentResponse commentResponse = CommentResponse.builder()
-                .userName(entity.getUserEntity().getFirstName() + entity.getUserEntity().getLastName())
+                .userName(entity.getUserEntity().getFirstName() + " " + entity.getUserEntity().getLastName())
                 .text(entity.getText())
                 .timestamp(entity.getTimestamp())
                 .build();

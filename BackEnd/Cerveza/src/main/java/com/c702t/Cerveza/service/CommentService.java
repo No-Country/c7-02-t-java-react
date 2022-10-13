@@ -15,6 +15,7 @@ import com.c702t.Cerveza.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -46,7 +47,10 @@ public class CommentService {
         commentEntity.setUserEntity(userEntity);
         commentEntity.setReviewEntity(reviewEntity);
         commentEntity.setText(commentRequest.getText());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        commentEntity.setTimestamp(timestamp);
         CommentEntity commentEntitySaved = commentRepository.save(commentEntity);
+        //return commentEntitySaved;
         return commentMapper.toResponse(commentEntitySaved);
     }
 

@@ -1,16 +1,16 @@
 package com.c702t.Cerveza.models.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CommentResponse {
-    String userName;
-    String text;
-    Timestamp timestamp;
+    private String userName;
+    private String text;
+    private Timestamp timestamp;
 }
