@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.entity;
 
+import com.c702t.Cerveza.auth.utility.RoleEnum;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -64,13 +65,5 @@ public class UserEntity {
 
     @Column(name = "soft_delete")
     private Boolean sofdelete = Boolean.FALSE;
-
-//    public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.password = password;
-//        this.roleId = roles;
-//    }
 
 }

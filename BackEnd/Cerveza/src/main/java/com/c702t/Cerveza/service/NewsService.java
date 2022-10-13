@@ -11,10 +11,10 @@ import java.util.Optional;
 
 public interface NewsService {
 
-    NewsResponse create (NewsRequest newsRequest) throws IOException;
+    NewsResponse create (NewsRequest newsRequest, Long id) throws IOException;
     void delete (Long id);
     NewsResponse update (Long id, NewsRequest newsRequest) throws IOException;
     NewsResponse getById (Long id);
-    PaginationResponse getPage(Optional<Integer> page, Optional<Integer> size);
+    PaginationResponse getPage(Optional<Integer> page, Optional<Integer> size, Long id);
 
 }

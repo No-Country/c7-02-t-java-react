@@ -41,11 +41,11 @@ public class NewsRequest {
 
     private Long business_id;
 
-    @ApiModelProperty(notes = "Start date of the User.", example = "2022-10-01", required = true)
+    @ApiModelProperty(notes = "Start date of the User.", example = "2022-10-10", required = true)
     @Column(name = "start_date")
     private LocalDate startDate;
 
-    @ApiModelProperty(notes = "First name of the User.", example = "2022-10-05", required = true)
+    @ApiModelProperty(notes = "First name of the User.", example = "2022-10-17", required = true)
     @Column(name = "end_date")
     private LocalDate endDate;
 

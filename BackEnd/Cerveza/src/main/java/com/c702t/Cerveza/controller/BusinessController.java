@@ -1,7 +1,9 @@
 package com.c702t.Cerveza.controller;
 
 
+import com.c702t.Cerveza.auth.service.JwtUtils;
 import com.c702t.Cerveza.models.entity.BusinessEntity;
+import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.request.BusinessRequest;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.request.SlideRequest;
@@ -40,6 +42,8 @@ public class BusinessController {
     private NewsService newsService;
     @Autowired
     private SlideService slideService;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @PostMapping
     @ApiOperation(value = "Create business", notes = "Allows Admin to insert business")
@@ -124,17 +128,15 @@ public class BusinessController {
     @PostMapping("news/{id}")
     @ApiOperation(value = "Create News by Business", notes = "Allow busines to insert news")
     @ApiResponses({@ApiResponse(code = 201, message = "News Created!")})
-    public ResponseEntity<NewsResponse> addNews (@PathVariable @Valid @NotNull @NotBlank @ApiParam(
-                                                            name = "id",
-                                                            type = "Long",
-                                                            value = "id of the business requested",
-                                                            example = "1",
-                                                            required = true) Long id,
-                                                 @Valid @RequestBody NewsRequest request) throws IOException {
+    public ResponseEntity<NewsResponse> addNews (@Valid @RequestBody NewsRequest request,
+                                                 @PathVariable @Valid @NotNull @NotBlank @ApiParam(
+                                                         name = "id",
+                                                         type = "Long",
+                                                         value = "ID of the Business requested",
+                                                         example = "1",
+                                                         required = true) Long id) throws IOException {
 
-        BusinessEntity entityBusiness = businessRepository.getById(id);
-        request.setBusiness_id(id);
-        NewsResponse response = newsService.create(request);
+        NewsResponse response = newsService.create(request, id);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -143,13 +145,42 @@ public class BusinessController {
     @ApiOperation(value = "Get All News by Page" , notes = "Returns All News ")
     @ApiResponses({ @ApiResponse(code = 200, message = "Return All news created"),
                     @ApiResponse(code = 400, message = "Bad Request")})
-    public ResponseEntity<PaginationResponse> getNewsPage (@RequestParam(value = "page", required = false) Optional<Integer> page,
-                                                           @RequestParam(value = "size", required = false) Optional<Integer> size) {
+    public ResponseEntity<NewsResponse> getAllNews (@RequestParam(value = "page", required = false) Optional<Integer> page
+                                                           ,@RequestParam(value = "size", required = false) Optional<Integer> size
+                                                           ,@RequestParam(value = "id", required = false) Long id
+//                                                           ,@PathVariable @Valid @NotNull @NotBlank  @ApiParam(
+//                                                                   name = "id",
+//                                                                   type = "Long",
+//                                                                   value = "ID of the business requested",
+//                                                                   example = "1",
+//                                                                   required = true) Long id
+    ){
 
-        PaginationResponse responses = newsService.getPage(page, size);
+        NewsResponse responses = newsService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
+
+    }
+    /*
+    @GetMapping("pageNews/")
+    @ApiOperation(value = "Get All News by Page" , notes = "Returns All News ")
+    @ApiResponses({ @ApiResponse(code = 200, message = "Return All news created"),
+                    @ApiResponse(code = 400, message = "Bad Request")})
+    public ResponseEntity<PaginationResponse> getNewsPage (@RequestParam(value = "page", required = false) Optional<Integer> page
+                                                           ,@RequestParam(value = "size", required = false) Optional<Integer> size
+                                                           ,@RequestParam(value = "id", required = false) Long id
+//                                                           ,@PathVariable @Valid @NotNull @NotBlank  @ApiParam(
+//                                                                   name = "id",
+//                                                                   type = "Long",
+//                                                                   value = "ID of the business requested",
+//                                                                   example = "1",
+//                                                                   required = true) Long id
+    ){
+
+        PaginationResponse responses = newsService.getPage(page, size, id);
         return new ResponseEntity<>(responses, HttpStatus.OK);
 
     }
+     */
 
     @PostMapping("slides/{id}")
     @ApiOperation(value = "Create Slides by Business", notes = "Allow busines to insert slides")

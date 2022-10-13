@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService {
             if (request.getPassword() != null && !request.getPassword().isEmpty() && !request.getPassword().isBlank()) {
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
             }
-            if (request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()) {
-                user.setPhoto(request.getPhoto());
-            }
+//            if (request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()) {
+//                user.setPhoto(request.getPhoto());
+//            }
 
             userRepository.save(user);
             return userMapper.userToUserDetail(user);

@@ -70,6 +70,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/auth/recoverPassword").hasAuthority(RoleEnum.USER.getSimpleRoleName())
 //                .antMatchers(HttpMethod.PUT, "/auth/upDatePassword").hasAuthority(RoleEnum.USER.getSimpleRoleName())
 
+                // Business
+                .antMatchers(HttpMethod.POST, "/business").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE, "/business").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.PATCH, "/business/update").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/business/register").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/business/news").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/business/slide").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+
+
                 // Users
 //                .antMatchers(HttpMethod.POST,"/users").hasAnyAuthority(RoleEnum.ADMIN.getSimpleRoleName(), RoleEnum.USER.getSimpleRoleName())
 //                .antMatchers(HttpMethod.GET,"/users").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())

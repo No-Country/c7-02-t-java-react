@@ -13,7 +13,6 @@ public interface AuthService {
     UserResponse register(UserRequest userRequest) throws UsernameNotFoundException, IOException;
     AuthResponse login(AuthRequest authRequest) throws Exception;
     UserDetailsResponse getPersonalInformation(String token) throws IOException;
-//    void registerAdmin(UserRequest userRequest) throws IOException;
-    UserResponse registerBusiness(UserRequest userRequest) throws IOException;
+
 
 }

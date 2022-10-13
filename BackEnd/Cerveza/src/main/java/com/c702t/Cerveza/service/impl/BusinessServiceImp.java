@@ -47,6 +47,7 @@ public class BusinessServiceImp implements BusinessService {
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
+
         BusinessEntity entity = this.businessMaper.Request2Entity(request, userEntity.getId());
         BusinessEntity entitySave = this.businessRepository.save(entity);
         BusinessResponse responseCreated = this.businessMaper.Entity2Response(entitySave);
