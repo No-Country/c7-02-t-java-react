@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.mapper;
 
+import com.c702t.Cerveza.auth.utility.RoleEnum;
 import com.c702t.Cerveza.models.entity.RoleEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.request.UserRequest;
@@ -30,7 +31,11 @@ public class UserMapper {
                 .roleId(roles)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .sofdelete(Boolean.FALSE)
+<<<<<<< HEAD
+//                .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
+=======
                 .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
+>>>>>>> e4f04e62f93c4fa979e6474861ef713f0bae4e40
                 .build();
     }
 

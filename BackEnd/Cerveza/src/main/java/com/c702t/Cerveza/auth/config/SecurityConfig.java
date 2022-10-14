@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
+
         httpSecurity.cors().and()
                 .csrf().disable()
 
@@ -70,13 +71,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST, "/auth/recoverPassword").hasAuthority(RoleEnum.USER.getSimpleRoleName())
 //                .antMatchers(HttpMethod.PUT, "/auth/upDatePassword").hasAuthority(RoleEnum.USER.getSimpleRoleName())
 
-                // Users
-//                .antMatchers(HttpMethod.POST,"/users").hasAnyAuthority(RoleEnum.ADMIN.getSimpleRoleName(), RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.GET,"/users").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
-//                .antMatchers(HttpMethod.PATCH,"/users/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.DELETE,"/users/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.PATCH,"/users/**").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
-//                .antMatchers(HttpMethod.DELETE,"/users/**").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
+                // Business
+                .antMatchers(HttpMethod.POST, "/business").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.DELETE, "/business").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.PATCH, "/business/update").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/business/register").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/business/news").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
+                .antMatchers(HttpMethod.POST, "/business/slide").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
 
                 //Swagger
                 .antMatchers(publicEndpoint).permitAll()

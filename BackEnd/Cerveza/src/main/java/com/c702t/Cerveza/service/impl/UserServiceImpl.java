@@ -55,9 +55,9 @@ public class UserServiceImpl implements UserService {
             if (request.getPassword() != null && !request.getPassword().isEmpty() && !request.getPassword().isBlank()) {
                 user.setPassword(passwordEncoder.encode(request.getPassword()));
             }
-            if (request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()) {
-                user.setPhoto(request.getPhoto());
-            }
+//            if (request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()) {
+//                user.setPhoto(request.getPhoto());
+//            }
 
             userRepository.save(user);
             return userMapper.userToUserDetail(user);
@@ -75,8 +75,6 @@ public class UserServiceImpl implements UserService {
             throw new Exception("the email is null");
 
         UserEntity user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-
-//        System.out.println("present : " + userRepository.findByEmail(request.getEmail()).isPresent());
 
         if (!userRepository.findByEmail(request.getEmail()).isPresent())
             throw new Exception("there is no user with that email");

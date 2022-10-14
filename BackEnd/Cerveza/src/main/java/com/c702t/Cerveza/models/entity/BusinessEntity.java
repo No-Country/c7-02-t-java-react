@@ -93,5 +93,6 @@ public class BusinessEntity {
    private Double rating;
 
    private Integer count;
+
 }
 

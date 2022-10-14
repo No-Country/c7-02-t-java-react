@@ -1,9 +1,20 @@
 package com.c702t.Cerveza.controller;
 
 
+import com.c702t.Cerveza.auth.service.JwtUtils;
+import com.c702t.Cerveza.models.entity.BusinessEntity;
+import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.request.BusinessRequest;
+import com.c702t.Cerveza.models.request.NewsRequest;
+import com.c702t.Cerveza.models.request.SlideRequest;
 import com.c702t.Cerveza.models.response.BusinessResponse;
+import com.c702t.Cerveza.models.response.NewsResponse;
+import com.c702t.Cerveza.models.response.PaginationResponse;
+import com.c702t.Cerveza.models.response.SlideResponse;
+import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.service.BusinessService;
+import com.c702t.Cerveza.service.NewsService;
+import com.c702t.Cerveza.service.SlideService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +36,10 @@ public class BusinessController {
 
     @Autowired
     private BusinessService businessService;
-
+    @Autowired
+    private BusinessRepository businessRepository;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @PostMapping
     @ApiOperation(value = "Create business", notes = "Allows Admin to insert business")
@@ -84,7 +98,7 @@ public class BusinessController {
     public ResponseEntity<BusinessResponse> getById (@PathVariable @Valid @NotNull @NotBlank @ApiParam(
                                                         name = "id",
                                                         type = "Long",
-                                                        value = "ID of the news requested",
+                                                        value = "ID of the Business requested",
                                                         example = "1",
                                                         required = true) Long id) throws IOException {
 

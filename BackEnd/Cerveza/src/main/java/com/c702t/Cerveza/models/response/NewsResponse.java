@@ -17,7 +17,12 @@ public class NewsResponse {
     private String name;
     private String content;
     private String photo;
+<<<<<<< HEAD
+//    private BusinessEntity business;
+    private Long business_id;
+=======
     private BusinessEntity business;
+>>>>>>> e4f04e62f93c4fa979e6474861ef713f0bae4e40
     private LocalDate startDate;
     private LocalDate endDate;
     private Timestamp timestamp;

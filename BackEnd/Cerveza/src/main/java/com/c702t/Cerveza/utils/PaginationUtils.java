@@ -39,6 +39,7 @@ public class PaginationUtils {
             this.page = PAGE_NUMBER+1;
         }
         this.pageObject = repository.findAll(getPageWithSizeElements);
+
     }
 
     public Page<?> getPage() {
