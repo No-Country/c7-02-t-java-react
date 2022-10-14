@@ -37,9 +37,11 @@ public class NewsRequest {
     @ApiModelProperty(notes = "Photo of the User.")
     private String photo;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ApiModelProperty(notes = "id of the business corresponding to the news to publish", example = " ")
+    private Long idBusiness;
+    /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "business_id")
-    private BusinessEntity business;
+    private BusinessEntity business;*/
 
     @ApiModelProperty(notes = "Start date of the User.", example = "2022-10-01", required = true)
     @Column(name = "start_date")
@@ -49,10 +51,7 @@ public class NewsRequest {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 
-    @Column(name = "soft_delete")
-    private Boolean sofdelete = Boolean.FALSE;
+
 
 }

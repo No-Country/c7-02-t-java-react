@@ -95,15 +95,32 @@ public class BusinessController {
     }
 
     @GetMapping
-    public ResponseEntity <?> getByFilters (
-            @RequestParam (required = false) String city,
-            @RequestParam (required = false) String state,
-            @RequestParam (required = false) String country,
-            @RequestParam (required = false, defaultValue = "ASC") String order,
-            @RequestParam(value = "page", required = false) Optional<Integer> page,
-            @RequestParam(value = "size", required = false) Optional<Integer> size) {
+    public ResponseEntity <?> getByFilters (@RequestParam (required = false) @ApiParam(name = "city",
+                                            type = "String",
+                                            value = "name of the City",
+                                            example = "Cordoba") String city,
+                                            @RequestParam (required = false)@ApiParam(name = "state",
+                                            type = "String",
+                                            value = "name of the State",
+                                            example = "Cordoba") String state,
+                                            @RequestParam (required = false)@ApiParam(name = "country",
+                                                                            type = "String",
+                                                                            value = "name of the Country",
+                                                                            example = "Argentina") String country,
+                                            @RequestParam (required = false, defaultValue = "ASC") String order,
+                                            @RequestParam(value = "page", required = false)@ApiParam(
+                                                                             name = "page",
+                                                                             type = "Integer",
+                                                                             value = "page number I want to see",
+                                                                             example = "1")Optional<Integer> page,
+                                            @RequestParam(value = "size", required = false)@ApiParam(
+                                                                              name = "size",
+                                                                              type = "Integer",
+                                                                              value = "number of items per page",
+                                                                              example = "3") Optional<Integer> size) {
 
-        return new ResponseEntity<>(businessService.getByFilters(city, state, country, order, page, size), HttpStatus.OK);
+        return new ResponseEntity<>(businessService.getByFilters(city, state, country, order, page, size),
+                                    HttpStatus.OK);
 
     }
 

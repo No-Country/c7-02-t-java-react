@@ -14,13 +14,13 @@ import com.c702t.Cerveza.repository.UserRepository;
 import com.c702t.Cerveza.repository.specification.BusinessSpecification;
 import com.c702t.Cerveza.service.BusinessService;
 import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
-import com.c702t.Cerveza.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,23 +110,50 @@ public class BusinessServiceImp implements BusinessService {
     @Override
     public PaginationResponse getByFilters(String city, String state, String country, String order, Optional<Integer> pageNumber, Optional<Integer> size) {
 
-//        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
-//
-//
-//        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
-//
-//        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
-//                "/news/page=%d&size=%d");
-//        Page page = pagination.getPage();
-//
-//        List<BusinessResponse>responses= page.getContent();
-//        return PaginationResponse.builder()
-//                .entities(responses)
-//                .nextPageURI(pagination.getNext())
-//                .prevPageURI(pagination.getPrevious())
-//                .build();
-//
-            return null;
+        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
+
+
+        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
+
+        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
+                "/business/page=%d&size=%d");
+        Page page = pagination.getPage();
+
+
+
+
+         List<BusinessResponse>responses = page.getContent();
+
+
+
+
+      /*  List<BusinessResponse> responseList = new ArrayList<>();
+
+        for (BusinessResponse businessResponse:responses) {
+            BusinessResponse response = new BusinessResponse();
+            response= BusinessResponse.builder().name(businessResponse.getName())
+                    .image(businessResponse.getImage())
+                    .address(businessResponse.getAddress())
+                    .city(businessResponse.getCity())
+                    .state(businessResponse.getState())
+                    .country(businessResponse.getCountry())
+                    .phone(businessResponse.getPhone())
+                    .email(businessResponse.getEmail())
+                    .aboutUsText(businessResponse.getAboutUsText())
+                    .urlFacebook(businessResponse.getUrlFacebook())
+                    .urlInstagram(businessResponse.getUrlInstagram())
+                    .rating(businessResponse.getRating())
+                    .build();
+            responseList.add(response);
+        }
+         responses= responseList;*/
+        return PaginationResponse.builder()
+                .entities(responses)
+                .nextPageURI(pagination.getNext())
+                .prevPageURI(pagination.getPrevious())
+                .build();
+
+         //   return null;
     }
 
     @Override

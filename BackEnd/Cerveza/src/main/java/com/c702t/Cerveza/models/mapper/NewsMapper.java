@@ -3,6 +3,7 @@ package com.c702t.Cerveza.models.mapper;
 import com.c702t.Cerveza.models.entity.NewsEntity;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
+import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.service.AwsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ public class NewsMapper {
 
     @Autowired
     AwsService awsService;
+    @Autowired
+    BusinessRepository businessRepository;
 
     public NewsEntity Request2Entity (NewsRequest request) throws IOException {
 
@@ -26,7 +29,9 @@ public class NewsMapper {
                 .name(request.getName())
                 .content(request.getContent())
                 .photo(request.getPhoto())
-                .business(request.getBusiness())
+                .business(businessRepository.findById(request.getIdBusiness()).get())
+
+               // .business(request.getBusiness())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
@@ -61,8 +66,10 @@ public class NewsMapper {
                .startDate(request.getStartDate())
                .endDate(request.getEndDate())
                .timestamp(new Timestamp(System.currentTimeMillis()))
-               .sofdelete(request.getSofdelete())
+              // .sofdelete(request.getSofdelete())
                .build();
+
+
     }
 
     public List<NewsResponse> EntityList2ResponsePage(List<NewsEntity> newsList){
