@@ -1,6 +1,5 @@
 package com.c702t.Cerveza.service;
 
-import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
@@ -16,8 +15,7 @@ public interface NewsService {
     NewsResponse update (Long id, NewsRequest newsRequest) throws IOException;
     NewsResponse getById (Long id);
     public PaginationResponse getPageNewsByBusiness(Optional<Integer> pageNumber, Optional<Integer> size);
-//    PaginationResponse getPage(Optional<Integer> page, Optional<Integer> size, Long id);
-
     public List<NewsResponse> getAllNewsByBusiness(Long id);
+
 
 }

@@ -60,10 +60,35 @@ public class UserEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<RoleEntity> roleId;
 
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ReviewEntity> reviewEntitySet;
+
+    @OneToMany(mappedBy = "userEntity")
+    Set<CommentEntity> commentEntitySet;
+    /* Like System
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "like__user_review",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "review_id")
+    )
+    private Set<ReviewEntity> reviewEntitySetLikes = new HashSet<>();
+    */
     @CreationTimestamp
     private Timestamp timestamp;
 
     @Column(name = "soft_delete")
     private Boolean sofdelete = Boolean.FALSE;
+<<<<<<< HEAD
+=======
+
+//    public UserEntity(String firstName, String lastName, String email, String password, Set<RoleEntity> roles) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.roleId = roles;
+//    }
+>>>>>>> e4f04e62f93c4fa979e6474861ef713f0bae4e40
 
 }

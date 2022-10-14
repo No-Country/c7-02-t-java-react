@@ -4,8 +4,6 @@ import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.request.SlideRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
-import com.c702t.Cerveza.models.response.PaginationResponse;
-import com.c702t.Cerveza.models.response.SlideResponse;
 import com.c702t.Cerveza.service.NewsService;
 import com.c702t.Cerveza.service.SlideService;
 import io.swagger.annotations.*;
@@ -18,6 +16,7 @@ import javax.validation.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Optional;
 

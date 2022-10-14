@@ -31,7 +31,11 @@ public class UserMapper {
                 .roleId(roles)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .sofdelete(Boolean.FALSE)
+<<<<<<< HEAD
 //                .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
+=======
+                .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
+>>>>>>> e4f04e62f93c4fa979e6474861ef713f0bae4e40
                 .build();
     }
 

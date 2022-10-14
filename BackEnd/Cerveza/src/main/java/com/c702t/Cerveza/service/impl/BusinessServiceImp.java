@@ -126,6 +126,23 @@ public class BusinessServiceImp implements BusinessService {
                 .prevPageURI(pagination.getPrevious())
                 .build();
 
+//        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
+//
+//
+//        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
+//
+//        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
+//                "/news/page=%d&size=%d");
+//        Page page = pagination.getPage();
+//
+//        List<BusinessResponse>responses= page.getContent();
+//        return PaginationResponse.builder()
+//                .entities(responses)
+//                .nextPageURI(pagination.getNext())
+//                .prevPageURI(pagination.getPrevious())
+//                .build();
+//
+//            return null;
     }
 
     @Override

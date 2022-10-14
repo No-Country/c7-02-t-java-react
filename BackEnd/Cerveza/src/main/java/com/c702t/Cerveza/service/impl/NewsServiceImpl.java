@@ -4,24 +4,17 @@ import com.amazonaws.services.apigateway.model.NotFoundException;
 import com.c702t.Cerveza.auth.service.JwtUtils;
 import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.NewsEntity;
-import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.mapper.NewsMapper;
 import com.c702t.Cerveza.models.request.NewsRequest;
-import com.c702t.Cerveza.models.request.specification.BusinessFiltersRequest;
-import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.models.response.NewsResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.NewsRepository;
 import com.c702t.Cerveza.repository.UserRepository;
 import com.c702t.Cerveza.service.NewsService;
-import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
 import com.c702t.Cerveza.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -43,19 +36,10 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private BusinessRepository businessRepository;
 
-
-
     @Override
     @Transactional
     public NewsResponse create(NewsRequest request, Long id) throws IOException {
 
-      /*
-        businessToken = businessToken.substring(7);
-        String emailBusiness = jwtUtils.extractUsername(businessToken);
-        System.out.println("\nemailBusiness : " + emailBusiness);
-        UserEntity user = userRepository.findByEmail(emailBusiness).orElse(null);
-        System.out.println("user : " + user.getEmail());
-*/
         BusinessEntity business = businessRepository.getById(id);
         request.setBusiness_id(business.getId());
 
@@ -68,6 +52,7 @@ public class NewsServiceImpl implements NewsService {
         }
 
         throw new NotFoundException("the TOKEN does not correspond to that business");
+
 
     }
 
@@ -143,13 +128,12 @@ public class NewsServiceImpl implements NewsService {
 
         List<NewsEntity> news = newsRepository.findByBusiness_id(id);
 
-        if (news.isEmpty()){
+        if (news.isEmpty()) {
             throw new NotFoundException("no news for that business");
         }
 
-        List <NewsResponse> responses = newsMapper.EntityList2ResponsePage(news);
+        List<NewsResponse> responses = newsMapper.EntityList2ResponsePage(news);
 
         return responses;
     }
-
 }

@@ -6,13 +6,13 @@ import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.UserRepository;
+
 import com.c702t.Cerveza.service.AwsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class NewsMapper {
                 .name(request.getName())
                 .content(request.getContent())
                 .photo(request.getPhoto())
-                .business(businessRepository.getById(request.getBusiness_id()))
+                .business(request.getBusiness())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
@@ -53,7 +53,7 @@ public class NewsMapper {
                 .name(entity.getName())
                 .content(entity.getContent())
                 .photo(entity.getPhoto())
-                .business_id(entity.getBusiness().getId())
+                .business(entity.getBusiness())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
                 .timestamp(entity.getTimestamp())

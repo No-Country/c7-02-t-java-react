@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -83,6 +84,9 @@ public class BusinessEntity {
    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity users;
+
+    @OneToMany(mappedBy = "businessEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ReviewEntity> reviewEntitySet;
 
    private Double value;
 

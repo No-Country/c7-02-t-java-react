@@ -8,14 +8,26 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ong" />
+<<<<<<< HEAD:.idea/compiler.xml
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ong" target="11" />
+=======
+        <module name="Cerveza" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Cerveza" target="11" />
+>>>>>>> e4f04e62f93c4fa979e6474861ef713f0bae4e40:BackEnd/Cerveza/.idea/compiler.xml
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+<<<<<<< HEAD:.idea/compiler.xml
+=======
+      <module name="Cerveza" options="-parameters" />
+>>>>>>> e4f04e62f93c4fa979e6474861ef713f0bae4e40:BackEnd/Cerveza/.idea/compiler.xml
       <module name="ong" options="-parameters" />
     </option>
   </component>

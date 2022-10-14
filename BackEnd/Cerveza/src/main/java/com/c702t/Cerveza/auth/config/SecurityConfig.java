@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
+
         httpSecurity.cors().and()
                 .csrf().disable()
 
@@ -77,15 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/business/register").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
                 .antMatchers(HttpMethod.POST, "/business/news").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
                 .antMatchers(HttpMethod.POST, "/business/slide").hasAuthority(RoleEnum.BUSINESS.getSimpleRoleName())
-
-
-                // Users
-//                .antMatchers(HttpMethod.POST,"/users").hasAnyAuthority(RoleEnum.ADMIN.getSimpleRoleName(), RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.GET,"/users").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
-//                .antMatchers(HttpMethod.PATCH,"/users/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.DELETE,"/users/me").hasAuthority(RoleEnum.USER.getSimpleRoleName())
-//                .antMatchers(HttpMethod.PATCH,"/users/**").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
-//                .antMatchers(HttpMethod.DELETE,"/users/**").hasAuthority(RoleEnum.ADMIN.getSimpleRoleName())
 
                 //Swagger
                 .antMatchers(publicEndpoint).permitAll()
