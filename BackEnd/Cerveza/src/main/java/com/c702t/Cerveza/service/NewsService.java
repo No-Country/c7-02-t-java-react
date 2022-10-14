@@ -15,6 +15,9 @@ public interface NewsService {
     void delete (Long id);
     NewsResponse update (Long id, NewsRequest newsRequest) throws IOException;
     NewsResponse getById (Long id);
-    PaginationResponse getPage(Optional<Integer> page, Optional<Integer> size, Long id);
+    public PaginationResponse getPageNewsByBusiness(Optional<Integer> pageNumber, Optional<Integer> size);
+//    PaginationResponse getPage(Optional<Integer> page, Optional<Integer> size, Long id);
+
+    public List<NewsResponse> getAllNewsByBusiness(Long id);
 
 }

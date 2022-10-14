@@ -1,14 +1,14 @@
 package com.c702t.Cerveza.controller;
 
+import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.request.SlideRequest;
 import com.c702t.Cerveza.models.response.SlideResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
+import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.SlideRepository;
+import com.c702t.Cerveza.service.NewsService;
 import com.c702t.Cerveza.service.SlideService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,53 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @Api(description ="Slides CRUD" , tags = "Slides")
 public class SlideController {
+//
+//    @Autowired
+//    private NewsService newsService;
+//    @Autowired
+//    private SlideService slideService;
+//    @Autowired
+//    private BusinessRepository businessRepository;
+//
+//    @PostMapping("slides/{id}")
+//    @ApiOperation(value = "Create Slides by Business", notes = "Allow busines to insert slides")
+//    @ApiResponses({@ApiResponse(code = 201, message = "Slides Created!")})
+//    public ResponseEntity<SlideResponse> addSlides (@PathVariable @Valid @NotNull @NotBlank @ApiParam(
+//            name = "id",
+//            type = "Long",
+//            value = "id of the business requested",
+//            example = "1",
+//            required = true) Long id,
+//                                                    @Valid @RequestBody SlideRequest request) throws IOException {
+//
+//        BusinessEntity entityBusiness = businessRepository.getById(id);
+//        request.setBusiness_id(id);
+//        SlideResponse response = slideService.create(request);
+//
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//    }
+//
+//    @GetMapping("pageSlides/")
+//    @ApiOperation(value = "Get All Slide by Page" , notes = "Returns All Slide ")
+//    @ApiResponses({ @ApiResponse(code = 200, message = "Return All Slide created"),
+//            @ApiResponse(code = 400, message = "Bad Request")})
+//    public ResponseEntity<PaginationResponse> getSlidesPage (@RequestParam(value = "page", required = false) Optional<Integer> page,
+//                                                             @RequestParam(value = "size", required = false) Optional<Integer> size) {
+//
+//        PaginationResponse responses = slideService.getPage(page, size);
+//        return new ResponseEntity<>(responses, HttpStatus.OK);
+//
+//    }
+//
+//
+}
+
+
+
+
+
+
+
 //
 //    @Autowired
 //    private SlideService slideService;
@@ -86,4 +133,4 @@ public class SlideController {
 //    }
 
 
-}
+//}

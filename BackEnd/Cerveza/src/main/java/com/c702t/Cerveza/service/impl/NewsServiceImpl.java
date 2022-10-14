@@ -7,15 +7,21 @@ import com.c702t.Cerveza.models.entity.NewsEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.mapper.NewsMapper;
 import com.c702t.Cerveza.models.request.NewsRequest;
+import com.c702t.Cerveza.models.request.specification.BusinessFiltersRequest;
+import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.models.response.NewsResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.NewsRepository;
 import com.c702t.Cerveza.repository.UserRepository;
 import com.c702t.Cerveza.service.NewsService;
+import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
 import com.c702t.Cerveza.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -111,21 +117,39 @@ public class NewsServiceImpl implements NewsService {
         return response;
     }
 
+    // ----------------      PAGINATION      --------------------
+
     @Override
-    public PaginationResponse getPage(Optional<Integer> pageNumber, Optional<Integer> size, Long id) {
+    public PaginationResponse getPageNewsByBusiness(Optional<Integer> pageNumber, Optional<Integer> size) {
 
-        PaginationUtils pagination = new PaginationUtils(newsRepository, pageNumber, size,"/news/page=%d&size=%d", id);
+        PaginationUtils pagination = new PaginationUtils(newsRepository, pageNumber, size,"/news/pageNews/page=%d&size=%d");
+
         Page page = pagination.getPage();
-
-
         List<NewsEntity> news = page.getContent();
-//        List <NewsResponse> responses = newsMapper.EntityList2ResponsePage(news);
+        List <NewsResponse> responses =  newsMapper.EntityList2ResponsePage(news);
 
         return PaginationResponse.builder()
-                .entities(news)
+                .entities(responses)
                 .nextPageURI(pagination.getNext())
                 .prevPageURI(pagination.getPrevious())
                 .build();
+
+    }
+
+
+    @Override
+    @Transactional
+    public List<NewsResponse> getAllNewsByBusiness(Long id) {
+
+        List<NewsEntity> news = newsRepository.findByBusiness_id(id);
+
+        if (news.isEmpty()){
+            throw new NotFoundException("no news for that business");
+        }
+
+        List <NewsResponse> responses = newsMapper.EntityList2ResponsePage(news);
+
+        return responses;
     }
 
 }

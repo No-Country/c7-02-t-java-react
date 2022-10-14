@@ -17,7 +17,7 @@ public class PaginationUtils {
     private String path;
     private Page<?> pageObject;
 
-    public PaginationUtils(JpaRepository repository, Optional<Integer> page, Optional<Integer> size, String path, Long id) {
+    public PaginationUtils(JpaRepository repository, Optional<Integer> page, Optional<Integer> size, String path) {
         Pageable getPageWithSizeElements = PageRequest.of(PAGE_NUMBER, PAGE_SIZE);
         this.path = path;
         if (page.isPresent() && size.isPresent()) {
