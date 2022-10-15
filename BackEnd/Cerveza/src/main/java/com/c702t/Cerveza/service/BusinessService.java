@@ -18,4 +18,6 @@ public interface BusinessService {
 
     void valueRating (Long id, Double totalValue);
 
+    PaginationResponse getPageBusinessByUsers(Long id, String order, Optional<Integer> page, Optional<Integer> size);
+
 }

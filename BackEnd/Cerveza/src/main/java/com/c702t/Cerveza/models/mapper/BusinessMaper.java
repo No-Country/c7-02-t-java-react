@@ -3,6 +3,7 @@ package com.c702t.Cerveza.models.mapper;
 import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.request.BusinessRequest;
+import com.c702t.Cerveza.models.response.BusinessByUserResponse;
 import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.UserRepository;
@@ -137,5 +138,32 @@ public class BusinessMaper {
         return entity;
     }
 
+
+    public BusinessByUserResponse toBusinessByUserResponse(BusinessEntity entity)  {
+        return BusinessByUserResponse.builder()
+                .id(entity.getId())
+                .image(entity.getImage())
+                .address(entity.getBusinessAddress())
+                .city(entity.getBusinessCity())
+                .state(entity.getBusinessState())
+                .country(entity.getBusinessCountry())
+                .phone(entity.getPhone())
+                .email(entity.getEmail())
+                .aboutUsText(entity.getAboutUsText())
+                .urlFacebook(entity.getUrlFacebook())
+                .urlInstagram(entity.getUrlInstagram())
+                .rating(entity.getRating())
+                .userId(entity.getUsers().getId())
+                .creationDate(entity.getTimestamp())
+                .build();
+    }
+
+    public List<BusinessByUserResponse> toBusinessByUserResponseList(List<BusinessEntity> entities)  {
+        List<BusinessByUserResponse> responseList = new ArrayList<>();
+        for (BusinessEntity entity : entities) {
+            responseList.add(toBusinessByUserResponse(entity));
+        }
+        return responseList;
+    }
 
 }

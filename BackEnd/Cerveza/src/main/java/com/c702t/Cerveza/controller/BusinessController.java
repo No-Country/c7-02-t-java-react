@@ -124,4 +124,19 @@ public class BusinessController {
 
     }
 
+    @GetMapping("/getByUser")
+    @ApiOperation(value = "Get Business By User ID", notes = "Returns all the business according to the User")
+    @ApiResponses({@ApiResponse(code = 200, message = "Return the requested business"),
+            @ApiResponse(code = 404, message = "The inserted ID does not belong to a user")})
+    public ResponseEntity<?> getByUser(@RequestParam (required = true)  @ApiParam(
+            name = "userID",
+            type = "Long",
+            value = "ID of the user requested",
+            example = "1",
+            required = true) Long userID,  @RequestParam (required = false, defaultValue = "ASC") String order,  @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                           @RequestParam(value = "size", required = false) Optional<Integer> size) {
+
+        return new ResponseEntity<>(businessService.getPageBusinessByUsers(userID,order,page, size), HttpStatus.OK);
+    }
+
 }

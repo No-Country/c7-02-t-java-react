@@ -30,7 +30,6 @@ public class NewsMapper {
                 .content(request.getContent())
                 .photo(request.getPhoto())
                 .business(businessRepository.findById(request.getIdBusiness()).get())
-
                // .business(request.getBusiness())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())

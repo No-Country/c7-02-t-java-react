@@ -6,21 +6,24 @@ import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.mapper.BusinessMaper;
 import com.c702t.Cerveza.models.request.BusinessRequest;
+import com.c702t.Cerveza.models.request.specification.BusinessByUserRequest;
 import com.c702t.Cerveza.models.request.specification.BusinessFiltersRequest;
+import com.c702t.Cerveza.models.response.BusinessByUserResponse;
 import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.UserRepository;
+import com.c702t.Cerveza.repository.specification.BusinessByUserSpecification;
 import com.c702t.Cerveza.repository.specification.BusinessSpecification;
 import com.c702t.Cerveza.service.BusinessService;
 import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
+import com.c702t.Cerveza.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +43,9 @@ public class BusinessServiceImp implements BusinessService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BusinessByUserSpecification businessByUserSpecification;
 
     @Override
     public BusinessResponse create(BusinessRequest request, String token) throws IOException {
@@ -125,28 +131,6 @@ public class BusinessServiceImp implements BusinessService {
          List<BusinessResponse>responses = page.getContent();
 
 
-
-
-      /*  List<BusinessResponse> responseList = new ArrayList<>();
-
-        for (BusinessResponse businessResponse:responses) {
-            BusinessResponse response = new BusinessResponse();
-            response= BusinessResponse.builder().name(businessResponse.getName())
-                    .image(businessResponse.getImage())
-                    .address(businessResponse.getAddress())
-                    .city(businessResponse.getCity())
-                    .state(businessResponse.getState())
-                    .country(businessResponse.getCountry())
-                    .phone(businessResponse.getPhone())
-                    .email(businessResponse.getEmail())
-                    .aboutUsText(businessResponse.getAboutUsText())
-                    .urlFacebook(businessResponse.getUrlFacebook())
-                    .urlInstagram(businessResponse.getUrlInstagram())
-                    .rating(businessResponse.getRating())
-                    .build();
-            responseList.add(response);
-        }
-         responses= responseList;*/
         return PaginationResponse.builder()
                 .entities(responses)
                 .nextPageURI(pagination.getNext())
@@ -166,6 +150,26 @@ public class BusinessServiceImp implements BusinessService {
 
          businessEntity = this.businessRepository.save(entity.get());
 
+    }
+
+    @Override
+    public PaginationResponse getPageBusinessByUsers(Long idUser,String order,  Optional<Integer> pageNumber, Optional<Integer> size) {
+       BusinessByUserRequest filtersRequest = new BusinessByUserRequest(idUser, order);
+
+
+        Specification<BusinessEntity> specification= businessByUserSpecification.getByUsers(filtersRequest);
+
+
+        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification,businessRepository, pageNumber, size,
+                "/business/getByUser/page=%d&size=%d");
+        Page page = pagination.getPage();
+        List<BusinessEntity> business = page.getContent();
+        List<BusinessByUserResponse> responses = businessMaper.toBusinessByUserResponseList(business);
+        return PaginationResponse.builder()
+                .entities(business)
+                .nextPageURI(pagination.getNext())
+                .prevPageURI(pagination.getPrevious())
+                .build();
     }
 
 
