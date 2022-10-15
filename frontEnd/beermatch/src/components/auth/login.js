@@ -29,6 +29,9 @@ function Login() {
         toast.success("Bienvenido cervecero !", {
           position: toast.POSITION.TOP_CENTER
         });
+        localStorage.setItem("user",response.data.email)
+        localStorage.setItem("token",response.data.token)
+        router.push('/dashboard/main')
       })
       .catch(error => {
         toast.error("Error de ingreso, pruebe nuevamente", {
@@ -49,7 +52,7 @@ function Login() {
           />
         </div>
         <div className="flex">
-          <ToastContainer autoClose={2000} />
+          <ToastContainer autoClose={1500} />
           <div className="flex w-full justify-center items-center bg-white space-y-8">
             <div className="w-full p-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">

@@ -32,7 +32,7 @@ import { FaUserCircle } from "react-icons/fa";
     {
       title: "Cerrar sesion",
       icon: <VscSignOut />,
-      link: "/",
+      link: "/logout",
     },
   ];
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../src/components/login/login'
+import Login from '../src/components/auth/login'
 
 function Landing() {
   

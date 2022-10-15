@@ -41,16 +41,13 @@ function SignUpUser() {
   }, [confirmPassword]);
 
   const baseURL = "http://localhost:8080/auth/register";
-  // const headers = {
-  //   "Access-Control-Allow-Headers" : "Content-Type",
-  //   "Access-Control-Allow-Origin": "*",
-  //   "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-  // };
+
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
     if (password != confirmPassword) {
       setError("contraseñas no coinciden");
+      return;
     }
     await axios
       .post(
@@ -179,7 +176,7 @@ function SignUpUser() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
+                <div className="flex items-center border-2 border-gray-50 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 text-gray-400 font-light"
@@ -201,16 +198,17 @@ function SignUpUser() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-
                 {error && (
-                  <p className="bg-red-200 flex justify-center m-auto mb-6 w-2/3 p-2 text-red-600 font-semibold rounded-xl">
+                  <p className=" flex justify-center bg-red-100 rounded-lg p-0.5 text-red-600 text-xs">
                     <GoAlert className="mt-1" />
                     {error}
                   </p>
                 )}
+
+
                 <button
                   type="submit"
-                  className="block w-full bg-violet-600 py-2 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
+                  className="block w-full bg-violet-600 py-2 mt-10 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
                   onClick={handleRegisterUser}
                 >
                   Registrarse
