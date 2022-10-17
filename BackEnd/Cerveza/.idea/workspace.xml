@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cdac289d-c032-4ebd-b6e3-0c72dfee161c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/controller/BusinessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/controller/BusinessController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/mapper/BusinessMaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/mapper/BusinessMaper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/mapper/NewsMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/mapper/NewsMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/BusinessService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/BusinessService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/impl/BusinessServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/impl/BusinessServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
