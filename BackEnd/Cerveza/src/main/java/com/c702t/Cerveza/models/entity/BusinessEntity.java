@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -80,15 +81,22 @@ public class BusinessEntity {
 
     private String urlInstagram;
 
-   @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity users;
 
+    @OneToMany(mappedBy = "businessEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ReviewEntity> reviewEntitySet;
+
    private Double value;
 
-   private Double rating;
 
-   private Integer count;
+    private Double rating;
+
+
+    private Integer count;
+
+
 
 }
 

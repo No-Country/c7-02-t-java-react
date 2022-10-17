@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -71,14 +72,24 @@ public class AuthServiceImpl implements AuthService {
         if(!userRequest.getPassword().equalsIgnoreCase(userRequest.getConfirmPassword()))
             throw new UserProfileAlreadyExistsException("passwords do not match");
 
-        Set<RoleEntity> roles = roleRepository.findByName(RoleEnum.USER.getSimpleRoleName());
-        if (roles.isEmpty()) {
-            RoleEntity rol = new RoleEntity();
-            rol.setName(RoleEnum.USER.getSimpleRoleName());
-            rol = roleRepository.save(rol);
-            roles.add(rol);
+        Set<RoleEntity> roles = new HashSet<>();
+        if (userRequest.getRol().equalsIgnoreCase("user")) {
+            roles = roleRepository.findByName(RoleEnum.USER.getSimpleRoleName());
+            if (roles.isEmpty()) {
+                RoleEntity rol = new RoleEntity();
+                rol.setName(RoleEnum.USER.getSimpleRoleName());
+                rol = roleRepository.save(rol);
+                roles.add(rol);
+            }
+        }else {
+            roles = roleRepository.findByName(RoleEnum.BUSINESS.getSimpleRoleName());
+            if (roles.isEmpty()) {
+                RoleEntity rol = new RoleEntity();
+                rol.setName(RoleEnum.BUSINESS.getSimpleRoleName());
+                rol = roleRepository.save(rol);
+                roles.add(rol);
+            }
         }
-
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         UserEntity userEntity = userMapper.toUserEntity(userRequest, roles);
         userRepository.save(userEntity);
