@@ -57,6 +57,7 @@ public class BusinessMaper {
     public BusinessResponse Entity2Response (BusinessEntity entity) throws IOException {
 
         BusinessResponse response = BusinessResponse.builder().name(entity.getName())
+                .id(entity.getId())
                 .image(awsService.uploadFileFromBase64(entity.getImage()))
                 .address(entity.getBusinessAddress())
                 .city(entity.getBusinessCity())
@@ -84,6 +85,7 @@ public class BusinessMaper {
         for (BusinessEntity entity : entities) {
             BusinessResponse response = new BusinessResponse();
             response= BusinessResponse.builder().name(entity.getName())
+                    .id(entity.getId())
                     .image(awsService.uploadFileFromBase64(entity.getImage()))
                     .address(entity.getBusinessAddress())
                     .city(entity.getBusinessCity())
