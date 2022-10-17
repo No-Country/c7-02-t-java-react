@@ -20,8 +20,6 @@ import java.time.LocalDate;
 @ApiModel(description = "Class representing an News Request.")
 public class NewsRequest {
 
-
-
     @NotNull(message = "The name can't be null")
     @NotEmpty(message = "The name can't be empty")
     @NotBlank(message = "The name can't be blank")
@@ -38,7 +36,8 @@ public class NewsRequest {
     private String photo;
 
     @ApiModelProperty(notes = "id of the business corresponding to the news to publish", example = " ")
-    private Long idBusiness;
+    private Long business_id;
+
     /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "business_id")
     private BusinessEntity business;*/

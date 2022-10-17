@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.mapper;
 
+import com.c702t.Cerveza.exception.RuntimeExceptionCustom;
 import com.c702t.Cerveza.models.entity.NewsEntity;
 import com.c702t.Cerveza.models.request.NewsRequest;
 import com.c702t.Cerveza.models.response.NewsResponse;
@@ -21,7 +22,7 @@ public class NewsMapper {
     @Autowired
     BusinessRepository businessRepository;
 
-    public NewsEntity Request2Entity (NewsRequest request) throws IOException {
+    public NewsEntity Request2Entity (NewsRequest request) throws RuntimeExceptionCustom {
 
         NewsEntity entity = new NewsEntity();
 
@@ -29,7 +30,7 @@ public class NewsMapper {
                 .name(request.getName())
                 .content(request.getContent())
                 .photo(request.getPhoto())
-                .business(businessRepository.findById(request.getIdBusiness()).get())
+                .business(businessRepository.findById(request.getBusiness_id()).get())
                // .business(request.getBusiness())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
@@ -46,26 +47,26 @@ public class NewsMapper {
                 .name(entity.getName())
                 .content(entity.getContent())
                 .photo(entity.getPhoto())
-                .business(entity.getBusiness())
+                .business_id(entity.getBusiness().getId())
+//                .business(entity.getBusiness())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
-                .timestamp(entity.getTimestamp())
+//                .timestamp(entity.getTimestamp())
                 .build();
 
     }
 
-    public NewsEntity EntityUpdate (NewsEntity entity, NewsRequest request) throws IOException {
+    public NewsEntity EntityUpdate (NewsEntity entity, NewsRequest request) throws RuntimeExceptionCustom {
 
        return NewsEntity.builder()
                .id(entity.getId())
                .name(request.getName())
                .content(request.getContent())
                .photo(request.getPhoto())
-//                .business(request.getBusiness())
+               .business(businessRepository.findById(request.getBusiness_id()).get())
                .startDate(request.getStartDate())
                .endDate(request.getEndDate())
                .timestamp(new Timestamp(System.currentTimeMillis()))
-              // .sofdelete(request.getSofdelete())
                .build();
 
 
