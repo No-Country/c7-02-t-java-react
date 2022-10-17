@@ -17,6 +17,8 @@ import java.sql.Timestamp;
 @Builder
 public class BusinessResponse {
 
+    private Long id;
+
     private String name;
 
     private String image;

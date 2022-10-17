@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Builder
 public class UserDetailsResponse {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
