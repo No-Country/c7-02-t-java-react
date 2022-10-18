@@ -71,6 +71,27 @@ public class NewsController {
 
     }
 
+//    @GetMapping
+//    public ResponseEntity <PaginationResponse> getNewsByFilters (@RequestParam (required = false) @ApiParam(name = "businessId",
+//                                                                    type = "Long",
+//                                                                    value = "id the business required",
+//                                                                    example = "1") Long businessId,
+//                                                             @RequestParam(value = "page", required = false)@ApiParam(
+//                                                                     name = "page",
+//                                                                     type = "Integer",
+//                                                                     value = "page number I want to see",
+//                                                                     example = "1")Optional<Integer> page,
+//                                                             @RequestParam(value = "size", required = false)@ApiParam(
+//                                                                     name = "size",
+//                                                                     type = "Integer",
+//                                                                     value = "number of items per page",
+//                                                                     example = "3") Optional<Integer> size) {
+//
+//        return new ResponseEntity<PaginationResponse>(newsService.getByFilters(city, page, size),
+//                HttpStatus.OK);
+//
+//    }
+
 }
 
 

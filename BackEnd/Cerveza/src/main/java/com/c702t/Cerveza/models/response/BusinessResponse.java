@@ -41,7 +41,7 @@ public class BusinessResponse {
 
     private String urlInstagram;
 
-    private Double rating;
+    private Float rating;
 
 
 }

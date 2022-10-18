@@ -46,9 +46,9 @@ public class BusinessMaper {
                 .users(userRepository.findById(userID).get())
                  .build();
 
-        entity.setValue(0.00);
+        entity.setValue(0.00f);
         entity.setCount(0);
-        entity.setRating(0.00);
+        entity.setRating(0.00f);
 
         return entity;
 
@@ -106,14 +106,16 @@ public class BusinessMaper {
     }
 
 
-    public BusinessEntity EntityRefreshRating (BusinessEntity entity, Double totalValue){
+    public BusinessEntity EntityRefreshRating (BusinessEntity entity, Float totalValue){
 
-        Double sumValues = entity.getValue()+totalValue;
+        Float sumValues = entity.getValue()+totalValue;
         entity.setValue(sumValues);
 
-        Integer countNew= entity.getCount()+1;
+        entity.setCount(entity.getCount()+1);
 
-        Double totalRating = sumValues/countNew;
+        Integer countNew= entity.getCount();
+
+        Float totalRating = sumValues/countNew;
 
 
         entity.setRating(totalRating);
