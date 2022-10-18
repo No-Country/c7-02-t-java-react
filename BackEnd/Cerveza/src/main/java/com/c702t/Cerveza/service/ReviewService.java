@@ -34,7 +34,6 @@ public class ReviewService {
     BusinessService businessService;
 
     public ReviewResponse create(String token, Long businessID, ReviewRequest reviewRequest) {
-        // TODO update rating of Business
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
@@ -48,7 +47,6 @@ public class ReviewService {
         reviewEntity.setBusinessEntity(businessEntity);
         reviewEntity.setUserEntity(userEntity);
         ReviewEntity reviewEntitySaved = reviewRepository.save(reviewEntity);
-
         businessService.valueRating(businessEntity.getId(), reviewEntitySaved.getTotalRate());
 
         ReviewResponse reviewResponse = reviewMapper.toResponse(reviewEntitySaved);
