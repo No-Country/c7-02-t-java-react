@@ -15,5 +15,6 @@ public class AuthResponse {
     private Boolean ok;
     private String email;
     private String token;
+    private String nameRol;
 
 }

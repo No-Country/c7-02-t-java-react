@@ -30,6 +30,8 @@ public class ReviewService {
     ReviewMapper reviewMapper;
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    BusinessService businessService;
 
     public ReviewResponse create(String token, Long businessID, ReviewRequest reviewRequest) {
         // TODO update rating of Business
@@ -46,6 +48,9 @@ public class ReviewService {
         reviewEntity.setBusinessEntity(businessEntity);
         reviewEntity.setUserEntity(userEntity);
         ReviewEntity reviewEntitySaved = reviewRepository.save(reviewEntity);
+
+        businessService.valueRating(businessEntity.getId(), reviewEntitySaved.getTotalRate());
+
         ReviewResponse reviewResponse = reviewMapper.toResponse(reviewEntitySaved);
         return reviewResponse;
     }
