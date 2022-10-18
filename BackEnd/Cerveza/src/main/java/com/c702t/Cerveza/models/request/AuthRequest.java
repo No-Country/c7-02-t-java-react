@@ -12,6 +12,8 @@ import javax.validation.constraints.*;
 @Builder
 public class AuthRequest {
 
+//    private Long id;
+
     @NotNull
     @NotEmpty(message = "the email can't be null")
     @NotBlank(message = "the email can't be blank")

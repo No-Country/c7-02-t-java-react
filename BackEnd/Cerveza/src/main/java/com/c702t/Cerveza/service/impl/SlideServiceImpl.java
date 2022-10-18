@@ -74,7 +74,7 @@ public class SlideServiceImpl implements SlideService {
 
         List<SlideEntity> slides = slideRepository.findAllByBusiness_id(id);
 
-        if (!slides.isEmpty()) {
+        if (slides.isEmpty()) {
             throw new RuntimeExceptionCustom("no slides for that business");
         }
 

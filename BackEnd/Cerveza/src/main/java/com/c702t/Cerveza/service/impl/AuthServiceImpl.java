@@ -54,9 +54,12 @@ public class AuthServiceImpl implements AuthService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
             String token = generateToken(authRequest.getEmail());
+            UserEntity user = userRepository.findByEmail(authRequest.getEmail()).orElse(null);
+
             return AuthResponse.builder()
                     .email(authRequest.getEmail())
                     .token(token)
+                    .id(user.getId())
                     .build();
         } catch (Exception e) {
             throw new Exception("the email or the password do not match");
