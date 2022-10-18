@@ -40,7 +40,7 @@ public class BusinessByUserResponse {
 
     private String urlInstagram;
 
-    private Double rating;
+    private Float rating;
 
     private Long userId;
 

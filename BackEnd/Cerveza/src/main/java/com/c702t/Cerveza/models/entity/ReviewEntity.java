@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -64,6 +65,7 @@ public class ReviewEntity {
     @ManyToMany(mappedBy = "reviewEntitySetLikes")
     private Set<UserEntity> userEntitySet = new HashSet<>();
     */
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="business_id", nullable=false)
     private BusinessEntity businessEntity;

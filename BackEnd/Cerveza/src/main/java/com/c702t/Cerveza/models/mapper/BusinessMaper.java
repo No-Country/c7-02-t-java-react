@@ -46,9 +46,9 @@ public class BusinessMaper {
                 .users(userRepository.findById(userID).get())
                  .build();
 
-        entity.setValue(0.00);
+        entity.setValue(0.00f);
         entity.setCount(0);
-        entity.setRating(0.00);
+        entity.setRating(0.00f);
 
         return entity;
 
@@ -57,6 +57,7 @@ public class BusinessMaper {
     public BusinessResponse Entity2Response (BusinessEntity entity) throws IOException {
 
         BusinessResponse response = BusinessResponse.builder().name(entity.getName())
+                .id(entity.getId())
                 .image(awsService.uploadFileFromBase64(entity.getImage()))
                 .address(entity.getBusinessAddress())
                 .city(entity.getBusinessCity())
@@ -84,6 +85,7 @@ public class BusinessMaper {
         for (BusinessEntity entity : entities) {
             BusinessResponse response = new BusinessResponse();
             response= BusinessResponse.builder().name(entity.getName())
+                    .id(entity.getId())
                     .image(awsService.uploadFileFromBase64(entity.getImage()))
                     .address(entity.getBusinessAddress())
                     .city(entity.getBusinessCity())
@@ -104,14 +106,16 @@ public class BusinessMaper {
     }
 
 
-    public BusinessEntity EntityRefreshRating (BusinessEntity entity, Double totalValue){
+    public BusinessEntity EntityRefreshRating (BusinessEntity entity, Float totalValue){
 
-        Double sumValues = entity.getValue()+totalValue;
+        Float sumValues = entity.getValue()+totalValue;
         entity.setValue(sumValues);
 
-        Integer countNew= entity.getCount()+1;
+        entity.setCount(entity.getCount()+1);
 
-        Double totalRating = sumValues/countNew;
+        Integer countNew= entity.getCount();
+
+        Float totalRating = sumValues/countNew;
 
 
         entity.setRating(totalRating);

@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -81,17 +82,19 @@ public class BusinessEntity {
 
     private String urlInstagram;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity users;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "businessEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ReviewEntity> reviewEntitySet;
 
-   private Double value;
+    private Float value;
 
 
-    private Double rating;
+    private Float rating;
 
 
     private Integer count;

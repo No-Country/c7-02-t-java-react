@@ -141,7 +141,7 @@ public class BusinessServiceImp implements BusinessService {
     }
 
     @Override
-    public void valueRating(Long idBusiness, Double totalValue) {
+    public void valueRating(Long idBusiness, Float totalValue) {
 
 
         Optional<BusinessEntity> entity = this.businessRepository.findById(idBusiness);
