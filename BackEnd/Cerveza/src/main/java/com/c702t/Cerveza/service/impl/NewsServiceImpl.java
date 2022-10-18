@@ -6,17 +6,25 @@ import com.c702t.Cerveza.exception.RuntimeExceptionCustom;
 import com.c702t.Cerveza.models.entity.*;
 import com.c702t.Cerveza.models.mapper.NewsMapper;
 import com.c702t.Cerveza.models.request.NewsRequest;
+import com.c702t.Cerveza.models.request.specification.BusinessFiltersRequest;
+import com.c702t.Cerveza.models.request.specification.NewsFilterRequest;
+import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.models.response.NewsResponse;
+import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.NewsRepository;
 import com.c702t.Cerveza.repository.RoleRepository;
 import com.c702t.Cerveza.repository.UserRepository;
 import com.c702t.Cerveza.service.NewsService;
+import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -108,6 +116,35 @@ public class NewsServiceImpl implements NewsService {
             throw new RuntimeExceptionCustom("the id " + id + " does not belong to a news");
         }
     }
+
+//    @Override
+//    public PaginationResponse getNewsByFilters(Long businessId, String order, Optional<Integer> pageNumber, Optional<Integer> size) {
+//
+////        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
+//        NewsFilterRequest requestFilter = new NewsRequest(businessId, order);
+//
+////        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
+//        Specification<NewsEntity> specification= newsSpecification.getByFilters(requestFilter);
+//
+//
+//        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
+//                "/business/page=%d&size=%d");
+//        Page page = pagination.getPage();
+//
+//
+//
+//
+//        List<BusinessResponse>responses = page.getContent();
+//
+//
+//        return PaginationResponse.builder()
+//                .entities(responses)
+//                .nextPageURI(pagination.getNext())
+//                .prevPageURI(pagination.getPrevious())
+//                .build();
+//
+//        //   return null;
+//    }
 
 }
 

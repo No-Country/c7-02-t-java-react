@@ -11,6 +11,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthResponse {
 
+    private Long id;
     private Boolean ok;
     private String email;
     private String token;
