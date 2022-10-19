@@ -2,6 +2,7 @@ package com.c702t.Cerveza.service.impl;
 
 import com.c702t.Cerveza.auth.service.JwtUtils;
 import com.c702t.Cerveza.exception.NotFoundException;
+import com.c702t.Cerveza.exception.RuntimeExceptionCustom;
 import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.mapper.BusinessMaper;
@@ -53,6 +54,16 @@ public class BusinessServiceImp implements BusinessService {
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
+
+        Optional<BusinessEntity> businessEntity= businessRepository.findByName(request.getName(), request.getAddress());
+
+
+        if (businessEntity.isPresent()){
+
+            throw new RuntimeExceptionCustom("409 ::the business already exists");
+
+        }
+
         BusinessEntity entity = this.businessMaper.Request2Entity(request, userEntity.getId());
         BusinessEntity entitySave = this.businessRepository.save(entity);
         BusinessResponse responseCreated = this.businessMaper.Entity2Response(entitySave);

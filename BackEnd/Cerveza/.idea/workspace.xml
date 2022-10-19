@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cdac289d-c032-4ebd-b6e3-0c72dfee161c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/BusinessEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/BusinessEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/request/BusinessRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/request/BusinessRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/response/BusinessByUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/response/BusinessByUserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/response/BusinessResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/response/BusinessResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/repository/BusinessRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/repository/BusinessRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/impl/BusinessServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/impl/BusinessServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,13 +61,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jose/Desktop/NO COUNTRY/PROYECTO 2/c7-02-t-java-react/BackEnd/Cerveza&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Jose/Documents/José Ignacio/EGG TECH - PROGRAMACIÓN/PROYECTO FINAL/PROYECTO FINAL GIT/Proyecto-Final-Curso-Egg"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="com.c702t.Cerveza.CervezaApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../../../../Program Files/Java/jdk-16.0.1" />
