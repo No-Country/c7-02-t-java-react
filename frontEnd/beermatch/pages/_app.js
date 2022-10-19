@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Layout from "../src/layout/layout";
+import ProtectedRoute from "../src/protectedRoutes/protectedroutes";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps, router }) {
@@ -14,9 +15,11 @@ function MyApp({ Component, pageProps, router }) {
           />
           <link rel="icon" href="/logo.png" />
         </Head>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ProtectedRoute>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ProtectedRoute>
       </>
     );
   }
