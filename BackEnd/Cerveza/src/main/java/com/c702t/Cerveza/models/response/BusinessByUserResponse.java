@@ -30,7 +30,7 @@ public class BusinessByUserResponse {
 
     private String country;
 
-    private Integer phone;
+    private String phone;
 
     private String email;
 

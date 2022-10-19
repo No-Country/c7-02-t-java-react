@@ -8,10 +8,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +58,7 @@ public class BusinessEntity {
     @NotBlank(message = "name can not be blank")
     private String businessCountry;
 
-    private Integer phone;
+    private String phone;
 
     @NotNull
     @NotEmpty(message = "email can not be null")
