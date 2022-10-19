@@ -25,12 +25,14 @@ function Login() {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         toast.success("Bienvenido cervecero !", {
           position: toast.POSITION.TOP_CENTER
         });
         localStorage.setItem("user",response.data.email)
         localStorage.setItem("token",response.data.token)
+        localStorage.setItem("userID",response.data.id)
+        localStorage.setItem("rolUser",response.data.nameRol)
         router.push('/dashboard/main')
       })
       .catch(error => {

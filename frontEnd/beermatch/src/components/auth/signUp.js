@@ -15,6 +15,7 @@ function SignUpUser() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [photo, setPhoto] = React.useState("image");
+  const [rol, setRol] = React.useState("user");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const router = useRouter();
@@ -26,6 +27,7 @@ function SignUpUser() {
   console.log(photo);
   console.log(confirmPassword);
   console.log(error);
+  console.log(rol);
 
   React.useEffect(() => {
     if (
@@ -41,6 +43,15 @@ function SignUpUser() {
   }, [confirmPassword]);
 
   const baseURL = "http://localhost:8080/auth/register";
+
+
+  const handleRol = () =>{
+    if (rol == "user") {
+      setRol("business")
+    } else{
+      setRol('user')
+    }
+  }
 
 
   const handleRegisterUser = async (e) => {
@@ -59,6 +70,7 @@ function SignUpUser() {
           password: password,
           photo: photo,
           confirmPassword: password,
+          rol: rol,
         }
         // { headers }
       )
@@ -127,6 +139,7 @@ function SignUpUser() {
                     <input
                       type="checkbox"
                       className="form-checkbox h-5 w-5 text-gray-600 rounded-2xl appearance-none border border-gray-200 bg-gray-50 checked:bg-violet-600"
+                      onChange={handleRol}
                     />
                   </label>
                 </div>
