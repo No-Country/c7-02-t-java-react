@@ -21,11 +21,12 @@ public class InitializerSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        if (userRepository.findAll().isEmpty()) {
-//            this.createUsers(1, "admin");
-//            this.createUsers(1, "user");
+        System.out.println("is empty : " + userRepository.findAll().isEmpty());
+
+        if (userRepository.findAll().isEmpty()) {
+            this.createUsers(1, "user");
 //            this.createUsers(1, "business");
-//        }
+        }
 
     }
 
@@ -34,19 +35,13 @@ public class InitializerSeeder implements CommandLineRunner {
         final String PASSWORD = "1234";
         final String CONFIRMPASSWORD = "1234";
 
-        if (userType.equalsIgnoreCase("admin")){
+        if (userType.equalsIgnoreCase("business")){
             IntStream.range(0, users).forEach(userNumber ->
                     create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
         }
         else{
-            if (userType.equalsIgnoreCase("business")){
-                IntStream.range(0, users).forEach(userNumber ->
-                        create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
-            }
-            else{
-                IntStream.range(0, users).forEach(userNumber ->
-                        create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
-            }
+            IntStream.range(0, users).forEach(userNumber ->
+                    create(userType, PASSWORD, CONFIRMPASSWORD, userNumber));
         }
 
     }
