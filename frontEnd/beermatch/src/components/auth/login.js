@@ -1,33 +1,73 @@
 import React from "react";
-import { IoBeerOutline } from 'react-icons/io5';
+import { IoBeerOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
+import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
+  const router = useRouter();
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
 
-  const router = useRouter()
 
-  const handleLogin = (e) =>{
-    e.preventDefault()
-    router.push("/dashboard/main")
-  }
+  const baseURL = "http://localhost:8080/auth/login";
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await axios
+      .post(
+        baseURL,
+        {
+          email: email,
+          password: password,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        toast.success("Bienvenido cervecero !", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        localStorage.setItem("user",response.data.email)
+        localStorage.setItem("token",response.data.token)
+        localStorage.setItem("userID",response.data.id)
+        localStorage.setItem("rolUser",response.data.nameRol)
+        router.push('/dashboard/main')
+      })
+      .catch(error => {
+        toast.error("Error de ingreso, pruebe nuevamente", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        console.log(error.message)
+      })
+  };
 
   return (
     <>
       <div className="lg:grid lg:grid-cols-2">
         <div className="lg:bg-PurpleNavy lg:h-screen lg:w-full lg:flex lg:visible">
-          <img className="lg:m-auto lg:justify-center lg:flex hidden" src="logo.png" alt="" />
+          <img
+            className="lg:m-auto lg:justify-center lg:flex hidden"
+            src="logo.png"
+            alt=""
+          />
         </div>
         <div className="flex">
+          <ToastContainer autoClose={1500} />
           <div className="flex w-full justify-center items-center bg-white space-y-8">
             <div className="w-full p-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">
                 <div>
-                <img className="m-auto justify-center flex p-10 lg:hidden" src="logo.png" alt="" />
+                  <img
+                    className="m-auto justify-center flex p-10 lg:hidden"
+                    src="logo.png"
+                    alt=""
+                  />
                 </div>
                 <h1 className="text-gray-800 font-light text-2xl mb-6 flex justify-center">
                   Hola Cervecero!
-                  <IoBeerOutline className="text-yellow-500 mt-1 ml-2"/>
+                  <IoBeerOutline className="text-yellow-500 mt-1 ml-2" />
                 </h1>
                 <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
                   <svg
@@ -50,6 +90,7 @@ function Login() {
                     type="email"
                     name="email"
                     placeholder="Correo electronico"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1  ">
@@ -71,6 +112,8 @@ function Login() {
                     name="password"
                     id="password"
                     placeholder="Contraseña"
+                    onChange={(e) => setPassword(e.target.value)}
+
                   />
                 </div>
                 <button
@@ -79,19 +122,18 @@ function Login() {
                   onClick={handleLogin}
                 >
                   Ingresar
-                  
                 </button>
                 <div className="flex justify-between mt-4">
-                  <a href="/resetPass" className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
-                    ¿Olvidaste tu contraseña?
-                  </a>
-
-                  <a
-                    href="/signUp"
-                    className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all"
-                  >
-                    Registrarse
-                  </a>
+                  <Link href="/resetPass">
+                    <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                      ¿Olvidaste tu contraseña?
+                    </span>
+                  </Link>
+                  <Link href="/signUp">
+                    <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                      Registrarse
+                    </span>
+                  </Link>
                 </div>
               </form>
             </div>

@@ -3,6 +3,11 @@ import { IoBeerOutline, IoPersonOutline } from "react-icons/io5";
 import { BsPersonLinesFill } from "react-icons/bs";
 import axios from "axios";
 import { GoAlert } from "react-icons/go";
+import Link from "next/link";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+
 
 function SignUpUser() {
   const [firstName, setFirstName] = React.useState("");
@@ -10,8 +15,10 @@ function SignUpUser() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [photo, setPhoto] = React.useState("image");
+  const [rol, setRol] = React.useState("user");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [error, setError] = React.useState("");
+  const router = useRouter();
 
   console.log(firstName);
   console.log(lastName);
@@ -20,9 +27,13 @@ function SignUpUser() {
   console.log(photo);
   console.log(confirmPassword);
   console.log(error);
+  console.log(rol);
 
   React.useEffect(() => {
-    if (password.length == confirmPassword.length) {
+    if (
+      password.length >= confirmPassword.length ||
+      password.length < confirmPassword.length
+    ) {
       if (password != confirmPassword) {
         setError("contraseñas no coinciden");
       } else {
@@ -32,14 +43,23 @@ function SignUpUser() {
   }, [confirmPassword]);
 
   const baseURL = "http://localhost:8080/auth/register";
-  // const headers = {
-  //   "Access-Control-Allow-Headers" : "Content-Type",
-  //   "Access-Control-Allow-Origin": "*",
-  //   "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-  // };
+
+
+  const handleRol = () =>{
+    if (rol == "user") {
+      setRol("business")
+    } else{
+      setRol('user')
+    }
+  }
+
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
+    if (password != confirmPassword) {
+      setError("contraseñas no coinciden");
+      return;
+    }
     await axios
       .post(
         baseURL,
@@ -50,12 +70,23 @@ function SignUpUser() {
           password: password,
           photo: photo,
           confirmPassword: password,
-        },
+          rol: rol,
+        }
         // { headers }
       )
       .then((response) => {
         console.log(response.data);
-      });
+        toast.success("Usuario creado !", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        router.push("/landing");
+      })
+      .catch(error => {
+        toast.error("Error de registro, pruebe nuevamente", {
+          position: toast.POSITION.TOP_CENTER
+        });
+        console.log(error.message)
+      })
   };
 
   return (
@@ -69,6 +100,8 @@ function SignUpUser() {
           />
         </div>
         <div className="flex">
+        <ToastContainer autoClose={2000} />
+
           <div className="flex w-full justify-center items-center bg-white space-y-8">
             <div className="w-full px-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">
@@ -106,6 +139,7 @@ function SignUpUser() {
                     <input
                       type="checkbox"
                       className="form-checkbox h-5 w-5 text-gray-600 rounded-2xl appearance-none border border-gray-200 bg-gray-50 checked:bg-violet-600"
+                      onChange={handleRol}
                     />
                   </label>
                 </div>
@@ -155,7 +189,7 @@ function SignUpUser() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="flex items-center border-2 border-gray-50 mb-6 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
+                <div className="flex items-center border-2 border-gray-50 py-2 px-3 rounded-2xl hover:outline-violet-500 hover:outline hover:outline-1 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 text-gray-400 font-light"
@@ -177,16 +211,17 @@ function SignUpUser() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-
                 {error && (
-                  <p className="bg-red-200 flex justify-center m-auto mb-6 w-2/3 p-2 text-red-600 font-semibold rounded-xl">
+                  <p className=" flex justify-center bg-red-100 rounded-lg p-0.5 text-red-600 text-xs">
                     <GoAlert className="mt-1" />
                     {error}
                   </p>
                 )}
+
+
                 <button
                   type="submit"
-                  className="block w-full bg-violet-600 py-2 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
+                  className="block w-full bg-violet-600 py-2 mt-10 rounded-2xl hover:bg-white hover:text-violet-600 outline transition-all duration-100 text-white font-semibold"
                   onClick={handleRegisterUser}
                 >
                   Registrarse
@@ -195,13 +230,11 @@ function SignUpUser() {
                   <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
                     Términos y Condiciones
                   </span>
-
-                  <a
-                    href="/landing"
-                    className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all"
-                  >
-                    Ya tengo cuenta
-                  </a>
+                  <Link href="/landing">
+                    <span className="text-sm ml-2 font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                      Ya tengo cuenta
+                    </span>
+                  </Link>
                 </div>
               </form>
             </div>

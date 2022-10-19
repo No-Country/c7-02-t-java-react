@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps, router }) {
           <title>Beer Match</title>
           <meta
             name="Beer Match"
-            content="Aplicacion apra mejorar la experiecia en bares y restaurantes con especialidad de cerveza"
+            content="Aplicación para mejorar la experiencia en bares y restaurantes con especialidad de cerveza"
           />
           <link rel="icon" href="/logo.png" />
         </Head>
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps, router }) {
         <title>Beer Match</title>
         <meta
           name="Beer Match"
-          content="Aplicacion apra mejorar la experiecia en bares y restaurantes con especialidad de cerveza"
+          content="Aplicación para mejorar la experiencia en bares y restaurantes con especialidad de cerveza"
         />
         <link rel="icon" href="/beer.png" />
       </Head>
