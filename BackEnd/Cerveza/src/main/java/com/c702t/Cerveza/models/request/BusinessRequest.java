@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 
 @Getter
@@ -69,7 +70,8 @@ public class BusinessRequest {
     @ApiModelProperty(notes = "Phone of the Business",
             example = "235671889",
             required = true)
-    private Integer phone;
+    @Pattern(regexp = "\\d*", message = "The phone has to contain only numbers")
+    private String phone;
 
 
     @ApiModelProperty(notes = "email of the Business",
