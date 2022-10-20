@@ -44,9 +44,14 @@ public class PaginationByFiltersUtil {
             this.page = PAGE_NUMBER+1;
         }
         this.pageObject = repository. findAll(specification,getPageWithSizeElements);
+
+
+
+
     }
 
     public Page<?> getPage() {
+
         return pageObject;
     }
 

@@ -11,9 +11,6 @@
         <module name="Cerveza" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Cerveza" target="11" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

@@ -17,6 +17,8 @@ import java.sql.Timestamp;
 @Builder
 public class BusinessResponse {
 
+    private Long id;
+
     private String name;
 
     private String image;
@@ -29,7 +31,7 @@ public class BusinessResponse {
 
     private String country;
 
-    private Integer phone;
+    private String  phone;
 
     private String email;
 
@@ -39,7 +41,7 @@ public class BusinessResponse {
 
     private String urlInstagram;
 
-    private Double rating;
+    private Float rating;
 
 
 }

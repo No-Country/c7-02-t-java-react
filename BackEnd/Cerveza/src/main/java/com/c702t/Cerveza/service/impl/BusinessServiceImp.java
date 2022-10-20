@@ -2,15 +2,19 @@ package com.c702t.Cerveza.service.impl;
 
 import com.c702t.Cerveza.auth.service.JwtUtils;
 import com.c702t.Cerveza.exception.NotFoundException;
+import com.c702t.Cerveza.exception.RuntimeExceptionCustom;
 import com.c702t.Cerveza.models.entity.BusinessEntity;
 import com.c702t.Cerveza.models.entity.UserEntity;
 import com.c702t.Cerveza.models.mapper.BusinessMaper;
 import com.c702t.Cerveza.models.request.BusinessRequest;
+import com.c702t.Cerveza.models.request.specification.BusinessByUserRequest;
 import com.c702t.Cerveza.models.request.specification.BusinessFiltersRequest;
+import com.c702t.Cerveza.models.response.BusinessByUserResponse;
 import com.c702t.Cerveza.models.response.BusinessResponse;
 import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.UserRepository;
+import com.c702t.Cerveza.repository.specification.BusinessByUserSpecification;
 import com.c702t.Cerveza.repository.specification.BusinessSpecification;
 import com.c702t.Cerveza.service.BusinessService;
 import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
@@ -41,12 +45,25 @@ public class BusinessServiceImp implements BusinessService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    BusinessByUserSpecification businessByUserSpecification;
+
     @Override
     public BusinessResponse create(BusinessRequest request, String token) throws IOException {
 
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
+
+        Optional<BusinessEntity> businessEntity= businessRepository.findByName(request.getName(), request.getAddress());
+
+
+        if (businessEntity.isPresent()){
+
+            throw new RuntimeExceptionCustom("409 ::the business already exists");
+
+        }
+
         BusinessEntity entity = this.businessMaper.Request2Entity(request, userEntity.getId());
         BusinessEntity entitySave = this.businessRepository.save(entity);
         BusinessResponse responseCreated = this.businessMaper.Entity2Response(entitySave);
@@ -110,27 +127,32 @@ public class BusinessServiceImp implements BusinessService {
     @Override
     public PaginationResponse getByFilters(String city, String state, String country, String order, Optional<Integer> pageNumber, Optional<Integer> size) {
 
-//        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
-//
-//
-//        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
-//
-//        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
-//                "/news/page=%d&size=%d");
-//        Page page = pagination.getPage();
-//
-//        List<BusinessResponse>responses= page.getContent();
-//        return PaginationResponse.builder()
-//                .entities(responses)
-//                .nextPageURI(pagination.getNext())
-//                .prevPageURI(pagination.getPrevious())
-//                .build();
-//
-            return null;
+        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
+
+
+        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
+
+        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
+                "/business/page=%d&size=%d");
+        Page page = pagination.getPage();
+
+
+
+
+         List<BusinessResponse>responses = page.getContent();
+
+
+        return PaginationResponse.builder()
+                .entities(responses)
+                .nextPageURI(pagination.getNext())
+                .prevPageURI(pagination.getPrevious())
+                .build();
+
+         //   return null;
     }
 
     @Override
-    public void valueRating(Long idBusiness, Double totalValue) {
+    public void valueRating(Long idBusiness, Float totalValue) {
 
 
         Optional<BusinessEntity> entity = this.businessRepository.findById(idBusiness);
@@ -139,6 +161,26 @@ public class BusinessServiceImp implements BusinessService {
 
          businessEntity = this.businessRepository.save(entity.get());
 
+    }
+
+    @Override
+    public PaginationResponse getPageBusinessByUsers(Long idUser,String order,  Optional<Integer> pageNumber, Optional<Integer> size) {
+       BusinessByUserRequest filtersRequest = new BusinessByUserRequest(idUser, order);
+
+
+        Specification<BusinessEntity> specification= businessByUserSpecification.getByUsers(filtersRequest);
+
+
+        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification,businessRepository, pageNumber, size,
+                "/business/getByUser/page=%d&size=%d");
+        Page page = pagination.getPage();
+        List<BusinessEntity> business = page.getContent();
+        List<BusinessByUserResponse> responses = businessMaper.toBusinessByUserResponseList(business);
+        return PaginationResponse.builder()
+                .entities(business)
+                .nextPageURI(pagination.getNext())
+                .prevPageURI(pagination.getPrevious())
+                .build();
     }
 
 

@@ -37,7 +37,7 @@ public class UserMapper {
     public UserResponse toUserResponse(UserEntity userEntity) {
         String hello = "Thanks for register!!!";
         return UserResponse.builder()
-
+                .id(userEntity.getId())
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .email(userEntity.getEmail())
@@ -48,6 +48,7 @@ public class UserMapper {
 
     public UserDetailsResponse userToUserDetail(UserEntity update) throws IOException {
         return UserDetailsResponse.builder()
+                .id(update.getId())
                 .firstName(update.getFirstName())
                 .lastName(update.getLastName())
                 .email(update.getEmail())
