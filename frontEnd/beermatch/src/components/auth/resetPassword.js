@@ -1,12 +1,17 @@
+import Link from "next/link";
 import React from "react";
 import { IoBeerOutline } from "react-icons/io5";
 
 function ResetPassword() {
   return (
     <>
-      <div className="grid grid-cols-2">
-        <div className="bg-MiddleYellow h-screen w-full flex">
-          <img className="m-auto justify-center flex" src="logo.png" alt="" />
+      <div className="lg:grid lg:grid-cols-2">
+        <div className="lg:bg-PurpleNavy lg:h-screen lg:w-full lg:flex lg:visible">
+          <img
+            className="lg:m-auto lg:justify-center lg:flex hidden"
+            src="logo.png"
+            alt=""
+          />
         </div>
         <div className="flex">
           <div className="flex w-full justify-center items-center bg-white space-y-8">
@@ -52,12 +57,11 @@ function ResetPassword() {
                   Enviar
                 </button>
                 <div className="mt-2">
-                  <a
-                    href="/landing"
-                    className="text-sm ml-2  font-light hover:text-violet-500 cursor-pointer duration-100 transition-all"
-                  >
-                    Volver a login
-                  </a>
+                  <Link href="/landing">
+                    <a className="text-sm ml-2  font-light hover:text-violet-500 cursor-pointer duration-100 transition-all">
+                      Volver a login
+                    </a>
+                  </Link>
                 </div>
               </form>
             </div>

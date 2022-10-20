@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchBusiness() {
+function SearchPost() {
   return (
     <>
       <div className="m-2">
@@ -42,4 +42,4 @@ function SearchBusiness() {
   );
 }
 
-export default SearchBusiness;
+export default SearchPost;

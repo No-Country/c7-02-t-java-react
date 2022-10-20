@@ -54,7 +54,7 @@ export default function Navbar() {
           <div className="w-3/12 flex items-center">
             <a className="text-2xl font-semibold" href="/">
               <img
-                className="m-auto justify-center h-auto flex md:hidden"
+                className="m-auto justify-center h-auto flex lg:hidden"
                 src="/logo.png"
                 alt=""
                 width={100}
@@ -73,7 +73,7 @@ export default function Navbar() {
             </div>
 
             <div
-              className="z-50 flex relative w-8 h-8 flex-col justify-between items-center md:hidden"
+              className="z-50 flex relative w-8 h-8 flex-col justify-between items-center lg:hidden"
               onClick={() => {
                 setOpen(!open);
               }}
