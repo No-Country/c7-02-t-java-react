@@ -1,13 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export default function LogOut() {
   const router = useRouter();
 
   React.useEffect(() => {
     try {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      Cookies.remove("token");
+      Cookies.remove("user");
       router.push("/landing");
     } catch (error) {
       alert("Cannot Logout");

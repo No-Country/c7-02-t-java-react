@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 function Login() {
   const router = useRouter();
@@ -29,10 +30,10 @@ function Login() {
         toast.success("Bienvenido cervecero !", {
           position: toast.POSITION.TOP_CENTER
         });
-        localStorage.setItem("user",response.data.email)
-        localStorage.setItem("token",response.data.token)
-        localStorage.setItem("userID",response.data.id)
-        localStorage.setItem("rolUser",response.data.nameRol)
+        Cookies.set("user",response.data.email)
+        Cookies.set("token",response.data.token)
+        Cookies.set("userID",response.data.id)
+        Cookies.set("rolUser",response.data.nameRol)
         router.push('/dashboard/main')
       })
       .catch(error => {
@@ -42,6 +43,7 @@ function Login() {
         console.log(error.message)
       })
   };
+
 
   return (
     <>

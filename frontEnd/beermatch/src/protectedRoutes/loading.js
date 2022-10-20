@@ -8,7 +8,7 @@ function Loading() {
         <img
           className="animate-spin w-60"
           alt=""
-          src="/images/beer.png"
+          src="/beer.png"
         />
       </div>
     </div>
