@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("comment")
 @Api(description ="Comment CRUD" , tags = "Comment")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
     @Autowired
     CommentService commentService;

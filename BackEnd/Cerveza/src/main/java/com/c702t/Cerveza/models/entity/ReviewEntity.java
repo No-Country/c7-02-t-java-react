@@ -55,10 +55,12 @@ public class ReviewEntity {
     @CreationTimestamp
     private Timestamp timestamp;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="user_id", nullable=false)
     private UserEntity userEntity;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "reviewEntity")
     Set<CommentEntity> commentEntitySet;
     /* Like System

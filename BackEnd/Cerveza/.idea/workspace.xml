@@ -6,6 +6,24 @@
   <component name="ChangeListManager">
     <list default="true" id="cdac289d-c032-4ebd-b6e3-0c72dfee161c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/controller/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/ReviewEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/ReviewEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/response/AuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/response/AuthResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/service/impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/entity/UserEntity$UserEntityBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/entity/UserEntity$UserEntityBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/AuthResponse$AuthResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/AuthResponse$AuthResponseBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/AuthResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/AuthResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserDetailsResponse$UserDetailsResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserDetailsResponse$UserDetailsResponseBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserDetailsResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserDetailsResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserResponse$UserResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserResponse$UserResponseBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/models/response/UserResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/service/impl/AuthServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/c702t/Cerveza/service/impl/AuthServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontEnd/beermatch/.next/cache/webpack/client-development/3.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontEnd/beermatch/.next/cache/webpack/client-development/3.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontEnd/beermatch/.next/cache/webpack/client-development/index.pack" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontEnd/beermatch/.next/cache/webpack/client-development/index.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontEnd/beermatch/.next/cache/webpack/client-development/index.pack.old" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontEnd/beermatch/.next/cache/webpack/client-development/index.pack.old" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../.." value="Backend2" />
+        <entry key="$PROJECT_DIR$/../.." value="Business2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -55,6 +73,7 @@
     </option>
   </component>
   <component name="ProjectId" id="2Fy22E6ADaJgUEWcpDvUtBsUTz2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -67,8 +86,8 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="com.c702t.Cerveza.CervezaApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../../../../Program Files/Java/jdk-16.0.1" />
+    <configuration name="CervezaApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="16" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <envs>
         <env name="S3_BUCKET" value="ambucket2139" />
@@ -120,5 +139,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/c702t/Cerveza/models/entity/ReviewEntity.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
