@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("review")
 @Api(description ="Review CRUD" , tags = "Review")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReviewController {
     @Autowired
     ReviewService reviewService;
