@@ -3,6 +3,7 @@ import React from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export default function NewBusiness() {
   axios;
@@ -21,6 +22,16 @@ export default function NewBusiness() {
 
   const router = useRouter();
 
+  const [userID, setUserID] = React.useState("");
+  const [token, setToken] = React.useState("");
+
+  React.useEffect(() => {
+    const userID = Cookies.get("userID");
+    setUserID(userID);
+    const token =  Cookies.get("token");
+    setToken(token);
+  }, []);
+
   const baseURL = "http://localhost:8080/business";
 
   const handleNewBusiness = async (e) => {
@@ -34,7 +45,7 @@ export default function NewBusiness() {
           city: city,
           country: "Argentina",
           email: email,
-          idUser: localStorage.getItem("userID"),
+          idUser: userID,
           image: image,
           name: name,
           phone: phone,
@@ -44,7 +55,7 @@ export default function NewBusiness() {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
@@ -70,7 +81,7 @@ export default function NewBusiness() {
     city: city,
     country: "Argentina",
     email: email,
-    idUser: localStorage.getItem("userID"),
+    idUser: userID,
     image: image,
     name: name,
     phone: phone,

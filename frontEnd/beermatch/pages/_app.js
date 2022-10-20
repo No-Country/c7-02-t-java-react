@@ -15,11 +15,11 @@ function MyApp({ Component, pageProps, router }) {
           />
           <link rel="icon" href="/logo.png" />
         </Head>
-        <ProtectedRoute>
+        {/* <ProtectedRoute> */}
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </ProtectedRoute>
+        {/* </ProtectedRoute> */}
       </>
     );
   }

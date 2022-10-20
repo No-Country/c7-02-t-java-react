@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -14,10 +15,16 @@ const style = {
 
 export default function SideItems() {
   const [links, setLinks] = React.useState([]);
-  const userRol = localStorage.getItem("rolUser")
-
+  
+  // React.useEffect(() => {
+  //   const userRol = localStorage.getItem("rolUser")
+  //   console.log(userRol)
+  //   setUser(userRol);
+  //   getLinksRol();
+  // }, [])
+  
   const getLinksRol = () => {
-    if (userRol == "USER") {
+    if (Cookies.get("rolUser") == 'USER') {
       setLinks(linksNavUser);
     } else {
       setLinks(linksNavBuss);

@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type="range"]:disabled::-webkit-slider-thumb {
+  opacity: 0.6 !important;
+  cursor: context-menu !important;
+}
+input[type="range"]:disabled::-moz-range-thumb {
+ opacity: 0.6 !important;
+ cursor: context-menu !important;
+}
+
+input[type="range"]:disabled::-ms-thumb {
+ opacity: 0.6 !important;
+ cursor: context-menu !important;
+}

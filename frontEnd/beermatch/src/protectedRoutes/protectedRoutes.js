@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
 import Loading from "./loading";
@@ -7,8 +8,8 @@ export default function ProtectedRoute({ children }) {
 
   // if (token) return <Loading/>;
   React.useEffect(() => {
-    if (localStorage.getItem("token")) {
-      return <>{children}</>;
+    if (Cookies.get("token")) {
+      router.push("/dashboard/main");
     } else {
       router.push("/");
     }
