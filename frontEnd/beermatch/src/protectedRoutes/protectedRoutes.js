@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
-import Loading from "./loading";
+// import Loading from "./loading";
 
 export default function ProtectedRoute({ children }) {
   const router = useRouter();

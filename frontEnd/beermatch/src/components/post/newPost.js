@@ -5,9 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
-export default function NewPost() {
-  axios;
-
+export default function NewPost({ allBusiness }) {
   const [attentionRate, setAttentionRate] = React.useState("");
   const [placeRate, setPlaceRate] = React.useState("");
   const [priceRate, setPriceRate] = React.useState("");
@@ -17,8 +15,8 @@ export default function NewPost() {
 
   const router = useRouter();
 
-  const baseURL = `http://localhost:8080/review/${7}`;
-
+  const baseURL = `http://localhost:8080/review/${businessID}`;
+  console.log(businessID);
   const [userID, setUserID] = React.useState("");
   const [token, setToken] = React.useState("");
 
@@ -28,6 +26,8 @@ export default function NewPost() {
     const token = Cookies.get("token");
     setToken(token);
   }, []);
+
+  console.log(text.length);
 
   const handleNewBusiness = async (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ export default function NewPost() {
           position: toast.POSITION.TOP_CENTER,
         });
         e.target.reset();
-        router.push("/dashboard/posts");
+        router.push("/dashboard/main");
       })
       .catch((error) => {
         toast.error("Error de creación, pruebe nuevamente", {
@@ -90,10 +90,12 @@ export default function NewPost() {
 
   const style = {
     input:
-      "pl-2 w-full font-light text-gray-800 bg-gray-50 outline-none border-none",
+      " flex pl-2 w-full font-light text-gray-800 bg-gray-50 outline-none border-none",
     inputContainer:
-      "flex items-center border-2 bg-gray-50 border-gray-50 my-6 mx-2 p-0.5 w-96 px-3 rounded-xl outline outline-1 hover:outline-violet-500 hover:outline hover:outline-2 ",
+      "flex items-center border-2 bg-gray-50 border-gray-50 my-6 mx-2 p-0.5 px-3 rounded-xl outline outline-1 hover:outline-violet-500 hover:outline hover:outline-2 ",
   };
+
+  console.log(attentionRate);
 
   return (
     <>
@@ -107,158 +109,241 @@ export default function NewPost() {
         <input type="checkbox" id="my-modal" className="modal-toggle" />
         <div className="modal">
           <ToastContainer autoClose={2000} />
-          <form onSubmit={handleNewBusiness}>
-            <div className="modal-box bg-gray-50 w-full">
-              <h3 className="font-bold text-lg text-purple-500 my-2 flex justify-center">
-                Crea tu review
-              </h3>
-              <div className="flex flex-col space-y-2 p-2 my-2 w-full text-purple-500 ">
-                <label
-                  htmlFor="attentionRate"
-                  className=" font-semibold text-sm mb-1 mt-2"
+          <div className="modal-box bg-gray-50 w-full">
+            <form onSubmit={handleNewBusiness}>
+              <div>
+                <h3 className="font-bold text-lg text-purple-500 my-2 flex justify-center">
+                  Crea tu review
+                </h3>
+                <select
+                  className="select select-primary w-full max-w-xs bg-gray-200 flex mx-auto text-purple-600"
+                  onChange={(e) => setBusinessID(e.target.value)}
                 >
-                  Nota Atención
-                </label>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  className="range range-sm"
-                  step="1"
-                  name="attentionRate"
-                  id="attentionRate"
-                  onInvalid={inputOnInvalid}
-                  onInput={inputOnInput}
-                  onChange={(e) => setAttentionRate(e.target.value)}
-                  required
-                />
-                <div className="w-full flex justify-between text-sm px-2 text-purple-500">
-                  <span>1</span>
-                  <span>2</span>
-                  <span>3</span>
-                  <span>4</span>
-                  <span>5</span>
-                </div>
-              </div>
-              <div className="flex flex-col space-y-2 p-2 my-2 w-full text-purple-500 ">
-                <label
-                  htmlFor="placeRate"
-                  className=" font-semibold text-sm mb-1 mt-2"
-                >
-                  Nota Lugar
-                </label>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  className="range range-sm"
-                  step="1"
-                  name="placeRate"
-                  id="placeRate"
-                  onInvalid={inputOnInvalid}
-                  onInput={inputOnInput}
-                  onChange={(e) => setPlaceRate(e.target.value)}
-                  required
-                />
-                <div className="w-full flex justify-between text-sm px-2 text-purple-500">
-                  <span>1</span>
-                  <span>2</span>
-                  <span>3</span>
-                  <span>4</span>
-                  <span>5</span>
-                </div>
-              </div>
-
-              <div className="flex flex-col space-y-2 p-2 my-2 w-full text-purple-500 ">
-                <label
-                  htmlFor="placeRate"
-                  className=" font-semibold text-sm mb-1 mt-2"
-                >
-                  Nota Precio
-                </label>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  className="range range-sm"
-                  step="1"
-                  name="priceRate"
-                  id="priceRate"
-                  onInvalid={inputOnInvalid}
-                  onInput={inputOnInput}
-                  onChange={(e) => setPriceRate(e.target.value)}
-                  required
-                />
-                <div className="w-full flex justify-between text-sm px-2 text-purple-500">
-                  <span>1</span>
-                  <span>2</span>
-                  <span>3</span>
-                  <span>4</span>
-                  <span>5</span>
-                </div>
-              </div>
-              <div className="flex flex-col space-y-2 p-2 my-2 w-full text-purple-500 ">
-                <label
-                  htmlFor="placeRate"
-                  className=" font-semibold text-sm mb-1 mt-2"
-                >
-                  Nota Calidad
-                </label>
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  className="range range-sm"
-                  step="1"
-                  name="qualityRate"
-                  id="qualityRate"
-                  onInvalid={inputOnInvalid}
-                  onInput={inputOnInput}
-                  onChange={(e) => setQualityRate(e.target.value)}
-                  required
-                />
-                <div className="w-full flex justify-between text-sm px-2 text-purple-500">
-                  <span>1</span>
-                  <span>2</span>
-                  <span>3</span>
-                  <span>4</span>
-                  <span>5</span>
-                </div>
-              </div>
-              <div className={style.inputContainer}>
-                <textarea
-                  id="text"
-                  className={style.input}
-                  rows="2"
-                  type="text"
-                  name="text"
-                  placeholder="Comentarios de review"
-                  onChange={(e) => setText(e.target.value)}
-                  onInvalid={inputOnInvalid}
-                  onInput={inputOnInput}
-                  required
-                ></textarea>
-              </div>
-              <div className="modal-action flex justify-between p-2">
-                <label
-                  htmlFor="my-modal"
-                  className="btn btn-outline btn-error"
-                  onClick={() => cleanState()}
-                >
-                  CERRAR
-                </label>
-                <label htmlFor="my-modal">
-                  <button
-                    type="submit"
-                    htmlFor="my-modal"
-                    className="btn btn-outline btn-info"
+                  <option disabled selected>
+                    Selecciona un negocio
+                  </option>
+                  {allBusiness.map((item) => (
+                    <option value={item.id}>{item.name}</option>
+                  ))}
+                </select>
+                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between  ">
+                  <label
+                    htmlFor="attentionRate"
+                    className=" font-semibold text-sm mb-1 mt-2"
                   >
-                    Guardar
-                  </button>
-                </label>
+                    Nota Atención: 
+                  </label>
+                  <div className="rating mr-4 rating-md space-x-8 justify-center">
+                    <input
+                      type="radio"
+                      name="rating-2"
+                      value={1}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setAttentionRate(e.target.value)}
+                    />
+                    <input
+                      type="radio"
+                      name="rating-2"
+                      value={2}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setAttentionRate(e.target.value)}
+                    />
+                    <input
+                      type="radio"
+                      name="rating-2"
+                      value={3}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setAttentionRate(e.target.value)}
+                    />
+                    <input
+                      type="radio"
+                      name="rating-2"
+                      value={4}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setAttentionRate(e.target.value)}
+                    />
+                    <input
+                      type="radio"
+                      name="rating-2"
+                      value={5}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setAttentionRate(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between ">
+                  <label
+                    htmlFor="attentionRate"
+                    className=" font-semibold text-sm mb-1 mt-2"
+                  >
+                    Nota Lugar: 
+                  </label>
+                  <div className="rating mr-4 rating-md space-x-8 justify-center">
+                    <input
+                      type="radio"
+                      name="rating-3"
+                      value={1}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPlaceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-3"
+                      value={2}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPlaceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-3"
+                      value={3}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPlaceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-3"
+                      value={4}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPlaceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-3"
+                      value={5}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPlaceRate(e.target.value)}
+                      />
+                  </div>
+                </div>
+                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between ">
+                  <label
+                    htmlFor="qualityRate"
+                    className=" font-semibold text-sm mb-1 mt-2"
+                  >
+                    Nota Calidad: 
+                  </label>
+                  <div className="rating mr-4 rating-md space-x-8 justify-center">
+                    <input
+                      type="radio"
+                      name="rating-4"
+                      value={1}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPriceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-4"
+                      value={2}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPriceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-4"
+                      value={3}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPriceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-4"
+                      value={4}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPriceRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-4"
+                      value={5}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setPriceRate(e.target.value)}
+                      />
+                  </div>
+                </div>
+                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between ">
+                  <label
+                    htmlFor="attentionRate"
+                    className=" font-semibold text-sm mb-1 mt-2"
+                  >
+                    Nota Precio: 
+                  </label>
+                  <div className="rating mr-4 rating-md space-x-8 justify-center">
+                    <input
+                      type="radio"
+                      name="rating-5"
+                      value={1}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setQualityRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-5"
+                      value={2}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setQualityRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-5"
+                      value={3}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setQualityRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-5"
+                      value={4}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setQualityRate(e.target.value)}
+                      />
+                    <input
+                      type="radio"
+                      name="rating-5"
+                      value={5}
+                      className="mask mask-star-2 bg-yellow-400"
+                      onChange={(e) => setQualityRate(e.target.value)}
+                      />
+                  </div>
+                </div>
+
+   
+                <div className={style.inputContainer}>
+                  <textarea
+                    id="text"
+                    className={style.input}
+                    rows="5"
+                    type="text"
+                    name="text"
+                    maxLength="256"
+                    placeholder="Comentarios de review"
+                    onChange={(e) => setText(e.target.value)}
+                    onInvalid={inputOnInvalid}
+                    onInput={inputOnInput}
+                    required
+                  ></textarea>
+                </div>
+                <div className="modal-action flex justify-between p-2">
+                  <label
+                    htmlFor="my-modal"
+                    className="btn btn-outline btn-error"
+                    onClick={() => cleanState()}
+                  >
+                    CERRAR
+                  </label>
+                  <label htmlFor="my-modal">
+                    <button
+                      type="submit"
+                      htmlFor="my-modal"
+                      className="btn btn-outline btn-info"
+                    >
+                      Guardar
+                    </button>
+                  </label>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </>

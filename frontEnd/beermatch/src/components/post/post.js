@@ -2,13 +2,12 @@ import axios from "axios";
 import React from "react";
 import PostCard from "./postCard";
 
-function Post( {userID,token }) {
-
-  const [allPosts, setAllPosts] = React.useState("")
+function Post({ allBusiness, userID, token }) {
+  const [allPosts, setAllPosts] = React.useState("");
 
   const baseURL = `http://localhost:8080/review/user?&userID=${userID}`;
 
-  console.log(userID)
+  console.log(userID);
 
   React.useEffect(() => {
     axios
@@ -18,7 +17,7 @@ function Post( {userID,token }) {
         //   params: {
         //     order: "ASC",
         //     userID: 1,
-        //   },
+        //   }
         // },
         {
           headers: {
@@ -44,9 +43,9 @@ function Post( {userID,token }) {
 
   console.log(allPosts);
 
-  return (
-    <PostCard />
-  );
+  if (!allPosts) return <>NO HAY</>;
+  if (allPosts)
+    return <PostCard allPosts={allPosts} allBusiness={allBusiness} />;
 }
 
 export default Post;

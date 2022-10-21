@@ -4,10 +4,9 @@ import { BsPersonLinesFill } from "react-icons/bs";
 import axios from "axios";
 import { GoAlert } from "react-icons/go";
 import Link from "next/link";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
-
 
 function SignUpUser() {
   const [firstName, setFirstName] = React.useState("");
@@ -44,15 +43,13 @@ function SignUpUser() {
 
   const baseURL = "http://localhost:8080/auth/register";
 
-
-  const handleRol = () =>{
+  const handleRol = () => {
     if (rol == "user") {
-      setRol("business")
-    } else{
-      setRol('user')
+      setRol("business");
+    } else {
+      setRol("user");
     }
-  }
-
+  };
 
   const handleRegisterUser = async (e) => {
     e.preventDefault();
@@ -77,16 +74,16 @@ function SignUpUser() {
       .then((response) => {
         console.log(response.data);
         toast.success("Usuario creado !", {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_CENTER,
         });
         router.push("/landing");
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error("Error de registro, pruebe nuevamente", {
-          position: toast.POSITION.TOP_CENTER
+          position: toast.POSITION.TOP_CENTER,
         });
-        console.log(error.message)
-      })
+        console.log(error.message);
+      });
   };
 
   return (
@@ -100,11 +97,18 @@ function SignUpUser() {
           />
         </div>
         <div className="flex">
-        <ToastContainer autoClose={2000} />
+          <ToastContainer autoClose={2000} />
 
-          <div className="flex w-full justify-center items-center bg-white space-y-8">
+          <div className="flex w-full justify-center items-center h-screen bg-white space-y-8">
             <div className="w-full px-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">
+                <div>
+                  <img
+                    className="m-auto justify-center flex p-10 lg:hidden"
+                    src="logo.png"
+                    alt=""
+                  />
+                </div>
                 <h1 className="text-gray-800 font-light text-2xl mb-6 flex">
                   Bienvenido al Mejor lugar para los Cerveceros!
                   <IoBeerOutline className="text-yellow-500 mt-1 ml-2" />
@@ -217,7 +221,6 @@ function SignUpUser() {
                     {error}
                   </p>
                 )}
-
 
                 <button
                   type="submit"
