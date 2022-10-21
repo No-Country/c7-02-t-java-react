@@ -34,11 +34,13 @@ It is a page that requires registration or login, depending on the case, either 
 - HTML
 - CSS
 - JavaScript - Lenguaje de de programación
-- [Angular](https://angular.io/) - Framework
+- ReactJS
+- NextJS
+- TailwindCSS
 
 ## Autores :star_struck:
 
-- Felipe Ignacio Silva Galleguillos - *Desarrollador Frontend, Tester* - :robot:[]()
+- Felipe Ignacio Silva Galleguillos - *Desarrollador Frontend, Tester* - :robot: [Fipeman](https://github.com/Fipeman)
 - Alejandro Moll - *Desarrollador Backend, Tester, Documentación* - :alien: []()
 
 - José Ignacio Ibarrondo Pelaez - *Desarrollador Backend, Tester, Documentación* - :space_invader: [ibarrondojosei](https://github.com/ibarrondojosei)
@@ -54,7 +56,7 @@ Fue un gusto para nosotros trabajar en este proyecto, compartir nuestros conocim
 It was a pleasure for us to work on this project, share our knowledge and above all learn technologies
 
 ### Linkedin
-- :robot: [Felipe]()
+- :robot: [Felipe](https://www.linkedin.com/in/felipe-silva-galleguillos-73725020/)
 - :alien: [Alejandro]()
 - :space_invader: [José Ignacio](https://www.linkedin.com/in/jos%C3%A9ignacioibarrondopelaez/)
 - :brain: [José Luis](https://www.linkedin.com/in/josepanero/)
