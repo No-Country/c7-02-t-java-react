@@ -57,7 +57,7 @@ function Login() {
         </div>
         <div className="flex">
           <ToastContainer autoClose={1500} />
-          <div className="flex w-full justify-center items-center bg-white space-y-8">
+          <div className="flex w-full justify-center items-center h-screen bg-white space-y-8">
             <div className="w-full p-8 md:px-32 lg:px-24">
               <form className="bg-white rounded-md shadow-2xl p-5">
                 <div>
