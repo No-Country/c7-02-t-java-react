@@ -20,8 +20,6 @@ import java.time.LocalDate;
 @ApiModel(description = "Class representing an News Request.")
 public class NewsRequest {
 
-
-
     @NotNull(message = "The name can't be null")
     @NotEmpty(message = "The name can't be empty")
     @NotBlank(message = "The name can't be blank")
@@ -37,9 +35,12 @@ public class NewsRequest {
     @ApiModelProperty(notes = "Photo of the User.")
     private String photo;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ApiModelProperty(notes = "id of the business corresponding to the news to publish", example = " ")
+    private Long business_id;
+
+    /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "business_id")
-    private BusinessEntity business;
+    private BusinessEntity business;*/
 
     @ApiModelProperty(notes = "Start date of the User.", example = "2022-10-01", required = true)
     @Column(name = "start_date")
@@ -49,10 +50,7 @@ public class NewsRequest {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 
-    @Column(name = "soft_delete")
-    private Boolean sofdelete = Boolean.FALSE;
+
 
 }

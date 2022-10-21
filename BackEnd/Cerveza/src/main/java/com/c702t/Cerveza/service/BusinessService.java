@@ -16,6 +16,8 @@ public interface BusinessService {
     BusinessResponse getById (Long id) throws IOException;
     PaginationResponse getByFilters(String city, String state, String country, String order, Optional<Integer> pageNumber, Optional<Integer> size);
 
-    void valueRating (Long id, Double totalValue);
+    void valueRating (Long id, Float totalValue);
+
+    PaginationResponse getPageBusinessByUsers(Long id, String order, Optional<Integer> page, Optional<Integer> size);
 
 }

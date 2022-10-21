@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -53,12 +54,27 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<RoleEntity> roleId;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ReviewEntity> reviewEntitySet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "userEntity")
+    Set<CommentEntity> commentEntitySet;
+    /* Like System
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "like__user_review",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "review_id")
+    )
+    private Set<ReviewEntity> reviewEntitySetLikes = new HashSet<>();
+    */
     @CreationTimestamp
     private Timestamp timestamp;
 

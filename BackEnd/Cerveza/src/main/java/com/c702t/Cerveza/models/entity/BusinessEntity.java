@@ -1,5 +1,6 @@
 package com.c702t.Cerveza.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -7,13 +8,11 @@ import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -59,7 +58,7 @@ public class BusinessEntity {
     @NotBlank(message = "name can not be blank")
     private String businessCountry;
 
-    private Integer phone;
+    private String phone;
 
     @NotNull
     @NotEmpty(message = "email can not be null")
@@ -80,15 +79,24 @@ public class BusinessEntity {
 
     private String urlInstagram;
 
-   @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity users;
 
-   private Double value;
+    @JsonIgnore
+    @OneToMany(mappedBy = "businessEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ReviewEntity> reviewEntitySet;
 
-   private Double rating;
+    private Float value;
 
-   private Integer count;
+
+    private Float rating;
+
+
+    private Integer count;
+
+
 
 }
 

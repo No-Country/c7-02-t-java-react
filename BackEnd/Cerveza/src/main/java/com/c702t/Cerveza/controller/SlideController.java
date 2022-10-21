@@ -1,14 +1,10 @@
 package com.c702t.Cerveza.controller;
 
+import com.c702t.Cerveza.exception.RuntimeExceptionCustom;
 import com.c702t.Cerveza.models.request.SlideRequest;
 import com.c702t.Cerveza.models.response.SlideResponse;
-import com.c702t.Cerveza.models.response.PaginationResponse;
-import com.c702t.Cerveza.repository.SlideRepository;
 import com.c702t.Cerveza.service.SlideService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
 import java.io.IOException;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/slides")
@@ -32,10 +29,27 @@ public class SlideController {
     @ApiOperation(value = "Create Slide", notes = "Allows Business to insert Slide")
     @ApiResponses({ @ApiResponse(code = 201, message = "Slide created!")})
     @PostMapping
-    public ResponseEntity<SlideResponse> create (@Valid @RequestBody SlideRequest request) throws IOException {
+    public ResponseEntity<SlideResponse> create (@Valid @RequestBody SlideRequest request,
+                                                @RequestHeader(name="Authorization") String token) throws RuntimeExceptionCustom {
 
-        SlideResponse response = slideService.create(request);
+        SlideResponse response = slideService.create(request, token);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+    }
+
+    @ApiOperation(value = "Get All Slides by Business" , notes = "Returns All Slides by Business")
+    @ApiResponses({ @ApiResponse(code = 200, message = "Return All Slides created"),
+                    @ApiResponse(code = 400, message = "Bad Request")})
+    @GetMapping("{business_id}")
+    public ResponseEntity<List<SlideResponse>> getAllSlidesPage (@PathVariable @Valid @NotNull @NotBlank  @ApiParam(
+                                                                        name = "business_id",
+                                                                        type = "Long",
+                                                                        value = "ID of the business requested",
+                                                                        example = "1",
+                                                                        required = true) Long business_id ) throws RuntimeExceptionCustom {
+
+        List<SlideResponse> responses = slideService.getAllNewsByBusiness(business_id);
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
 
     }
 
@@ -43,47 +57,36 @@ public class SlideController {
     @ApiResponses({ @ApiResponse(code = 204, message = "Slide soft deleted!"),
                     @ApiResponse(code = 404, message = "The inserted ID does not belong to a Slide")})
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteSlide (@PathVariable @Valid @NotNull @NotBlank Long id){
+    public ResponseEntity<Void> deleteSlide (@PathVariable @Valid @NotNull @NotBlank  @ApiParam(
+                                                                name = "id",
+                                                                type = "Long",
+                                                                value = "id of the Slides requested",
+                                                                example = "1",
+                                                                required = true) Long id ,
+                                             @RequestHeader(name="Authorization") String token) throws RuntimeExceptionCustom {
 
-        slideService.delete(id);
+        slideService.delete(id, token);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
-    @ApiOperation(value = "Update Slide By ID", notes = "Allows Business to update an existing Slide by ID")
-    @ApiResponses({ @ApiResponse(code = 200, message = "Slide updated!"),
-                    @ApiResponse(code = 404, message = "The inserted ID does not belong to a Slide")})
-    @PutMapping("{id}")
-    public ResponseEntity<SlideResponse> updateSlide (@PathVariable @Valid @NotNull @NotBlank  Long id,
-                                                    @Valid @RequestBody SlideRequest request) throws IOException {
+    @ApiOperation(value = "Get Slides By ID", notes = "Returns all details of slide by ID")
+    @ApiResponses({ @ApiResponse(code = 200, message = "Return the requested slide"),
+                    @ApiResponse(code = 404, message = "The inserted ID does not belong to a slide")})
+    @GetMapping("getById/{id}")
+    public ResponseEntity<SlideResponse> getById (@PathVariable @Valid @NotNull @NotBlank Long id) throws RuntimeExceptionCustom {
 
-        SlideResponse response = slideService.update(id, request);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        try{
 
-    }
+            SlideResponse response = slideService.getById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
 
-    @ApiOperation(value = "Get Slide By ID", notes = "Returns all details of Slide by ID")
-    @ApiResponses({ @ApiResponse(code = 200, message = "Return the requested Slide"),
-                    @ApiResponse(code = 404, message = "The inserted ID does not belong to a Slide")})
-    @GetMapping("{id}")
-    public ResponseEntity<SlideResponse> getById (@PathVariable @Valid @NotNull @NotBlank Long id){
+        }catch (RuntimeExceptionCustom rec){
+            rec.getMessage();
+        }
 
-        SlideResponse response = slideService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return null;
 
     }
-
-    @GetMapping
-    @ApiOperation(value = "Get All Slide by Page" , notes = "Returns All Slide ")
-    @ApiResponses({ @ApiResponse(code = 200, message = "Return All Slide created"),
-                    @ApiResponse(code = 400, message = "Bad Request")})
-    public ResponseEntity<PaginationResponse> getPage (@RequestParam(value = "page", required = false) Optional<Integer> page,
-                                                       @RequestParam(value = "size", required = false) Optional<Integer> size) {
-
-        PaginationResponse responses = slideService.getPage(page, size);
-        return new ResponseEntity<>(responses, HttpStatus.OK);
-
-    }
-
 
 }

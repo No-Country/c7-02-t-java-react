@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 
 @Getter
@@ -30,7 +31,7 @@ public class BusinessRequest {
     @NotEmpty(message = "the image can't be null")
     @NotBlank(message = "the image can't  be blank")
     @ApiModelProperty(notes = "Profile Image of the Business",
-            example = "data:image/jpeg;base64",
+            example = "imagen.jpg",
             required = true)
     private String image;
 
@@ -69,7 +70,8 @@ public class BusinessRequest {
     @ApiModelProperty(notes = "Phone of the Business",
             example = "235671889",
             required = true)
-    private Integer phone;
+    @Pattern(regexp = "\\d*", message = "The phone has to contain only numbers")
+    private String phone;
 
 
     @ApiModelProperty(notes = "email of the Business",
