@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import Loading from "../../protectedRoutes/loading";
 import PostCard from "./postCard";
 
 function Post({ allBusiness, userID, token }) {
@@ -43,9 +44,12 @@ function Post({ allBusiness, userID, token }) {
 
   console.log(allPosts);
 
-  if (!allPosts) return <>NO HAY</>;
+  if (!allPosts) return;
+  <>
+    <Loading />
+  </>;
   if (allPosts)
-    return <PostCard allPosts={allPosts} allBusiness={allBusiness} />;
+    return <PostCard allPosts={allPosts} allBusiness={allBusiness} userID={userID}  />;
 }
 
 export default Post;

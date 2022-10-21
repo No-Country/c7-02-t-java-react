@@ -7,7 +7,7 @@ const style = {
 
 export default function Sidebar() {
   return (
-    <aside className="lg:visible invisible bg-white h-full absolute w-60 z-40">
+    <aside className="lg:visible invisible bg-white h-full absolute w-60 z-50">
       <div className="mt-5">
         <img
           className="m-auto justify-center h-auto flex"

@@ -13,8 +13,8 @@ function Main() {
         <Activity />
       </div>
       <div>
-        <p className="w-auto justify-center flex pt-2 m-2 text-white font-bold text-xl">Mi ultimo comentario</p>
-        {/* <Post /> */}
+        {/* <p className="w-auto justify-center flex pt-2 m-2 text-white font-bold text-xl">Mi ultimo comentario</p>
+        <Post /> */}
       </div>
     </>
   );

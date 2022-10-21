@@ -2,6 +2,7 @@ import React from "react";
 import Business from "../../src/components/business/business";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "../../src/protectedRoutes/loading";
 
 function business() {
   const [allBusiness, setAllBusiness] = React.useState("");
@@ -63,7 +64,7 @@ function business() {
   if (!allBusiness)
     return (
       <>
-        <h1>NO HAY</h1>
+        <Loading />
       </>
     );
   if (allBusiness) return <Business allBusiness={allBusiness} />;

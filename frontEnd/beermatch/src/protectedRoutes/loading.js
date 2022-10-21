@@ -3,12 +3,12 @@ import React from "react";
 
 function Loading() {
   return (
-    <div className="bg-white flex h-screen rounded-md justify-center items-center ">
+    <div className="flex h-screen m-auto rounded-md justify-center items-center ">
       <div className="mb-auto mt-10">
         <img
-          className="animate-spin w-60"
+          className=" w-60"
           alt=""
-          src="/beer.png"
+          src="/logo.png"
         />
       </div>
     </div>

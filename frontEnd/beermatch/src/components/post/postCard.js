@@ -1,7 +1,9 @@
+import axios from "axios";
 import React from "react";
 import StarRating from "react-svg-star-rating";
+import { toast } from "react-toastify";
 
-function PostCard({ allPosts, allBusiness }) {
+function PostCard({ allPosts, allBusiness, userID, token }) {
   // const [businessName, setBusinessName] = useState('')
   console.log(allPosts);
   console.log(allBusiness);
@@ -11,7 +13,30 @@ function PostCard({ allPosts, allBusiness }) {
     return arrayFiltered[0].name;
   };
 
-  console.log(nameBusiness(7));
+  const deletePost = async (postID, e) => {
+    const baseURL = `http://localhost:8080/review/${postID}`;
+    e.preventDefault();
+    await axios
+      .delete(baseURL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        toast.success("Comentario borrado !", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        e.target.reset();
+        router.push("/dashboard/main");
+      })
+      .catch((error) => {
+        toast.error("Error al eliminar, pruebe nuevamente", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        console.log(error.message);
+      });
+  };
 
   return (
     <>
@@ -33,88 +58,83 @@ function PostCard({ allPosts, allBusiness }) {
                 <p className="text-gray-700">
                   {new Date(item.timestamp).toLocaleDateString("es-ES")}
                 </p>
-                <p className="mt-3 text-gray-700 text-sm">{item.text}</p>
+                <p className="my-3 text-gray-700 text-sm">{item.text}</p>
+                <div className="flex">
+                  <button className="outline outline-1 text-xs outline-red-500 rounded-lg p-0.5 hover:text-white hover:bg-red-500" onClick={(e)=> deletePost(item.id, e)}>
+                    borrar
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="flex-row m-auto">
-              <div className="flex w-full space-x-5 mt-4 my-2  justify-center ">
-                <label
-                  htmlFor="totalRate"
-                  className=" font-semibold text-base "
-                >
-                  Nota total:
-                </label>
-                <div className="rating rating-sm justify-center">
-                  <StarRating
-                    initialRating={item.totalRate}
-                    containerClassName="flex"
-                    isReadOnly="true"
-                    size={25}
-                  />
+            <div className="flex-row m-auto z-0">
+              <div>
+                <div className="flex w-full space-x-5 mt-4 my-2  justify-center ">
+                  <label
+                    htmlFor="totalRate"
+                    className=" font-semibold text-base "
+                  >
+                    Nota total:
+                  </label>
+                  <div className=" justify-center">
+                    <StarRating
+                      initialRating={item.totalRate}
+                      containerClassName="flex"
+                      isReadOnly="true"
+                      size={25}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex w-full space-x-3 my-2 mx-auto   justify-center">
-                <label
-                  htmlFor="attentionRate"
-                  className=" text-sm ml-1 "
-                >
-                  Nota atencion:
-                </label>
-                <div className="rating rating-sm justify-center">
-                  <StarRating
-                    initialRating={item.attentionRate}
-                    containerClassName="flex"
-                    isReadOnly="true"
-                    size={20}
-                  />
+                <div className="flex w-full space-x-3 my-2 mx-auto   justify-center">
+                  <label htmlFor="attentionRate" className=" text-sm ml-1 ">
+                    Nota atencion:
+                  </label>
+                  <div className=" justify-center">
+                    <StarRating
+                      initialRating={item.attentionRate}
+                      containerClassName="flex"
+                      isReadOnly="true"
+                      size={20}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex w-full space-x-3 my-2 mx-auto  justify-center">
-                <label
-                  htmlFor="attentionRate"
-                  className="text-sm ml-6"
-                >
-                  Nota lugar:
-                </label>
-                <div className="rating rating-sm justify-center">
-                  <StarRating
-                    initialRating={item.placeRate}
-                    containerClassName="flex"
-                    isReadOnly="true"
-                    size={20}
-                  />
+                <div className="flex w-full space-x-3 my-2 mx-auto  justify-center">
+                  <label htmlFor="attentionRate" className="text-sm ml-6">
+                    Nota lugar:
+                  </label>
+                  <div className=" justify-center">
+                    <StarRating
+                      initialRating={item.placeRate}
+                      containerClassName="flex"
+                      isReadOnly="true"
+                      size={20}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex w-full space-x-3 my-2 mx-auto   justify-center">
-                <label
-                  htmlFor="attentionRate"
-                  className=" text-sm ml-4 "
-                >
-                  Nota precio:
-                </label>
-                <div className="rating rating-sm justify-center">
-                  <StarRating
-                    initialRating={item.priceRate}
-                    containerClassName="flex"
-                    isReadOnly="true"
-                    size={20}
-                  />
+                <div className="flex w-full space-x-3 my-2 mx-auto justify-center">
+                  <label htmlFor="attentionRate" className=" text-sm ml-4 ">
+                    Nota precio:
+                  </label>
+                  <div className=" justify-center">
+                    <StarRating
+                      initialRating={item.priceRate}
+                      containerClassName="flex z-0"
+                      isReadOnly="true"
+                      size={20}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex w-full space-x-3 my-2 mx-auto   justify-center">
-                <label
-                  htmlFor="qualityRate"
-                  className=" text-sm ml-3 "
-                >
-                  Nota calidad:
-                </label>
-                <div className="rating rating-sm justify-center">
-                  <StarRating
-                    initialRating={item.qualityRate}
-                    containerClassName="flex"
-                    isReadOnly="true"
-                    size={20}
-                  />
+                <div className="flex w-full space-x-3 my-2 mx-auto   justify-center">
+                  <label htmlFor="qualityRate" className=" text-sm ml-3 ">
+                    Nota calidad:
+                  </label>
+                  <div className="justify-center">
+                    <StarRating
+                      initialRating={item.qualityRate}
+                      containerClassName="flex"
+                      isReadOnly="true"
+                      size={20}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

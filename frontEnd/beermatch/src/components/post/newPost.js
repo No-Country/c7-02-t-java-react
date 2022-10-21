@@ -15,7 +15,6 @@ export default function NewPost({ allBusiness }) {
 
   const router = useRouter();
 
-  const baseURL = `http://localhost:8080/review/${businessID}`;
   console.log(businessID);
   const [userID, setUserID] = React.useState("");
   const [token, setToken] = React.useState("");
@@ -30,6 +29,8 @@ export default function NewPost({ allBusiness }) {
   console.log(text.length);
 
   const handleNewBusiness = async (e) => {
+    const baseURL = `http://localhost:8080/review/${businessID}`;
+
     e.preventDefault();
     await axios
       .post(
@@ -112,11 +113,11 @@ export default function NewPost({ allBusiness }) {
           <div className="modal-box bg-gray-50 w-full">
             <form onSubmit={handleNewBusiness}>
               <div>
-                <h3 className="font-bold text-lg text-purple-500 my-2 flex justify-center">
+                <h3 className="font-bold text-lg text-PurpleNavy my-2 flex justify-center">
                   Crea tu review
                 </h3>
                 <select
-                  className="select select-primary w-full max-w-xs bg-gray-200 flex mx-auto text-purple-600"
+                  className="select select-primary w-fit max-w-xs bg-gray-200 flex mx-auto text-PurpleNavy"
                   onChange={(e) => setBusinessID(e.target.value)}
                 >
                   <option disabled selected>
@@ -126,7 +127,7 @@ export default function NewPost({ allBusiness }) {
                     <option value={item.id}>{item.name}</option>
                   ))}
                 </select>
-                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between  ">
+                <div className="flex space-y-2 p-2 my-2 w-full text-PurpleNavy justify-between  ">
                   <label
                     htmlFor="attentionRate"
                     className=" font-semibold text-sm mb-1 mt-2"
@@ -171,7 +172,7 @@ export default function NewPost({ allBusiness }) {
                     />
                   </div>
                 </div>
-                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between ">
+                <div className="flex space-y-2 p-2 my-2 w-full text-PurpleNavy justify-between ">
                   <label
                     htmlFor="attentionRate"
                     className=" font-semibold text-sm mb-1 mt-2"
@@ -216,7 +217,7 @@ export default function NewPost({ allBusiness }) {
                       />
                   </div>
                 </div>
-                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between ">
+                <div className="flex space-y-2 p-2 my-2 w-full text-PurpleNavy justify-between ">
                   <label
                     htmlFor="qualityRate"
                     className=" font-semibold text-sm mb-1 mt-2"
@@ -261,7 +262,7 @@ export default function NewPost({ allBusiness }) {
                       />
                   </div>
                 </div>
-                <div className="flex space-y-2 p-2 my-2 w-full text-purple-500 justify-between ">
+                <div className="flex space-y-2 p-2 my-2 w-full text-PurpleNavy justify-between ">
                   <label
                     htmlFor="attentionRate"
                     className=" font-semibold text-sm mb-1 mt-2"

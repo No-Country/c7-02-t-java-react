@@ -40,7 +40,7 @@ export default function SideItems() {
   if (links.length > 0) 
   return (
     <ul className="md:pl-3">
-      <li>
+      <li className="bg-white">
         {links.map((item) => (
           <Link href={item.link} key={item.title}>
             <a className={style.link}>

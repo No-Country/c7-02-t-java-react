@@ -16,11 +16,11 @@ function BusinessCard({ allBusiness }) {
   if (allBusiness.length > 0)
     return (
       <>
-        <div className="lg:flex sm:block  items-center justify-center ">
+        <div className=" sm:block items-center justify-center lg:grid lg:grid-cols-3">
           {" "}
           {allBusiness.map((item) => (
             <div
-              className="rounded-xl border-2 border-yellow-400 p-4 m-2 text-slate-600 shadow-md lg:w-9/12 w-11/12 bg-white"
+              className="rounded-xl border-2 lg:col-span-1 border-yellow-400 p-4 m-2 text-slate-600 shadow-md lg:w-9/12 w-11/12 h-96 bg-white"
               key={item.id}
             >
               <div className="flex items-center justify-between border-b pb-3 ">
@@ -109,7 +109,6 @@ function BusinessCard({ allBusiness }) {
                             isReadOnly="true"
                             initialRating={0}
                           />
-                          <span>0</span>
                         </div>
                       )}
                     </div>

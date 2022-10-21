@@ -4,6 +4,7 @@ import React from "react";
 import BusinessCard from "../../../src/components/business/businessCard";
 import NewBusiness from "../../../src/components/business/newBusiness";
 import SearchBusiness from "../../../src/components/business/searchBusiness";
+import Loading from "../../../src/protectedRoutes/loading";
 
 function myBusiness() {
   const [allBusiness, setAllBusiness] = React.useState("");
@@ -54,7 +55,7 @@ function myBusiness() {
 
   console.log(allBusiness);
 
-  if (!allBusiness) return <>NO HAY</>;
+  if (!allBusiness) return <Loading />
 
   if (allBusiness)
     return (

@@ -44,13 +44,13 @@ import { BsMegaphone } from "react-icons/bs";
       icon: <IoHome />,
       link: "/dashboard/main",
     },
+    // {
+    //   title: "Mis Comentarios",
+    //   icon: <MdOutlineComment />,
+    //   link: "/dashboard/posts",
+    // },
     {
-      title: "Mis Comentarios",
-      icon: <MdOutlineComment />,
-      link: "/dashboard/posts",
-    },
-    {
-      title: "donde ir?",
+      title: "Negocios",
       icon: <IoBeer />,
       link: "/dashboard/business",
     },
