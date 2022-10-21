@@ -39,12 +39,12 @@ function PostCard({ allPosts, allBusiness }) {
             <div className="flex-row m-auto">
               <div className="flex w-full space-x-5 mt-4 my-2  justify-center ">
                 <label
-                  htmlFor="attentionRate"
+                  htmlFor="totalRate"
                   className=" font-semibold text-base "
                 >
                   Nota total:
                 </label>
-                <div className="rating ating-sm justify-center">
+                <div className="rating rating-sm justify-center">
                   <StarRating
                     initialRating={item.totalRate}
                     containerClassName="flex"
@@ -110,7 +110,7 @@ function PostCard({ allPosts, allBusiness }) {
                 </label>
                 <div className="rating rating-sm justify-center">
                   <StarRating
-                    initialRating={item.qualitylRate}
+                    initialRating={item.qualityRate}
                     containerClassName="flex"
                     isReadOnly="true"
                     size={20}

@@ -221,7 +221,7 @@ export default function NewPost({ allBusiness }) {
                     htmlFor="qualityRate"
                     className=" font-semibold text-sm mb-1 mt-2"
                   >
-                    Nota Calidad: 
+                    Nota Precio: 
                   </label>
                   <div className="rating mr-4 rating-md space-x-8 justify-center">
                     <input
@@ -266,7 +266,7 @@ export default function NewPost({ allBusiness }) {
                     htmlFor="attentionRate"
                     className=" font-semibold text-sm mb-1 mt-2"
                   >
-                    Nota Precio: 
+                    Nota Calidad: 
                   </label>
                   <div className="rating mr-4 rating-md space-x-8 justify-center">
                     <input
