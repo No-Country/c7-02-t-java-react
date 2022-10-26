@@ -36,20 +36,23 @@ public class CommentService {
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
         ReviewEntity reviewEntity = reviewRepository.getById(reviewID);
+
         if (reviewEntity == null) {
             throw new RuntimeExceptionCustom("404 :: Review with id " + reviewID + " not found.");
         }
+
         CommentEntity commentEntity = new CommentEntity();
         CommentEntityKey commentEntityKey = new CommentEntityKey();
         commentEntityKey.setUserID(userEntity.getId());
         commentEntityKey.setReviewID(reviewEntity.getId());
+
         commentEntity.setId(commentEntityKey);
         commentEntity.setUserEntity(userEntity);
         commentEntity.setReviewEntity(reviewEntity);
         commentEntity.setText(commentRequest.getText());
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        commentEntity.setTimestamp(timestamp);
+        commentEntity.setTimestamp(new Timestamp(System.currentTimeMillis()));
         CommentEntity commentEntitySaved = commentRepository.save(commentEntity);
+
         //return commentEntitySaved;
         return commentMapper.toResponse(commentEntitySaved);
     }

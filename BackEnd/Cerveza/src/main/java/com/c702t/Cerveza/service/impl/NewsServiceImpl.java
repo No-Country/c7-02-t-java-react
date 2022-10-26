@@ -15,14 +15,19 @@ import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.NewsRepository;
 import com.c702t.Cerveza.repository.RoleRepository;
 import com.c702t.Cerveza.repository.UserRepository;
+import com.c702t.Cerveza.service.AwsService;
 import com.c702t.Cerveza.service.NewsService;
 import com.c702t.Cerveza.utils.PaginationByFiltersUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,24 +46,35 @@ public class NewsServiceImpl implements NewsService {
     private RoleRepository roleRepository;
     @Autowired
     private BusinessRepository businessRepository;
-
+    @Autowired
+    private AwsService awsService;
 
     @Override
     @Transactional
-    public NewsResponse create(NewsRequest request, String token) throws RuntimeExceptionCustom {
+    public NewsResponse create(String token, Long idBusiness, MultipartFile file, String name, String content,
+                               LocalDate startDate, LocalDate endDate) throws RuntimeExceptionCustom, IOException {
 
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
 
         RoleEntity roleEntity = userEntity.getRoleId().iterator().next();
-        BusinessEntity business = businessRepository.getById(request.getBusiness_id());
+        BusinessEntity business = businessRepository.getById(idBusiness);
 
         System.out.println("\nid del user token : " + userEntity.getId());
         System.out.println("roleEntity del token : " + roleEntity.getName());
         System.out.println("user Business.getId() : " + business.getUsers().getId());
 
         if (roleEntity.getName().equalsIgnoreCase("business") && userEntity.getId() == business.getUsers().getId()) {
+
+            NewsRequest request = new NewsRequest();
+            request.setBusiness_id(idBusiness);
+            request.setName(name);
+            request.setContent(content);
+            request.setPhoto(awsService.uploadFile(file));
+            request.setStartDate(startDate);
+            request.setEndDate(endDate);
+
             NewsEntity entity = newsMapper.Request2Entity(request);
             NewsEntity entitySave = newsRepository.save(entity);
             NewsResponse response = newsMapper.Entity2Response(entitySave);
@@ -117,84 +133,4 @@ public class NewsServiceImpl implements NewsService {
         }
     }
 
-//    @Override
-//    public PaginationResponse getNewsByFilters(Long businessId, String order, Optional<Integer> pageNumber, Optional<Integer> size) {
-//
-////        BusinessFiltersRequest filtersRequest = new BusinessFiltersRequest(city, state, country, order);
-//        NewsFilterRequest requestFilter = new NewsRequest(businessId, order);
-//
-////        Specification<BusinessEntity> specification= businessSpecification.getByFilters(filtersRequest);
-//        Specification<NewsEntity> specification= newsSpecification.getByFilters(requestFilter);
-//
-//
-//        PaginationByFiltersUtil pagination = new PaginationByFiltersUtil(specification, businessRepository, pageNumber, size,
-//                "/business/page=%d&size=%d");
-//        Page page = pagination.getPage();
-//
-//
-//
-//
-//        List<BusinessResponse>responses = page.getContent();
-//
-//
-//        return PaginationResponse.builder()
-//                .entities(responses)
-//                .nextPageURI(pagination.getNext())
-//                .prevPageURI(pagination.getPrevious())
-//                .build();
-//
-//        //   return null;
-//    }
-
 }
-
-
-//
-//    @Override
-//    @Transactional
-//    public NewsResponse update(Long id, NewsRequest request) throws IOException {
-//
-//        Optional<NewsEntity> entityFound = newsRepository.findById(id);
-//
-//        if (!entityFound.isPresent()){
-//            throw new NotFoundException("the id "+id+" does not belong to a news");
-//        }
-//
-//        NewsEntity entityUpdate = newsMapper.EntityUpdate(entityFound.get(), request);
-//        NewsEntity entitySave = newsRepository.save(entityUpdate);
-//        NewsResponse response = newsMapper.Entity2Response(entitySave);
-//
-//        return response;
-//    }
-//
-//    @Override
-//    @Transactional
-//    public NewsResponse getById(Long id) {
-//
-//        Optional<NewsEntity> entity = newsRepository.findById(id);
-//
-//        if (!entity.isPresent()){
-//            throw new NotFoundException("the id "+id+" does not belong to a news");
-//        }
-//
-//        NewsResponse response = newsMapper.Entity2Response(entity.get());
-//
-//        return response;
-//    }
-//
-//    @Override
-//    public PaginationResponse getPage(Optional<Integer> pageNumber, Optional<Integer> size) {
-//
-//        PaginationUtils pagination = new PaginationUtils(newsRepository, pageNumber, size,"/news/page=%d&size=%d");
-//        Page page = pagination.getPage();
-//
-//        List<NewsEntity> news = page.getContent();
-//        List <NewsResponse> responses = newsMapper.EntityList2ResponsePage(news);
-//
-//        return PaginationResponse.builder()
-//                .entities(responses)
-//                .nextPageURI(pagination.getNext())
-//                .prevPageURI(pagination.getPrevious())
-//                .build();
-//    }
-

@@ -109,10 +109,10 @@
 			<version>0.9.1</version>
 			<type>jar</type>
 		</dependency>
-		<dependency>
-			<groupId>com.sendgrid</groupId>
-			<artifactId>sendgrid-java</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.sendgrid</groupId>-->
+<!--			<artifactId>sendgrid-java</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.sendgrid</groupId>
 			<artifactId>sendgrid-java</artifactId>

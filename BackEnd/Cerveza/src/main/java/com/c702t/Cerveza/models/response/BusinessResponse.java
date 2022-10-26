@@ -18,29 +18,17 @@ import java.sql.Timestamp;
 public class BusinessResponse {
 
     private Long id;
-
     private String name;
-
     private String image;
-
     private String address;
-
     private String city;
-
     private String state;
-
     private String country;
-
     private String  phone;
-
     private String email;
-
     private String aboutUsText;
-
     private String urlFacebook;
-
     private String urlInstagram;
-
     private Float rating;
 
 

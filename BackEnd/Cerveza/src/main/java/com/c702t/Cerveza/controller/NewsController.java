@@ -7,14 +7,19 @@ import com.c702t.Cerveza.models.response.PaginationResponse;
 import com.c702t.Cerveza.service.NewsService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +35,26 @@ public class NewsController {
     @ApiOperation(value = "Create News", notes = "Allows Business to insert news")
     @ApiResponses({@ApiResponse(code = 201, message = "News created!")})
     @PostMapping
-    public ResponseEntity<NewsResponse> create(@Valid @RequestBody NewsRequest request,
-                                               @RequestHeader(name = "Authorization") String token) throws IOException, RuntimeExceptionCustom {
+    public ResponseEntity<NewsResponse> create(@Valid @RequestHeader(name="Authorization") String token,
+                                               @ApiParam( name = "idBusiness", type = "Long",
+                                                       value = "id of the business",
+                                                       example = "3") @RequestParam (required = false) Long idBusiness,
+                                               @ApiParam( name = "name", type = "String",
+                                                       example = "Promo 2 x 1 IPA" ) @RequestParam String name,
+                                               @ApiParam( name = "content", type = "String",
+                                                       example = "La Promo es hasta las 20hs" ) @RequestParam String content,
+                                               @ApiParam( name = "startDate", type = "String",
+                                                       example = "2022-10-23" ) @RequestParam String startDate,
+                                               @ApiParam( name = "endDate", type = "String",
+                                                       example = "2022-10-30" ) @RequestParam String endDate,
+                                               @RequestPart (required = false) MultipartFile file
+                                                                    ) throws RuntimeExceptionCustom, IOException {
 
-        NewsResponse response = newsService.create(request, token);
+        LocalDate desde = LocalDate.parse(startDate);
+        LocalDate hasta = LocalDate.parse(endDate);
+
+        NewsResponse response = newsService.create(token, idBusiness, file, name, content, desde, hasta);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }

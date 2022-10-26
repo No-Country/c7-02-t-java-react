@@ -38,10 +38,6 @@ public class NewsRequest {
     @ApiModelProperty(notes = "id of the business corresponding to the news to publish", example = " ")
     private Long business_id;
 
-    /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "business_id")
-    private BusinessEntity business;*/
-
     @ApiModelProperty(notes = "Start date of the User.", example = "2022-10-01", required = true)
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -49,8 +45,5 @@ public class NewsRequest {
     @ApiModelProperty(notes = "First name of the User.", example = "2022-10-05", required = true)
     @Column(name = "end_date")
     private LocalDate endDate;
-
-
-
 
 }

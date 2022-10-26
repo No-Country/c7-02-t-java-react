@@ -30,7 +30,7 @@ public class UserMapper {
                 .roleId(roles)
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .sofdelete(Boolean.FALSE)
-                .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
+//                .photo(awsService.uploadFileFromBase64(userRequest.getPhoto()))
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class UserMapper {
                 .firstName(update.getFirstName())
                 .lastName(update.getLastName())
                 .email(update.getEmail())
-                .photo(awsService.uploadFileFromBase64(update.getPhoto()))
+//                .photo(awsService.uploadFileFromBase64(update.getPhoto()))
                 .timestamp(update.getTimestamp())
                 .build();
     }

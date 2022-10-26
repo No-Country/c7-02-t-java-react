@@ -16,25 +16,13 @@ import java.util.Optional;
 
 public interface UserService {
 
-    UserDetailsResponse register(UserRequest request, String token) throws UsernameNotFoundException, IOException;
-
-    UserDetailsResponse updateBasicUser(UserUpdateRequest request, String token) throws IOException;
-
-    UserDetailsResponse updateUserForAdmin(Long id, UserUpdateRequest request) throws IOException;
-
+//    UserDetailsResponse register(UserRequest request, String token) throws UsernameNotFoundException, IOException;
+    UserDetailsResponse updateUser(UserUpdateRequest request, String token) throws IOException;
     List<UserDetailsResponse> getUsers() throws IOException;
-
     //UsersPaginationResponse getPaginationUsers(Integer page);
-    void deleteUserForAdmin(Long id);
-
-    void deleteBasicUser(String token);
-
     PaginationResponse getUserPage(Optional<Integer> pageNumber, Optional<Integer> size);
-
     UserResponse recoverPassword(RecoverPassRequest request) throws Exception;
-
     public UserResponse upDatePassword(UpdatePasswordRequest request) throws Exception;
-
 
     }
 

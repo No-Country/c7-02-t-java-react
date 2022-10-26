@@ -1,18 +1,21 @@
 package com.c702t.Cerveza.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import com.c702t.Cerveza.service.AwsService;
-import com.c702t.Cerveza.utils.AwsUtils;
-import com.c702t.Cerveza.utils.MultiPartFileClassUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.hibernate.tool.schema.SchemaToolingLogging.LOGGER;
 
 @Service
 public class AwsServiceImpl implements AwsService {
@@ -26,42 +29,59 @@ public class AwsServiceImpl implements AwsService {
     @Autowired
     private AmazonS3 amazonS3;
 
-    @Autowired
-    private AwsUtils awsUtils;
-
-    private void uploadFile2Asw3 (String fileName, File file){
-
-        this.amazonS3.putObject(new PutObjectRequest(bucketName,fileName,file)
-                .withCannedAcl(CannedAccessControlList.PublicRead));
-
-    }
-
-    private String uploadFile(MultipartFile multipartFile) throws IOException {
-
-        File fileCreated = awsUtils.convertMultiPartToFile(multipartFile);
-        String fileName = multipartFile.getOriginalFilename();
-        uploadFile2Asw3(fileName,fileCreated);
-        fileCreated.delete();
-        String fileURL = endPoint + "/" + bucketName + "/" + fileName;
-        return fileURL;
-
-    }
-
+    /**
+     * metodo que guarda slides(imagenes) en el bucket
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @Override
-    public String uploadFileFromBase64(String base64) throws IOException {
+    public String uploadFile(MultipartFile file) throws IOException {
 
-        if (base64  == null)
-            return null;
+        File fileCreated = new File(file.getOriginalFilename());
 
-        if (base64.contains("data:image/")) {
-            String[] parts = base64.split(",");
-            String header = parts[0];
-            String contents = parts[1];
-            MultipartFile multipartFile = new MultiPartFileClassUtils(header, contents);
-            return uploadFile(multipartFile);
+        try(FileOutputStream outputStream = new FileOutputStream(fileCreated)){
+
+            //en el outputStream escribimos el contenido del multipart
+            outputStream.write(file.getBytes());
+            // aqui le damos un nombre unico al newFileName
+            String newFileName = System.currentTimeMillis() + "_" + fileCreated.getName();
+            PutObjectRequest objectRequest = new PutObjectRequest(bucketName, newFileName, fileCreated);
+            amazonS3.putObject(objectRequest);
+            String fileURL = endPoint + newFileName;
+            return fileURL;
+
+        }catch(IOException ex){
+            LOGGER.error(ex.getMessage(), ex);
         }
-        else
-            return endPoint + "/" + bucketName + "/" + base64;
+        return null;
     }
+
+    /**
+     * metodo que obtiene todas las slides del bucket sin diferenciar User, Business, nada
+     * @return
+     */
+    @Override
+    public List<String> getObjectOfFromS3() {
+
+        ListObjectsV2Result result = amazonS3.listObjectsV2(bucketName);
+        List<S3ObjectSummary> objects = result.getObjectSummaries();
+        List<String> list = objects.stream().map(item -> {
+            return  item.getKey();
+        }).collect(Collectors.toList());
+
+        return list;
+     }
+
+    /**
+     * metodo que descarga del bouket las imagenes
+     * @param key
+     * @return
+     */
+     @Override
+     public InputStream downloadFile(String key){
+         S3Object object = amazonS3.getObject(bucketName, key);
+         return object.getObjectContent();
+     }
 
 }

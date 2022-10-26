@@ -59,8 +59,8 @@ public class SlideMapper {
 
         List<SlideResponse> responses = new ArrayList<>();
 
-        for ( SlideEntity Slide: SlideList){
-            responses.add(Entity2Response(Slide));
+        for ( SlideEntity slide: SlideList){
+            responses.add(Entity2Response(slide));
         }
 
         return responses;

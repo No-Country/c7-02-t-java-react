@@ -33,7 +33,7 @@ public class BusinessMaper {
     public BusinessEntity Request2Entity (BusinessRequest request, Long userID) throws IOException {
 
         BusinessEntity entity = BusinessEntity.builder().name(request.getName())
-                .image(awsService.uploadFileFromBase64(request.getImage()))
+                .image((request.getImage()))
                 .businessAddress(request.getAddress())
                 .businessCity(request.getCity())
                 .businessState(request.getState())
@@ -58,7 +58,7 @@ public class BusinessMaper {
 
         BusinessResponse response = BusinessResponse.builder().name(entity.getName())
                 .id(entity.getId())
-                .image(awsService.uploadFileFromBase64(entity.getImage()))
+                .image((entity.getImage()))
                 .address(entity.getBusinessAddress())
                 .city(entity.getBusinessCity())
                 .state(entity.getBusinessState())
@@ -86,7 +86,7 @@ public class BusinessMaper {
             BusinessResponse response = new BusinessResponse();
             response= BusinessResponse.builder().name(entity.getName())
                     .id(entity.getId())
-                    .image(awsService.uploadFileFromBase64(entity.getImage()))
+                    .image((entity.getImage()))
                     .address(entity.getBusinessAddress())
                     .city(entity.getBusinessCity())
                     .state(entity.getBusinessState())
@@ -117,7 +117,6 @@ public class BusinessMaper {
 
         Float totalRating = sumValues/countNew;
 
-
         entity.setRating(totalRating);
 
         return entity;
@@ -126,18 +125,39 @@ public class BusinessMaper {
 
     public BusinessEntity EntityRefreshValues (BusinessEntity entity, BusinessRequest request) throws IOException {
 
-        entity = BusinessEntity.builder().name(request.getName())
-                .image(awsService.uploadFileFromBase64(request.getImage()))
-                .businessAddress(request.getAddress())
-                .businessCity(request.getCity())
-                .businessState(request.getState())
-                .businessCountry(request.getCountry())
-                .phone(request.getPhone())
-                .email(request.getEmail())
-                .aboutUsText(request.getAboutUsText())
-                .urlFacebook(request.getUrlFacebook())
-                .urlInstagram(request.getUrlInstagram())
-                .build();
+        if(request.getImage() != null){
+            entity.setImage(request.getImage());
+        }
+        if(request.getName() != null){
+            entity.setName(request.getName());
+        }
+        if(request.getAddress() != null){
+            entity.setBusinessAddress(request.getAddress());
+        }
+        if(request.getCity() != null){
+            entity.setBusinessCity(request.getCity());
+        }
+        if(request.getState() != null){
+            entity.setBusinessState(request.getState());
+        }
+        if(request.getCountry() != null){
+            entity.setBusinessCountry(request.getCountry());
+        }
+        if(request.getPhone() != null){
+            entity.setPhone(request.getPhone());
+        }
+        if(request.getEmail() != null){
+            entity.setEmail(request.getEmail());
+        }
+        if(request.getAboutUsText() != null){
+            entity.setAboutUsText(request.getAboutUsText());
+        }
+        if(request.getUrlFacebook() != null){
+            entity.setUrlFacebook(request.getUrlFacebook());
+        }
+        if(request.getUrlInstagram() != null){
+            entity.setUrlInstagram(request.getUrlInstagram());
+        }
 
         return entity;
     }

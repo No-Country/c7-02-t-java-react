@@ -14,11 +14,13 @@ import com.c702t.Cerveza.repository.BusinessRepository;
 import com.c702t.Cerveza.repository.RoleRepository;
 import com.c702t.Cerveza.repository.SlideRepository;
 import com.c702t.Cerveza.repository.UserRepository;
+import com.c702t.Cerveza.service.AwsService;
 import com.c702t.Cerveza.service.SlideService;
 import com.c702t.Cerveza.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -41,27 +43,31 @@ public class SlideServiceImpl implements SlideService {
     private RoleRepository roleRepository;
     @Autowired
     private BusinessRepository businessRepository;
+    @Autowired
+    private AwsService awsService;
 
     @Override
     @Transactional
-    public SlideResponse create(SlideRequest request, String token) throws RuntimeExceptionCustom {
+    public SlideResponse create(String token, Long idBusiness, MultipartFile file) throws RuntimeExceptionCustom, IOException {
 
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
 
         RoleEntity roleEntity = userEntity.getRoleId().iterator().next();
-        BusinessEntity business = businessRepository.getById(request.getBusiness_id());
-
-        System.out.println("\nid del user token : " + userEntity.getId());
-        System.out.println("roleEntity del token : " + roleEntity.getName());
-        System.out.println("user Business.getId() : " + business.getUsers().getId());
+        BusinessEntity business = businessRepository.getById(idBusiness);
 
         if(roleEntity.getName().equalsIgnoreCase("business") && userEntity.getId() == business.getUsers().getId()){
-            SlideEntity entity = slideMapper.Request2Entity(request);
+
+            SlideEntity entity = new SlideEntity();
+            entity.setBusiness(business);
+            entity.setPhoto(awsService.uploadFile(file));
+
             SlideEntity entitySave = slideRepository.save(entity);
             SlideResponse response = slideMapper.Entity2Response(entitySave);
+
             return response;
+
         }
 
         throw new RuntimeExceptionCustom("the id does not belong to a business or the business are different ");
@@ -70,16 +76,13 @@ public class SlideServiceImpl implements SlideService {
 
     @Override
     @Transactional
-    public List<SlideResponse> getAllNewsByBusiness(Long id) throws RuntimeExceptionCustom {
+    public List<SlideResponse> getAllSlidesByBusiness(Long id) throws RuntimeExceptionCustom {
 
         List<SlideEntity> slides = slideRepository.findAllByBusiness_id(id);
-
         if (slides.isEmpty()) {
             throw new RuntimeExceptionCustom("no slides for that business");
         }
-
         List<SlideResponse> responses = slideMapper.EntityList2Response(slides);
-
         return responses;
     }
 

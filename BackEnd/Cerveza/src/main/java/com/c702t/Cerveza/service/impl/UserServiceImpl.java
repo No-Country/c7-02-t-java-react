@@ -36,36 +36,36 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailService emailService;
 
-    @Transactional
-    public UserDetailsResponse register(UserRequest request, String token) throws UsernameNotFoundException, IOException {
-
-        String userToken = rebuildToken(token);
-        UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
-
-        if(user == null) {
-            if (request.getFirstName() != null && !request.getFirstName().isEmpty() && !request.getFirstName().isBlank()) {
-                user.setFirstName(request.getFirstName());
-            }
-            if (request.getLastName() != null && !request.getLastName().isEmpty() && !request.getLastName().isBlank()) {
-                user.setLastName(request.getLastName());
-            }
-            if (request.getEmail() != null && !request.getEmail().isEmpty() && !request.getEmail().isBlank()) {
-                user.setEmail(request.getEmail());
-            }
-            if (request.getPassword() != null && !request.getPassword().isEmpty() && !request.getPassword().isBlank()) {
-                user.setPassword(passwordEncoder.encode(request.getPassword()));
-            }
-            if (request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()) {
-                user.setPhoto(request.getPhoto());
-            }
-
-            userRepository.save(user);
-            return userMapper.userToUserDetail(user);
-        }
-
-        throw new RuntimeException("userEmail already exists");
-
-    }
+//    @Transactional
+//    public UserDetailsResponse register(UserRequest request, String token) throws UsernameNotFoundException, IOException {
+//
+//        String userToken = rebuildToken(token);
+//        UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
+//
+//        if(user == null) {
+//            if (request.getFirstName() != null && !request.getFirstName().isEmpty() && !request.getFirstName().isBlank()) {
+//                user.setFirstName(request.getFirstName());
+//            }
+//            if (request.getLastName() != null && !request.getLastName().isEmpty() && !request.getLastName().isBlank()) {
+//                user.setLastName(request.getLastName());
+//            }
+//            if (request.getEmail() != null && !request.getEmail().isEmpty() && !request.getEmail().isBlank()) {
+//                user.setEmail(request.getEmail());
+//            }
+//            if (request.getPassword() != null && !request.getPassword().isEmpty() && !request.getPassword().isBlank()) {
+//                user.setPassword(passwordEncoder.encode(request.getPassword()));
+//            }
+//            if (request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()) {
+//                user.setPhoto(request.getPhoto());
+//            }
+//
+//            userRepository.save(user);
+//            return userMapper.userToUserDetail(user);
+//        }
+//
+//        throw new RuntimeException("userEmail already exists");
+//
+//    }
 
     @Override
     @Transactional
@@ -125,7 +125,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDetailsResponse updateBasicUser(UserUpdateRequest request, String token) throws IOException {
+    public UserDetailsResponse updateUser(UserUpdateRequest request, String token) throws IOException {
+
         String userToken = rebuildToken(token);
         UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
 
@@ -137,25 +138,9 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(request.getPassword()));}
         if(request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()){
             user.setPhoto(request.getPhoto());}
+
         userRepository.save(user);
-        return userMapper.userToUserDetail(user);
 
-    }
-
-    @Transactional
-    public UserDetailsResponse updateUserForAdmin(Long id, UserUpdateRequest request) throws IOException {
-
-        UserEntity user = getById(id);
-
-        if(request.getFirstName() != null && !request.getFirstName().isEmpty() && !request.getFirstName().isBlank() ){
-            user.setFirstName(request.getFirstName());}
-        if(request.getLastName() != null && !request.getLastName().isEmpty() && !request.getLastName().isBlank()){
-            user.setLastName(request.getLastName());}
-        if(request.getPassword() != null && !request.getPassword().isEmpty() && !request.getLastName().isBlank()){
-            user.setPassword(passwordEncoder.encode(request.getPassword()));}
-        if(request.getPhoto() != null && !request.getPhoto().isEmpty() && !request.getPhoto().isBlank()){
-            user.setPhoto(request.getPhoto());}
-        userRepository.save(user);
         return userMapper.userToUserDetail(user);
 
     }
@@ -189,15 +174,12 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    @Override
+    /**
+     * metodo para eliminar un usuario de cualuier tipo
+     * @param token
+     */
     @Transactional
-    public void deleteUserForAdmin(Long id) {
-        UserEntity user = getById(id);
-        userRepository.deleteById(user.getId());
-    }
-
-    @Transactional
-    public void deleteBasicUser(String token){
+    public void deleteUser(String token){
         String userToken = rebuildToken(token);
         UserEntity user = userRepository.findByEmail( jwtUtils.extractUsername(userToken)).get();
         userRepository.deleteById(user.getId());
@@ -226,7 +208,11 @@ public class UserServiceImpl implements UserService {
         return token2;
     }
 
-
+    /**
+     * metodo que otorga un password alternativo cuando requiere cambiar el password que se olvido
+     * @param n
+     * @return
+     */
     private String getAlphaNumericString(int n) {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
         StringBuilder sb = new StringBuilder(n);

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -29,10 +30,12 @@ public class SlideController {
     @ApiOperation(value = "Create Slide", notes = "Allows Business to insert Slide")
     @ApiResponses({ @ApiResponse(code = 201, message = "Slide created!")})
     @PostMapping
-    public ResponseEntity<SlideResponse> create (@Valid @RequestBody SlideRequest request,
-                                                @RequestHeader(name="Authorization") String token) throws RuntimeExceptionCustom {
+    public ResponseEntity<SlideResponse> create (@Valid @RequestHeader(name="Authorization") String token,
+                                                 @RequestParam Long idBusiness,
+                                                 @RequestPart (required = false) MultipartFile file
+                                                                                ) throws RuntimeExceptionCustom, IOException {
 
-        SlideResponse response = slideService.create(request, token);
+        SlideResponse response = slideService.create(token, idBusiness, file);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
@@ -48,7 +51,7 @@ public class SlideController {
                                                                         example = "1",
                                                                         required = true) Long business_id ) throws RuntimeExceptionCustom {
 
-        List<SlideResponse> responses = slideService.getAllNewsByBusiness(business_id);
+        List<SlideResponse> responses = slideService.getAllSlidesByBusiness(business_id);
         return ResponseEntity.status(HttpStatus.OK).body(responses);
 
     }

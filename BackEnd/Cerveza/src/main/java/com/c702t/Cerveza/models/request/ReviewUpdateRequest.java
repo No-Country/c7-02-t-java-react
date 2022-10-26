@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 @Getter
 public class ReviewUpdateRequest {
+
     private Long attentionRate;
     private Long priceRate;
     private Long qualityRate;
@@ -13,4 +14,5 @@ public class ReviewUpdateRequest {
     private Float totalRate;
     private String text;
     private Timestamp timestamp;
+
 }

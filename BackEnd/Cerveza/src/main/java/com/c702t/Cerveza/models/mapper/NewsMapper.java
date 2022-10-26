@@ -31,13 +31,11 @@ public class NewsMapper {
                 .content(request.getContent())
                 .photo(request.getPhoto())
                 .business(businessRepository.findById(request.getBusiness_id()).get())
-               // .business(request.getBusiness())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .timestamp(new Timestamp(System.currentTimeMillis()))
                 .sofdelete(false)
                 .build();
-
     }
 
     public NewsResponse Entity2Response (NewsEntity entity){
@@ -48,12 +46,9 @@ public class NewsMapper {
                 .content(entity.getContent())
                 .photo(entity.getPhoto())
                 .business_id(entity.getBusiness().getId())
-//                .business(entity.getBusiness())
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
-//                .timestamp(entity.getTimestamp())
                 .build();
-
     }
 
     public NewsEntity EntityUpdate (NewsEntity entity, NewsRequest request) throws RuntimeExceptionCustom {
@@ -68,8 +63,6 @@ public class NewsMapper {
                .endDate(request.getEndDate())
                .timestamp(new Timestamp(System.currentTimeMillis()))
                .build();
-
-
     }
 
     public List<NewsResponse> EntityList2ResponsePage(List<NewsEntity> newsList){

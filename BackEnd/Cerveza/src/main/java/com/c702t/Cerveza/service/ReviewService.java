@@ -34,10 +34,12 @@ public class ReviewService {
     BusinessService businessService;
 
     public ReviewResponse create(String token, Long businessID, ReviewRequest reviewRequest) {
+
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
         BusinessEntity businessEntity = businessRepository.getById(businessID);
+
         if (businessEntity == null) {
             throw new RuntimeExceptionCustom(
                     "404 :: business with id " + businessID + "  not found");
@@ -55,30 +57,37 @@ public class ReviewService {
 
     public ReviewResponse read(Long id) {
         ReviewEntity reviewEntity = reviewRepository.getById(id);
+
         if (reviewEntity == null) {
             throw new RuntimeExceptionCustom("404 :: Review with id " + id + " not found.");
         }
+
         return reviewMapper.toResponse(reviewEntity);
     }
 
     public List<ReviewResponse> readAllByBusinessID(Long businessID) {
         Optional<BusinessEntity>  optionalBusinessEntity = businessRepository.findById(businessID);
+
         if (optionalBusinessEntity.isEmpty()) {
             throw new RuntimeExceptionCustom("404 :: Business with id " + businessID + " not found.");
         }
+
         return reviewMapper.toResponseList(optionalBusinessEntity.get().getReviewEntitySet());
     }
 
+
     public List<ReviewResponse> readAllByUserID(Long userID) {
         Optional<UserEntity>  optionalUserEntity = userRepository.findById(userID);
+
         if (optionalUserEntity.isEmpty()) {
             throw new RuntimeExceptionCustom("404 :: User with id " + userID + " not found.");
         }
+
         return reviewMapper.toResponseList(optionalUserEntity.get().getReviewEntitySet());
     }
 
     public ReviewResponse update(Long id, String token, ReviewUpdateRequest reviewUpdateRequest) {
-        // TODO update rating of Business
+
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
@@ -110,25 +119,31 @@ public class ReviewService {
                 + reviewUpdateRequest.getPlaceRate()
                 + reviewUpdateRequest.getPriceRate()
                 + reviewUpdateRequest.getQualityRate()) / 4;
+
         reviewEntity.setTotalRate(average);
         ReviewEntity reviewEntitySaved = reviewRepository.save(reviewEntity);
+
         return reviewMapper.toResponse(reviewEntitySaved);
+
     }
 
     public void delete(Long id, String token) {
-        // TODO update rating of Business
+
         token = token.substring(7);
         String username = jwtUtils.extractUsername(token);
         UserEntity userEntity = userRepository.findByEmail(username).get();
 
         ReviewEntity reviewEntity = reviewRepository.getById(id);
+
         if (reviewEntity == null) {
             throw new RuntimeExceptionCustom("404 :: Review with id " + id + " not found.");
         }
         if (! userEntity.getReviewEntitySet().contains(reviewEntity)) {
             throw new RuntimeExceptionCustom("404 :: Review with id " + id + " not found.");
         }
+
         reviewRepository.deleteById(id);
+
     }
 
     /* Like System

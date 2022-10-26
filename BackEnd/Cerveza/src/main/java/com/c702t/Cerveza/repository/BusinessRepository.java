@@ -28,6 +28,7 @@ public interface BusinessRepository extends JpaRepository<BusinessEntity,Long>,
 
   //  BusinessEntity findAllByNameAndBusinessAddress(String name, String address);
 
-
+    @Query(value = "SELECT * from business WHERE business.email LIKE %:email% AND soft_delete = false", nativeQuery = true)
+    Optional<BusinessEntity> findByEmail(String email);
 
 }
